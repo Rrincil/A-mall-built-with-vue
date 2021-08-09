@@ -1,5 +1,4 @@
-# mall2
-
+# A-mall-built-with-vue
 ## Project setup
 ```
 npm install
