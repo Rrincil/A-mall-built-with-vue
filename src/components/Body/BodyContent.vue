@@ -1,11 +1,13 @@
 <template>
   <div class="Body-Content">
-    <slot></slot>
-    {{mes}}
+
+    <!-- {{mes}}  -->
+    <router-view tag="FrontPage"></router-view>
   </div>
 </template>
 
 <script>
+
   export default {
     name:'BodyContent',
     data() {
@@ -13,13 +15,16 @@
         mes:'BodyContent'
       }
     },
+    components:{
+          
+    }
   }
 </script>
 
 <style scoped>
 .Body-Content{
   width: 100%;
-  height: 800px;
-  background-color: bisque;
+  height: auto;
+  background-color: rgb(243, 243, 243);
 }
 </style>
