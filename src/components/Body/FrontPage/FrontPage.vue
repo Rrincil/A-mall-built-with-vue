@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import Swiper from './Conet/Swiper.vue'
-import Activity from './Conet/Activity.vue'
-import PopularProduct from './Conet/Popular-Product.vue'
-import BrandSurroundings from './Conet/Brand-surroundings.vue';
-import BrandSurroundings2 from './Conet/Brand-Surroundings2.vue';
+import Swiper from './Content/Swiper.vue'
+import Activity from './Content/Activity.vue'
+import PopularProduct from './Content/Popular-Product.vue'
+import BrandSurroundings from './Content/Brand-surroundings.vue';
+import BrandSurroundings2 from './Content/Brand-Surroundings2.vue';
   export default {
     name:'FrontPage',
     data() {
