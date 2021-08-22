@@ -1,7 +1,8 @@
 # A-mall-built-with-vue
 ## Project setup
 ```
-npm install
+npm install  //解析token npm install jwt-decode
+
 ```
 
 ### Compiles and hot-reloads for development

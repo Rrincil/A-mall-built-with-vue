@@ -42,5 +42,14 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
+//路由守卫
+router.beforeEach((to, from, next) => {
+  const islogin = localStorage.eletoken ? true :false;
+  if(to.path=='/login'||to.path=='/regist'){
+    next();
+  }else{
+    islogin ? next():next('/login')
+  }
+  //解析token npm install jwt-decode
+})
 export default router

@@ -29,11 +29,11 @@ router.post('/registe',(req,res)=>{
   User.findOne({
     email:req.body.email
   }).then((user)=>{
-    console.log('====================================');
-    console.log(user);
-    console.log('====================================');
+    // console.log('====================================');
+    // console.log(user);
+    // console.log('====================================');
     if((user)){
-      return res.status(400).json("邮箱已被注册")
+      return res.status(404).json({mes:"邮箱已被注册"})
     }else{
       const avatar = gravatar.url(req.body.email, {s: '200', r: 'pg', d: 'mm'});
       const newUser = new User({
@@ -97,7 +97,7 @@ router.post('/login',(req,res)=>{
         }
     });
     }else{
-      return res.json({mes:'用户名未注册'})
+      return res.status(404).json({mes:'用户名未注册'})
     }
   })
 })
