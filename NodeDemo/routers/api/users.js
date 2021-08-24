@@ -117,7 +117,7 @@ router.post('/login',(req,res)=>{
             cart:user.cart
           }
           // expiresIn: 3600 //存活时间
-          jwt.sign(rule,'secret',{expiresIn:30},(err,token)=>{
+          jwt.sign(rule,'secret',{expiresIn:3600000},(err,token)=>{
             if(err) throw err;
             res.json({
               success:'success',

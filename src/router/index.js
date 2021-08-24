@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home/Home.vue'
 import FrontPage from '../components/Body/FrontPage/FrontPage.vue'
+import basicinfo from '../views/Login/loginInfo/account/basicinfo.vue'
+import accountInfo from '../views/Login/loginInfo/account/accountInfo.vue'
 
 const routes = [
   {
     path: '',
     redirect: '/FrontPage'
+  },
+  {
+    path: '/accountInfo',
+    redirect: '/basicinfo'
   },
   {
     path: '/Home',
@@ -39,7 +45,7 @@ const routes = [
   {
     path:'/accountInfo',
     name:'accountInfo',
-    component: ()=>import ('../views/Login/loginInfo/account/accountInfo.vue'),
+    component:accountInfo,basicinfo,
     children:[
       {
         path:'/basicinfo',

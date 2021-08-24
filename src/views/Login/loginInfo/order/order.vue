@@ -15,6 +15,9 @@ import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
         
       }
     },
+    components:{
+      HeadTop
+    },    
     methods: {
       submitForm(loginfrom){
         // this.$refs[loginfrom].validate((valid) => {

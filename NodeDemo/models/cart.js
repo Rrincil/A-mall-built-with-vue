@@ -14,7 +14,7 @@ const CartSchema  = new Schema({
     type:String,
     required:true
   },
-  Shopname :{
+  shopname :{
     type:String,
     required:true    
   }, 

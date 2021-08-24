@@ -31,6 +31,7 @@ axios.interceptors.request.use(config=>{
   }
   return config;
 },err=>{
+
   return Promise.reject(err)
 })
 //响应拦截
@@ -43,15 +44,18 @@ axios.interceptors.response.use(res=>{
 },error=>{
   //错误提醒
   endloading()
-  Message.error(error.response.data.mes);
+
   //获取错误状态码
   const { status } = error.response;
+
   if(status==401){
     Message.error('token失效,请重新登陆！');
     //清除token
     localStorage.removeItem('eletoken');
     //跳转到登陆页面
     router.push('/login')
+  }else{
+  Message.error(error.response.data.mes);
   }
   return Promise.reject(error)
 })

@@ -94,9 +94,9 @@ app.use('/api/users',users)
 //使用profile
 app.use('/api/profile',profile)
 //使用favorites
-app.use('./api/favorites',favorites)
+app.use('/api/favorites',favorites)
 //使用cart
-app.use('./api/cart',cart)
+app.use('/api/cart',cart)
 
 
 
