@@ -26,12 +26,13 @@ export default {
     isEmpty(value){
 
       //如果传递过去为空，则返回一个真值，反之返回一个假值
-        // return {
+         return (
           value === undefined ||
           value === null ||
           (typeof value === 'object' && Object.keys(value).length ===0)||
           (typeof value === 'string' && value.trim().length ===0)
-        // };
+           )
+         
         
     }
   },      

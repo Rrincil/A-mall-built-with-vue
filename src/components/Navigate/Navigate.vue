@@ -4,7 +4,7 @@
     <router-link to="/">首页</router-link>     
     <router-link to="/AllProducts">全部商品</router-link>
     
-    <el-badge :value='$store.state.count' class="item">
+    <el-badge :value='$store.state.user.cart' class="item">
       <i class="el-icon-shopping-cart-2" size='small'></i>     
     </el-badge>    
 

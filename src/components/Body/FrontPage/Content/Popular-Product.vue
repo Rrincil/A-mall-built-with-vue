@@ -70,6 +70,7 @@
         this.Addcarts2=!this.Addcarts2
       },
       AddToCart(){
+        
         this.$store.commit('addcount')
       }
 

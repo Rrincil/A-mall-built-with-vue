@@ -1,24 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
-const UsersSchema  = new Schema({
+const CartSchema  = new Schema({
   name:{
     type:String,
     required:true
   },
-  email:{
+  num:{
+    type:Number,
+    required:true,
+    default:0
+  },
+  url:{
     type:String,
     required:true
   },
-  password:{
+  Shopname :{
     type:String,
-    required:true
-  },
-  avatar:{
-    type:String
-  },
-  cart:{
-    type:Number
-  },  
+    required:true    
+  }, 
   data:{
     type:Date,
     default:Date.now
@@ -33,4 +32,4 @@ const UsersSchema  = new Schema({
 // kitty.save().then(() => console.log('meow'));
 
 
-module.exports = User = mongoose.model('users',UsersSchema);
+module.exports = Cart = mongoose.model('cart',CartSchema);

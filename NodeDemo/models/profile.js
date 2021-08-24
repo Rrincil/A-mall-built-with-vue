@@ -1,13 +1,32 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 const profileSchema  = new Schema({
-  url:{
-    type:String,
-    required:true
+  cart:{
+    type:Object,
+    default:{
+      name:{
+        type:String,
+        required:true
+      },
+      url:{
+        type:String,
+        required:true        
+      },      
+    },
   },
-  remark:{
-    type:String,
-    required:true
+
+  Favorites:{
+    type:Object,
+    default:{
+      name:{
+        type:String,
+        required:true
+      },
+      url:{
+        type:String,
+        required:true        
+      },      
+    },
   }
 })
 

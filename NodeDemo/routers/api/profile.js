@@ -15,22 +15,18 @@ router.get('/text',(req,res)=>{
 })
 
 
-//@router podt api/users/swiperadd
-//@desc 存入swiper的json数据
-//@access public
-router.post('/swiperadd',(req,res)=>{
-  profile.findOne({url:req.body.url}).then((mes)=>{
-    if(mes){
-      console.log('已经有了这张照片');
-    }else{
-      const mes = new profile({
-        url:req.body.url,
-        remark:req.body.remark
-      })
-      mes.save()
-          .then(mes=>res.json(mes))
-          .catch(err=>console.log(err))
-    }
+//@router podt api/profile/add
+//@desc 存入json数据
+//@access private
+router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
+  const newprofiles ={}
+
+  if(req.body.cart) newprofiles.cart = req.body.cart;
+  if(req.body.remark) newprofiles.remark = req.body.remark;  
+  if(req.body.Favorites) newprofiles.Favorites = req.body.Favorites;  
+
+  new profile(newprofiles).save().then(profile=>{
+    res.json(profile)
   })
 })
 
@@ -38,18 +34,39 @@ router.post('/swiperadd',(req,res)=>{
 
 
 
-//@router get api/users/swiper
-//@desc 获取swiper的json数据
+
+
+
+//@router get api/profile/getallmes
+//@desc 获取所有的json数据
 //@access private
-router.get('/swiper',(req,res)=>{
-  profile.findOne({url:req.body.url}).then(mes=>{
+router.get("/getallmes",passport.authenticate("jwt",{session:false}),(req,res)=>{
+  profile.find().then(mes=>{
     if (mes) {
       res.json(mes)
     }else{
-      console.log('没有这张照片');
+      res.status(404).json({mes:'没有任何内容'})
     }
+  }).catch(err=>{
+    res.status(404).json(err)
   })
 })
 
+
+
+//@router get api/profile/:id
+//@desc 获取所有的json数据
+//@access private
+router.get("/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
+  profile.findOne({_id:req.params.id}).then(mes=>{
+    if (mes) {
+      res.json(mes)
+    }else{
+      res.status(404).json({mes:'没有相关内容'})
+    }
+  }).catch(err=>{
+    res.status(404).json(err)
+  })
+})
 module.exports = router
 

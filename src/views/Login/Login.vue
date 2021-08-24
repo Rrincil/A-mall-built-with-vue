@@ -23,6 +23,7 @@
 
 <script>
 import jwt_decode from 'jwt-decode';
+import { log } from 'util';
   export default {
     name:'Login',
     data() {
@@ -59,19 +60,21 @@ import jwt_decode from 'jwt-decode';
           if(valid){
             this.$axios.post('/api/users/login',this.loginUser)
               .then(res=>{
-                console.log(res);
+                // console.log(res);
                 //注册成功
                 this.$message({
                   message:'登陆成功！',
                   type:'success '
                 })                
-                //token
+                //token              
               const { token } = res.data
+              
               //存储到ls
                 localStorage.setItem('eletoken',token)
                 //解析token
                 const decoded = jwt_decode(token);
-                // console.log(decoded);
+                
+                console.log(decoded);
                 //token存储到vuex中
                 this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded))
                 this.$store.dispatch('setUser',decoded)
@@ -85,12 +88,12 @@ import jwt_decode from 'jwt-decode';
       isEmpty(value){
 
         //如果传递过去为空，则返回一个真值，反之返回一个假值
-        // return {
+         return (
           value === undefined ||
           value === null ||
-          typeof value === 'object' && Object.keys(value).length ===0||
-          typeof value === 'string' && value.trim().length ===0
-        // };
+          (typeof value === 'object' && Object.keys(value).length ===0)||
+          (typeof value === 'string' && value.trim().length ===0)
+           )
       }
     },    
   }

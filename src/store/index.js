@@ -15,7 +15,12 @@ const actions ={
   },
   setUser:({commit},user) =>{
     commit(types.SET_USER,user)
+  },
+  clearCurrentState:({commit})=>{
+    commit(types.SET_AUTHENTICATED,false);
+    commit(types.SET_USER,null);
   }
+
 }
 export default createStore({
   getters,
@@ -26,7 +31,7 @@ export default createStore({
   },
   mutations: {
     addcount(state){
-      state.count++
+      state.user.cart++
     },
     //在插件中显示参数
     [types.SET_AUTHENTICATED](state,isAuthenticated){

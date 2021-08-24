@@ -7,6 +7,8 @@ const uri = require('./config/keys').mongoURI
 // 引入模板
 const users = require('./routers/api/users');
 const profile = require('./routers/api/profile')
+const favorites = require('./routers/api/favorites')
+const cart = require('./routers/api/cart')
 // const bodyParser = require('body-parser');
 // 连接 MongoDB 数据库
 mongoose.connect(uri, {
@@ -91,6 +93,15 @@ app.get('/',(req,res)=>{
 app.use('/api/users',users)
 //使用profile
 app.use('/api/profile',profile)
+//使用favorites
+app.use('./api/favorites',favorites)
+//使用cart
+app.use('./api/cart',cart)
+
+
+
+
+
 
 //监听
 app.listen(3000,()=>{

@@ -35,6 +35,16 @@ const routes = [
     path:'/Regist',
     name:'Regist',
     component: ()=>import ('../views/Regist/Regist.vue')
+  },
+  {
+    path:'/loginInfo',
+    name:'loginInfo',
+    component: ()=>import ('../views/Login/loginInfo/loginInfo.vue'),
+    children:{
+      path:'/profile',
+      name:'profile',
+      component: ()=>import ('../views/Login/loginInfo/profile.vue'),      
+    }
   }
 ]
 
@@ -43,13 +53,18 @@ const router = createRouter({
   routes
 })
 //路由守卫
-router.beforeEach((to, from, next) => {
-  const islogin = localStorage.eletoken ? true :false;
-  if(to.path=='/login'||to.path=='/regist'){
-    next();
-  }else{
-    islogin ? next():next('/login')
-  }
-  //解析token npm install jwt-decode
-})
+// router.beforeEach((to, from, next) => {
+//   const islogin = localStorage.eletoken ? true :false;
+
+//   if(!islogin){
+//     next();
+//   }else{
+//     if(to.path=='/login'||to.path=='/regist'){
+//       next('/loginInfo');
+//     }else{
+//       next();
+//     }   
+//   }
+//   //解析token npm install jwt-decode
+// })
 export default router
