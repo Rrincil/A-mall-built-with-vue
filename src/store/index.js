@@ -31,7 +31,7 @@ export default createStore({
   },
   mutations: {
     addcount(state){
-      state.user.cart++
+      state.count++
     },
     //在插件中显示参数
     [types.SET_AUTHENTICATED](state,isAuthenticated){

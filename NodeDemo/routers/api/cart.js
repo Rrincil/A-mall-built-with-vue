@@ -22,7 +22,7 @@ router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
   const newcart ={}
 
   if(req.body.name) newcart.name = req.body.name;
-  if(req.body.remark) newcart.remark = req.body.remark;  
+  if(req.body.num) newcart.num = req.body.num;  
   if(req.body.url) newcart.url = req.body.url;  
   if(req.body.shopname) newcart.shopname = req.body.shopname;
 
@@ -79,7 +79,7 @@ router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>
   const newcart ={}
 
   if(req.body.name) newcart.name = req.body.name;
-  if(req.body.remark) newcart.remark = req.body.remark;  
+  if(req.body.num) newcart.num = req.body.num;    
   if(req.body.url) newcart.url = req.body.url;  
   if(req.body.shopname) newcart.shopname = req.body.shopname;
 

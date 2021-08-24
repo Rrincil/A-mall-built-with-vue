@@ -30,4 +30,4 @@ const FavoritesSchema  = new Schema({
 // kitty.save().then(() => console.log('meow'));
 
 
-module.exports = Favorites = mongoose.model('favorites',FavoritesSchema);
+module.exports = favorites = mongoose.model('favorites',FavoritesSchema);

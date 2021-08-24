@@ -32,4 +32,4 @@ const CartSchema  = new Schema({
 // kitty.save().then(() => console.log('meow'));
 
 
-module.exports = Cart = mongoose.model('cart',CartSchema);
+module.exports = cart = mongoose.model('cart',CartSchema);

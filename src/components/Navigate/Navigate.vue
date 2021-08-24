@@ -4,9 +4,13 @@
     <router-link to="/">首页</router-link>     
     <router-link to="/AllProducts">全部商品</router-link>
     
-    <el-badge :value='$store.state.user.cart' class="item">
-      <i class="el-icon-shopping-cart-2" size='small'></i>     
-    </el-badge>    
+    <!-- 购物车 -->
+    <router-link to="/cart">
+      <el-badge :value='$store.state.count' class="item" @click='submitForm'>
+        <i class="el-icon-shopping-cart-2" size='small'></i>     
+      </el-badge>
+    </router-link>
+    
 
   </div>
 </template>
@@ -21,7 +25,20 @@
       }
     },   
     methods: {
-
+      submitForm(){
+        // this.$refs[loginfrom].validate((valid) => {
+          // if(valid){            
+            this.$axios.post('/api/cart/edit/'+this.$store.state.user.id+'',{
+              num:this.$store.state.count+this.$store.state.user.cart,
+              _id:this.$store.state.user.id
+            })
+               .then(res=>{
+                 this.counts = res
+                 console.log(res);
+               })
+          // }
+        // })
+      }  
     },
     mounted() {
 

@@ -37,15 +37,52 @@ const routes = [
     component: ()=>import ('../views/Regist/Regist.vue')
   },
   {
-    path:'/loginInfo',
-    name:'loginInfo',
-    component: ()=>import ('../views/Login/loginInfo/loginInfo.vue'),
-    children:{
-      path:'/profile',
-      name:'profile',
-      component: ()=>import ('../views/Login/loginInfo/profile.vue'),      
-    }
-  }
+    path:'/accountInfo',
+    name:'accountInfo',
+    component: ()=>import ('../views/Login/loginInfo/account/accountInfo.vue'),
+    children:[
+      {
+        path:'/basicinfo',
+        name:'basicinfo',
+        component: ()=>import ('../views/Login/loginInfo/account/basicinfo.vue'),    
+              
+      },
+      {
+        path:'/wallet',
+        name:'wallet',
+        component: ()=>import ('../views/Login/loginInfo/account/wallet.vue'),    
+              
+      },     
+      {
+        path:'/favorites',
+        name:'favorites',
+        component: ()=>import ('../views/Login/loginInfo/account/favorites.vue'),    
+              
+      },
+      {
+        path:'/secretcode',
+        name:'secretcode',
+        component: ()=>import ('../views/Login/loginInfo/account/secretcode.vue'),    
+              
+      },
+      {
+        path:'/bank',
+        name:'bank',
+        component: ()=>import ('../views/Login/loginInfo/account/bank.vue'),    
+              
+      },                  
+    ]
+  },
+  {
+    path:'/order',
+    name:'order',
+    component: ()=>import ('../views/Login/loginInfo/order/order.vue'),        
+  },
+  {
+    path:'/cart',
+    name:'cart',
+    component: ()=>import ('../views/Login/loginInfo/cart/cart.vue'),        
+  } 
 ]
 
 const router = createRouter({

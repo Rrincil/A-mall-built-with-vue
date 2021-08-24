@@ -1,12 +1,12 @@
 <template>
   <div>
-
+    wallet
   </div>
 </template>
 
 <script>
   export default {
-    name:'profile',
+    name:'wallet',
     data() {
       return {
         

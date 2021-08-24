@@ -13,9 +13,16 @@
         <div class="d2">
           <!-- <el-row :gutter="24" > -->
             <div class="d2d1">
-              <el-button type='private' v-for="item in info">{{item}}</el-button>
+              <div class="d2d1d1">
+                <router-link :to="item.path" v-for="item in info" >
+                  <el-button type='private'  >{{item.name}}</el-button>
+                </router-link>
+              </div>
             </div>
-            <div class="d2d2"></div> 
+            <!-- 右边信息 -->
+            <div class="d2d2">
+              <router-view tag="account"></router-view>
+            </div> 
           <!-- </el-row >            -->
         </div>
       </el-col>
@@ -25,13 +32,35 @@
 </template>
 
 <script>
-import HeadTop from '../../../components/HeadTop/HeadTop.vue'
+import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
   export default {
     name:'loginInfo',
     data() {
       return {
         circleUrl:"", 
-        info:['基本信息','账户','收藏','喜欢']       
+        info:[
+          {
+            name:'基本信息',
+            path:'/basicinfo'
+
+          },
+          {
+            name:'钱包',
+            path:'/wallet'
+          },
+          {
+            name:'收藏',
+            path:'/favorites'
+          },
+          {
+            name:'密码设置',
+            path:'/secretcode'
+          },
+          {
+            name:'银行卡绑定',
+            path:'/bank'
+          }
+        ]       
       }
     },
     components:{
@@ -47,7 +76,6 @@ import HeadTop from '../../../components/HeadTop/HeadTop.vue'
 .d1{
   width: 100%;
   height: 50px;
-
   padding-top:30px;
 }
 .elcustom{
@@ -61,19 +89,25 @@ import HeadTop from '../../../components/HeadTop/HeadTop.vue'
 }
 .d2{
   width: 100%;
-  height: 800px;  
+  height: 400px;  
 
 }
 .d2d1{
   width: 20%;
   height: 100%;  
   float: left;
-  border: 2px groove rgb(243, 17, 9);
+  
+}
+.d2d1d1{
+  width: 100%;
+  height: 100%;  
+  border: 2px groove rgb(243, 17, 9);  
 }
 .d2d2{
   width: 80%;
   height: 100%;   
   float: left;
+  /* padding:10px; */
 }
 .d2d1 button{
   /* display:block; */

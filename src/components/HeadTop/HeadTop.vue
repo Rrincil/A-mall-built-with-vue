@@ -48,7 +48,7 @@
 
         
       </el-col>
-      <!-- 箭头 -->
+      <!-- 箭头 v-if="!loginmes"-->
       <el-col :span="1" >  
         <el-dropdown @command="setloginfo" trigger='click' v-if="!loginmes">
           <span class="el-dropdown-link">
@@ -60,6 +60,7 @@
             <el-dropdown-menu>
               <el-dropdown-item command="info">用户信息</el-dropdown-item>
               <el-dropdown-item command="cart">购物车</el-dropdown-item>
+              <el-dropdown-item command="order">我的订单</el-dropdown-item>              
               <el-dropdown-item command="exit">退出登陆</el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -107,12 +108,14 @@ import { defineComponent, ref } from 'vue'
       setloginfo(command) {
         switch(command){
           case 'info':
-            this.$router.push('/loginInfo');
+            this.$router.push('/accountInfo');
             break;
           case 'cart':
-           this.submitForm(this.$store.state.id);
-            // this.$router.push('/loginCart');
+            this.$router.push('/cart');
             break;  
+          case 'order':
+            this.$router.push('/order');
+            break;             
           case 'exit':
             this.logout();
             break;                      
@@ -130,17 +133,7 @@ import { defineComponent, ref } from 'vue'
         this.circleUrl = "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
         this.$router.push('/');
       },
-      submitForm(loginfrom){
-        // this.$refs[loginfrom].validate((valid) => {
-          // if(valid){            
-            this.$axios.post('/api/users/addcart',this.usercart)
-               .then(res=>{
-                 console.log(res);
-                 console.log(this.$store.state.user.cart);
-               })
-          // }
-        // })
-      }
+
         
 
     },
@@ -148,7 +141,7 @@ import { defineComponent, ref } from 'vue'
           //判断是否登陆
     if(localStorage.eletoken){
       this.loginmes = false,
-      this.pathtologin ='/loginInfo' ,
+      this.pathtologin ='/accountInfo' ,
       this.circleUrl = this.$store.state.user.avatar
     }else{
           
