@@ -19,16 +19,30 @@ router.get('/text',(req,res)=>{
 //@desc 存入json数据
 //@access private
 router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
-  const newcart ={}
+  cart.findOne({
+    name:req.body.name
+  }).then(ret=>{
+    if(!ret){
+      // console.log(ret);
+      const newcart =new cart({})
 
-  if(req.body.name) newcart.name = req.body.name;
-  if(req.body.num) newcart.num = req.body.num;  
-  if(req.body.url) newcart.url = req.body.url;  
-  if(req.body.shopname) newcart.shopname = req.body.shopname;
+      if(req.body.name) newcart.name = req.body.name;
+      if(req.body.num) newcart.num = req.body.num;  
+      if(req.body.url) newcart.url = req.body.url;  
+      if(req.body.shopname) newcart.shopname = req.body.shopname;
+      if(req.body.start) newcart.start = req.body.start;
+      if(req.body.price) newcart.price = req.body.price;
+      newcart.save().then(cart=>{
+        res.json(cart)
+      })
+     res.status(200).json({mes:`成功加入购物车了😎`})
+    }else{
+      // console.log(ret.name);      
+      return  res.status(200).json({mes:`${ret.shopname}的${ret.name}之前已经在购物车了哟😳`})
+    }
 
-  new cart(newcart).save().then(cart=>{
-    res.json(cart)
   })
+
 })
 
 
@@ -82,10 +96,11 @@ router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>
   if(req.body.num) newcart.num = req.body.num;    
   if(req.body.url) newcart.url = req.body.url;  
   if(req.body.shopname) newcart.shopname = req.body.shopname;
-
+  if(req.body.start) newcart.start = req.body.start;
+  if(req.body.price) newcart.price = req.body.price;
   cart.findByIdAndUpdate(
     {_id:req.params.id},
-    {$set:cart},
+    {$set:newcart},
     {new:true}
   ).then(cart=>{
     res.json(cart)

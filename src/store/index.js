@@ -19,20 +19,29 @@ const actions ={
   clearCurrentState:({commit})=>{
     commit(types.SET_AUTHENTICATED,false);
     commit(types.SET_USER,null);
-  }
-
+  },
+  addcount(state,payload){
+    state.count= payload
+  },
+  addcart(state,payload){
+    state.cart= payload
+  },   
 }
 export default createStore({
   getters,
   state: {
     count:0,
     isAuthenticated:false,
-    user:{}
+    user:{},
+    cart:[]
   },
   mutations: {
-    addcount(state){
-      state.count++
+    addcount(state,payload){
+      state.count= payload
     },
+    addcart(state,payload){
+      state.cart= payload
+    },    
     //在插件中显示参数
     [types.SET_AUTHENTICATED](state,isAuthenticated){
       if(isAuthenticated) state.isAuthenticated = isAuthenticated;

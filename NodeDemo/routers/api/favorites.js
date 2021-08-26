@@ -85,7 +85,7 @@ router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>
 
   favorites.findByIdAndUpdate(
     {_id:req.params.id},
-    {$set:favorites},
+    {$set:newfavorites},
     {new:true}
   ).then(favorites=>{
     res.json(favorites)

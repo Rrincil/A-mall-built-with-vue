@@ -22,7 +22,7 @@
         <el-button type="primary" @click="submitForm('registfrom')" class="">提交</el-button>
         <el-button @click="resetForm('registfrom')">重置</el-button>
       </el-form-item>
-  </el-form>
+    </el-form>
 
   </div>
 </template>

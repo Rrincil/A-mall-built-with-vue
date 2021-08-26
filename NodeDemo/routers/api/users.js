@@ -26,7 +26,7 @@ router.post('/registe',(req,res)=>{
   // console.log(req.body);
     
   //查询数据库中是否拥有邮箱
-  User.findOne({
+  User.findOne({ 
     email:req.body.email
   }).then((user)=>{
     if((user)){
@@ -88,6 +88,31 @@ router.post('/addcart',(req,res)=>{
   
 
   
+})
+
+
+
+
+
+
+
+//@router podt api/users/edit
+//@desc 编辑json数据
+//@access private
+router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
+  const newusers ={}
+
+  if(req.body.name) newusers.name = req.body.name;
+  if(req.body.email) newusers.email = req.body.email;    
+  if(req.body.password) newusers.password = req.body.password;  
+
+  User.findByIdAndUpdate(
+    {_id:req.params.id},
+    {$set:newusers},
+    {new:true}
+  ).then(user=>{
+    res.json(user)
+  })
 })
 
 

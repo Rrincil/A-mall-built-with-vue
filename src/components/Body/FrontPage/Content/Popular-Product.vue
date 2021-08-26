@@ -1,54 +1,37 @@
 <template>
   <div class="PopularProduct">
-    <div class="d1" @mouseenter='showCart1' @mouseleave='showCart1'>
-      <!-- 标题 -->
-      <div class="title">
-        热门商品{{mes}}
-      </div>
-       <!-- 商品图片信息 -->
-      <div class="productmes">
-        <!-- 图片 -->
-        <img src='../../../../assets/img/1.jpg' />
-        <!-- 商品信息加入购物车 -->
-        <div class="Addcart" v-show="Addcarts1" >
-          <div>
-            <el-button plain>商品详情</el-button>
+    <div class="title">热门商品</div>
+    <el-row width='100%' height="100%">
+      <el-col :span="6" v-for="item in cart" class="d1">
+        <el-card :body-style="{ padding: '0px' }">
+          <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+          <div style="padding: 14px;">
+            <span>{{item.name}}</span><span>{{item.price}}</span>
+            <div class="bottom">
+              <time class="time">{{item.shopname}}</time>
+              <el-button type="text" class="button" @click='submitForm(item)'>加入购物车</el-button>
+            </div>
           </div>
-                
-          <div>
-            <el-button round @click="AddToCart">加入购物车</el-button>
+        </el-card> 
+      </el-col>
+    </el-row>
+
+
+
+    <!-- <el-row width='100%' height="100%">
+      <el-col :span="6" v-for="item in cart1" class="d1">
+        <el-card :body-style="{ padding: '0px' }">
+          <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+          <div style="padding: 14px;">
+            <span>{{item.name}}</span><span>{{item.price}}</span>
+            <div class="bottom">
+              <time class="time">{{item.shopname}}</time>
+              <el-button type="text" class="button" @click='submitForm(item)'>加入购物车</el-button>
+            </div>
           </div>
-
-        </div>         
-      </div>
-     
-    </div>
-
-
-    <div class="d1" @mouseenter='showCart2' @mouseleave='showCart2'>
-      <!-- 标题 -->
-      <div class="title">
-        热门商品{{mes}}
-      </div>
-       <!-- 商品图片信息 -->
-      <div class="productmes">
-        <!-- 图片 -->
-        <img src='../../../../assets/img/1.jpg' />
-        <!-- 商品信息加入购物车 -->
-        <div class="Addcart" v-show="Addcarts2" >
-          <div>
-            <el-button plain>商品详情</el-button>
-          </div>
-                
-          <div>
-            <el-button round @click="AddToCart">加入购物车</el-button>
-          </div>
-
-        </div>         
-      </div>
-     
-    </div>
-
+        </el-card> 
+      </el-col>
+    </el-row> -->
   </div>
 </template>
 
@@ -59,7 +42,9 @@
       return {
         mes:'Popular Product',
         Addcarts1:false,
-        Addcarts2:false
+        Addcarts2:false,
+        cart:[],
+        // cart1:[{name:'风扇10',shopname:'电器之家',price:150,num:1,url:"fjfkggg",start:false}]
       }
     },
     methods: {
@@ -69,12 +54,33 @@
       showCart2(){
         this.Addcarts2=!this.Addcarts2
       },
-      AddToCart(){
-        
-        this.$store.commit('addcount')
-      }
+      findForm(){
+        this.$axios.get(`/api/cart/getallmes`)
+            .then(res=>{
+              this.cart = res.data
+              this.$store.commit('addcount',this.cart.length)              
+              this.$store.commit('addcart',this.cart)
+            })
+      },   
+      submitForm(item){    
+        console.log(item)
+        this.$axios.post(`/api/cart/add`,item)
+            .then(res=>{
+                //加入失败
+                this.$message({
+                  message:res.data.mes,
+                  type:'success '
+                }) 
+            })
+        this.findForm();
+        this.$store.dispatch('addcount',this.cart.length)              
+        this.$store.dispatch('addcart',this.cart)    
+      },           
 
     },
+    created() {
+      this.findForm();
+    },      
   }
 </script>
 
@@ -83,62 +89,42 @@
   width: 90%;
   margin-top: 50px;
   margin-left: 5%;
-  height: 400px;
+  height: 500px;
  
   font-size: 20px;
   line-height: 35px;
   color: red;
   background-color: white;   
+  overflow: hidden;
 }
 .d1{
-  position: relative;
-  width: 50%;
-  height: 100%;
-  float: left;
-  background-color: white;  
+  padding: 20px;
 }
 .title{
   width: 100%;
   height: 10%;  
   background-color: white;  
 }
-.productmes{
+.time {
+  font-size: 13px;
+  color: #999;
+}
+
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  padding: 0;
+  min-height: 50px;
+}
+
+.image {
   width: 100%;
-  height: 90%;  
-  background-color: gold;
-}
-.productmes>img{
-  width: 100%;
-  height: 100%;  
-  z-index: 30;
-}
-.Addcart{
-  position:absolute;
-  bottom:0px;
-  width: 100%;
-  height: 60px;
-  text-indent: 30%;
-  /* background-color: blueviolet; */
-  z-index: 9;
-}
-.Addcart>div{
-  width: 50%;
-  height: 100%;
-  float: left;
-}
-.Addcart button{
-  margin-top: 10px;
-  /* margin-left: 5%; */
-  text-align: center;
-}
-.productmes:hover{
-  width: 101%;
-  height: 94%;  
-  overflow: hidden;
-  margin-top: -10px;
-  margin-left: -3px;
-  margin-right: -3px;
-  margin-bottom: -1px;
-  
+  display: block;
 }
 </style>

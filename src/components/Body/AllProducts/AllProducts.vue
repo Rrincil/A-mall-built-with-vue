@@ -1,17 +1,17 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="6" v-for="item in cart" class="d1">
+      <el-col :span="6" v-for="(item,index) in cart" class="d1">
         <el-card :body-style="{ padding: '0px' }">
           <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
           <div style="padding: 14px;">
             <span>{{item.name}}</span><span>{{item.price}}</span>
             <div class="bottom">
               <time class="time">{{item.shopname}}</time>
-              <el-button type="text" class="button" @click='AddToCart'>加入购物车</el-button>
+              <el-button type="text" class="button" @click='submitForm(item,index)'>加入购物车</el-button>
             </div>
           </div>
-        </el-card>
+        </el-card> 
       </el-col>
     </el-row>
   </div>
@@ -28,21 +28,31 @@
       }
     },
     methods: {
-      submitForm(){         
-            this.$axios.get('/api/cart/getallmes')
-               .then(res=>{
-                //  console.log(res);
-                 this.cart = res.data
-               })
-
+      submitForm(item,index){    
+        console.log(item)
+        console.log(index);
+        this.$axios.post(`/api/cart/add`,item)
+            .then(res=>{
+                //加入失败
+                this.$message({
+                  message:res.data.mes,
+                  type:'success '
+                }) 
+            })
+            
       },
-      AddToCart(){
-        
-        this.$store.commit('addcount')
-      }            
+      findForm(){
+        this.$axios.get(`/api/cart/getallmes`)
+            .then(res=>{
+              this.cart = res.data
+              this.$store.commit('addcount',this.cart.length)              
+              this.$store.commit('addcart',this.cart)
+            })
+      },      
+           
     },
     created() {
-      this.submitForm();
+      this.findForm();
       // this.carttotelprice = 
     },    
   }

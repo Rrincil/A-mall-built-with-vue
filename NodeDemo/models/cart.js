@@ -14,6 +14,15 @@ const CartSchema  = new Schema({
     type:String,
     required:true
   },
+  price :{
+    type:Number,
+    required:true    
+  }, 
+  start :{
+    type:Boolean,
+    default:false ,
+    required:true 
+  }, 
   shopname :{
     type:String,
     required:true    

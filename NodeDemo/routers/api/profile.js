@@ -18,18 +18,32 @@ router.get('/text',(req,res)=>{
 
 //@router podt api/profile/add
 //@desc 存入json数据
-//@access private
-router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
-  const newprofile ={}
+//@access public
+router.post("/add",(req,res)=>{
+  cart.findOne({
+    name:req.body.name
+  }).then(ret=>{
+    if(!ret){
+      console.log(ret);
+      const newcart =new cart({})
 
-  if(req.body.name) newprofile.name = req.body.name;
-  if(req.body.num) newprofile.num = req.body.num;  
-  if(req.body.url) newprofile.url = req.body.url;  
-  if(req.body.shopname) newprofile.shopname = req.body.shopname;
+      if(req.body.name) newcart.name = req.body.name;
+      if(req.body.num) newcart.num = req.body.num;  
+      if(req.body.url) newcart.url = req.body.url;  
+      if(req.body.shopname) newcart.shopname = req.body.shopname;
+      if(req.body.start) newcart.start = req.body.start;
+      if(req.body.price) newcart.price = req.body.price;
+      newcart.save().then(cart=>{
+        res.json(cart)
+      })
+      res.status(200).json({mes:`成功加入购物车了(●ˇ∀ˇ●)`})
+    }else{
+      // console.log(ret.name);      
+      return  res.status(200).json({mes:`${ret.shopname}的${ret.name}之前已经在购物车了哟(＾Ｕ＾)ノ~ＹＯ`})
+    }
 
-  new profile(newprofile).save().then(profile=>{
-    res.json(profile)
   })
+
 })
 
 
@@ -75,7 +89,7 @@ router.get("/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
 
 //@router podt api/profile/edit
 //@desc 编辑json数据
-//@access private
+//@access public
 router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
   const newprofile ={}
 
@@ -86,7 +100,7 @@ router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>
 
   profile.findByIdAndUpdate(
     {_id:req.params.id},
-    {$set:profile},
+    {$set:newprofile},
     {new:true}
   ).then(profile=>{
     res.json(profile)

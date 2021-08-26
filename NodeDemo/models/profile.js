@@ -10,11 +10,20 @@ const profileSchema  = new Schema({
     required:true,
     default:0
   },
-  url:{
+  price:{
+    type:Number,
+    required:true,
+  },
+  start:{
+    type:Boolean,
+    required:true,
+    default:false
+  },  
+  imgurl:{
     type:String,
     required:true
   },
-  Shopname :{
+  shopname :{
     type:String,
     required:true    
   }, 

@@ -16,7 +16,7 @@
         <el-button @click="resetForm('loginfrom')">重置</el-button>
       </el-form-item>
       <router-link to="/Regist">注册</router-link>
-  </el-form>
+    </el-form>
     
   </div>
 </template>
@@ -63,7 +63,7 @@ import { log } from 'util';
                 // console.log(res);
                 //注册成功
                 this.$message({
-                  message:'登陆成功！',
+                  message:`登陆成功！`,
                   type:'success '
                 })                
                 //token              
@@ -74,7 +74,7 @@ import { log } from 'util';
                 //解析token
                 const decoded = jwt_decode(token);
                 
-                console.log(decoded);
+                // console.log(decoded);
                 //token存储到vuex中
                 this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded))
                 this.$store.dispatch('setUser',decoded)

@@ -9,6 +9,7 @@ const users = require('./routers/api/users');
 const profile = require('./routers/api/profile')
 const favorites = require('./routers/api/favorites')
 const cart = require('./routers/api/cart')
+const book = require('./routers/api/book')
 // const bodyParser = require('body-parser');
 // 连接 MongoDB 数据库
 mongoose.connect(uri, {
@@ -97,7 +98,8 @@ app.use('/api/profile',profile)
 app.use('/api/favorites',favorites)
 //使用cart
 app.use('/api/cart',cart)
-
+//使用book
+// app.use('/api/book',book)
 
 
 
