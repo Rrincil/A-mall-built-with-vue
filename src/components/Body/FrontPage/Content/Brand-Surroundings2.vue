@@ -73,7 +73,7 @@
 <style scoped>
 .BrandSurroundings{
   width: 90%;
-  margin-top: 50px;
+  margin-top: 150px;
   /* margin-bottom: 50px; */
   margin-left: 5%;
   height: 500px;

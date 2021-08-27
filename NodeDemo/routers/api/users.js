@@ -32,13 +32,13 @@ router.post('/registe',(req,res)=>{
     if((user)){
       return res.status(404).json({mes:"邮箱已被注册"})
     }else{
-      const avatar = gravatar.url(req.body.email, {s: '200', r: 'pg', d: 'mm'});
+      // const avatar = gravatar.url(req.body.email, {s: '200', r: 'pg', d: 'mm'});
+      const avater = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
       const newUser = new User({
         name:req.body.name,
         email:req.body.email,
-        avatar,
+        avatar:avater,
         password:req.body.password,
-        cart:0,
       })
                 // //存储数据
                 // newUser.save()
@@ -139,7 +139,7 @@ router.post('/login',(req,res)=>{
             email:user.email,
             name:user.name,
             avatar:user.avatar,
-            cart:user.cart
+            password:user.password
           }
           // expiresIn: 3600 //存活时间
           jwt.sign(rule,'secret',{expiresIn:3600000},(err,token)=>{
@@ -179,7 +179,8 @@ router.get("/current",passport.authenticate("jwt",{session:false}),(req,res)=>{
     id:req.user.id,
     name:req.user.name,
     email:req.user.email,
-    avatar:req.user.avatar
+    avatar:req.user.avatar,
+    
   }); 
 })
 

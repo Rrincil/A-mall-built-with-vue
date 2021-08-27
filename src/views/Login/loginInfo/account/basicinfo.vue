@@ -11,10 +11,10 @@
         <el-input type="email" v-model="registUser.email"  autocomplete="off" :value="email"></el-input>
       </el-form-item> 
       <el-form-item label="密码" prop="password" >
-        <el-input type="password" v-model="registUser.password"  autocomplete="off" :value="$store.state.user.avatar"></el-input>
+        <el-input type="password" v-model="registUser.password"  autocomplete="off" value=""></el-input>
       </el-form-item>   
       <el-form-item label="确认密码" prop="password2" >
-        <el-input type="password" v-model="registUser.password2"  autocomplete="off" :value="password"></el-input>
+        <el-input type="password" v-model="registUser.password2"  autocomplete="off" value=""></el-input>
       </el-form-item>  
 
       <el-form-item>

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
-const CartSchema  = new Schema({
+const swiperSchema  = new Schema({
   name:{
     type:String,
     required:true
@@ -10,19 +10,19 @@ const CartSchema  = new Schema({
     required:true,
     default:0
   },
+  price:{
+    type:Number,
+    required:true,
+  },
+  start:{
+    type:Boolean,
+    required:true,
+    default:false
+  },  
   imgurl:{
     type:String,
     required:true
   },
-  price :{
-    type:Number,
-    required:true    
-  }, 
-  start :{
-    type:Boolean,
-    default:false ,
-    required:true 
-  }, 
   shopname :{
     type:String,
     required:true    
@@ -41,4 +41,4 @@ const CartSchema  = new Schema({
 // kitty.save().then(() => console.log('meow'));
 
 
-module.exports = cart = mongoose.model('cart',CartSchema);
+module.exports = swiper = mongoose.model('swiper',swiperSchema);

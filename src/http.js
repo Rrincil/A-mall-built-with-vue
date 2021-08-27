@@ -53,7 +53,7 @@ axios.interceptors.response.use(res=>{
     //清除token
     localStorage.removeItem('eletoken');
     //跳转到登陆页面
-    router.push('/login')
+    // router.push('/login')
   }else{
   Message.error(error.response.data.mes);
   }

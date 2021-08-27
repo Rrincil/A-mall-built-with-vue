@@ -1,9 +1,10 @@
 <template>
+
   <div>
     <el-row>
-      <el-col :span="6" v-for="(item,index) in cart" class="d1">
-        <el-card :body-style="{ padding: '0px' }">
-          <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+      <el-col :span="6" v-for="(item,index) in allprod" class="d1">
+        <el-card :body-style="{ padding: '0px',height:'400px'}">
+          <img :src=item.imgurl class="image">
           <div style="padding: 14px;">
             <span>{{item.name}}</span><span>{{item.price}}</span>
             <div class="bottom">
@@ -15,6 +16,13 @@
       </el-col>
     </el-row>
   </div>
+  <div class="block" >
+    <span class="demonstration">大于 7 页时的效果</span>
+    <el-pagination
+      layout="prev, pager, next"
+      :total="1000">
+    </el-pagination>
+  </div>  
 </template>
 
 <script>
@@ -24,7 +32,7 @@
       return {
         mes:'AllProducts',
         currentDate: new Date(), 
-        cart:[],             
+        allprod:[],             
       }
     },
     methods: {
@@ -33,20 +41,24 @@
         console.log(index);
         this.$axios.post(`/api/cart/add`,item)
             .then(res=>{
-                //加入失败
+                //加入成功
                 this.$message({
                   message:res.data.mes,
                   type:'success '
                 }) 
+              this.cart = res.data
+              this.$store.commit('addcount',this.cart.length)              
+              this.$store.commit('addcart',this.cart)                
             })
             
       },
       findForm(){
-        this.$axios.get(`/api/cart/getallmes`)
+        this.$axios.get(`/api/profile/getallmes`)
             .then(res=>{
-              this.cart = res.data
-              this.$store.commit('addcount',this.cart.length)              
-              this.$store.commit('addcart',this.cart)
+              this.allprod = res.data
+              // this.cart = res.data
+              // this.$store.commit('addcount',this.cart.length)              
+              // this.$store.commit('addcart',this.cart)
             })
       },      
            
@@ -83,5 +95,8 @@
 }
 .d1{
   padding: 20px;
+}
+div.el-pagination{
+  width: 100%;
 }
 </style>

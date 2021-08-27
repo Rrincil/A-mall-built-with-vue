@@ -28,7 +28,7 @@ router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
 
       if(req.body.name) newcart.name = req.body.name;
       if(req.body.num) newcart.num = req.body.num;  
-      if(req.body.url) newcart.url = req.body.url;  
+      if(req.body.imgurl) newcart.imgurl = req.body.imgurl;  
       if(req.body.shopname) newcart.shopname = req.body.shopname;
       if(req.body.start) newcart.start = req.body.start;
       if(req.body.price) newcart.price = req.body.price;
@@ -38,7 +38,7 @@ router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
      res.status(200).json({mes:`成功加入购物车了😎`})
     }else{
       // console.log(ret.name);      
-      return  res.status(200).json({mes:`${ret.shopname}的${ret.name}之前已经在购物车了哟😳`})
+      return  res.status(200).json({mes:`${ret.shopname}的${ret.name}已经在购物车了哟😳`})
     }
 
   })
@@ -94,7 +94,7 @@ router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>
 
   if(req.body.name) newcart.name = req.body.name;
   if(req.body.num) newcart.num = req.body.num;    
-  if(req.body.url) newcart.url = req.body.url;  
+  if(req.body.imgurl) newcart.imgurl = req.body.imgurl;  
   if(req.body.shopname) newcart.shopname = req.body.shopname;
   if(req.body.start) newcart.start = req.body.start;
   if(req.body.price) newcart.price = req.body.price;

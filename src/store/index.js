@@ -33,7 +33,8 @@ export default createStore({
     count:0,
     isAuthenticated:false,
     user:{},
-    cart:[]
+    cart:[],
+    tempcart:[]
   },
   mutations: {
     addcount(state,payload){
@@ -41,7 +42,10 @@ export default createStore({
     },
     addcart(state,payload){
       state.cart= payload
-    },    
+    },  
+    addtempcart(state,payload){
+      state.tempcart = payload
+    } ,
     //在插件中显示参数
     [types.SET_AUTHENTICATED](state,isAuthenticated){
       if(isAuthenticated) state.isAuthenticated = isAuthenticated;

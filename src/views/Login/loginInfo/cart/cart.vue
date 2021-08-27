@@ -1,33 +1,38 @@
 <template>
   <HeadTop></HeadTop>
-  <el-row>
-      <el-col :span="8" height='100%'> 
-        <div class="d1">
-          <div class="d1d2" v-for='item in cart'>
-            <img :src="item.url"/>
+  <div v-if="empty">
+    <el-empty :image-size="200"></el-empty>
+  </div>
+  <div v-if="!empty">
+    <el-row>
+        <el-col :span="8" height='100%'> 
+          <div class="d1">
+            <div class="d1d2" v-for='item in cart'>
+              <img :src="item.imgurl"/>
 
-          </div>
-        </div> 
-      </el-col> 
-      <el-col :span="16" height='100%'>  
-         <div class="d1">
-           <div class="d1d1" v-for='item in cart'>
-            <el-descriptions title="商品信息" direction="vertical" :column="3" border >
-            <el-descriptions-item label="商品名称">{{item.name}}</el-descriptions-item>
-            <el-descriptions-item label="商家">{{item.shopname}}</el-descriptions-item>            
-            <el-descriptions-item label="价格">188</el-descriptions-item>
-            <el-descriptions-item label="数量">{{item.num}}</el-descriptions-item>
-            <el-descriptions-item label="总计">{{item.num}}^188</el-descriptions-item>                        
-            </el-descriptions>
-           </div> 
-           <!-- 总计 -->
-           <div class="d1d3">
-             总计：{{allprice}}
+            </div>
+          </div> 
+        </el-col> 
+        <el-col :span="16" height='100%'>  
+          <div class="d1">
+            <div class="d1d1" v-for='item in cart'>
+              <el-descriptions title="商品信息" direction="vertical" :column="3" border >
+              <el-descriptions-item label="商品名称">{{item.name}}</el-descriptions-item>
+              <el-descriptions-item label="商家">{{item.shopname}}</el-descriptions-item>            
+              <el-descriptions-item label="价格">188</el-descriptions-item>
+              <el-descriptions-item label="数量">{{item.num}}</el-descriptions-item>
+              <el-descriptions-item label="总计">{{item.num}}^188</el-descriptions-item>                        
+              </el-descriptions>
+            </div> 
+            <!-- 总计 -->
+            <div class="d1d3">
+              总计：{{allprice}}
 
-           </div>
-         </div>       
-      </el-col>      
-  </el-row>
+            </div>
+          </div>       
+        </el-col>      
+    </el-row>
+  </div>
 
 </template>
 
@@ -39,7 +44,8 @@ import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
       return {
         cart:[],
         carttotelprice:[],
-        allprice:0
+        allprice:0,
+        empty:true
       }
     },
     components:{
@@ -57,7 +63,12 @@ import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
     },
     created() {
       this.submitForm();
-      // this.carttotelprice = 
+      // this.carttotelprice =
+      if(this.$store.state.count>0){
+        this.empty = false
+      }else{
+        this.empty = true
+      }
     },
   }
 </script>
@@ -84,5 +95,10 @@ import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
   width: 100%;
   height: 200px;
 
+}
+img{
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 </style>

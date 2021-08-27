@@ -1,18 +1,20 @@
 <template>
-  <div class="Navi" >
-     <!-- {{mes}} -->
-    <router-link to="/">首页</router-link>     
-    <router-link to="/AllProducts">全部商品</router-link>
-    
-    <!-- 购物车 -->
-    <router-link to="/cart">
-      <el-badge :value='$store.state.count' class="item" >
-        <i class="el-icon-shopping-cart-2" size='small'></i>     
-      </el-badge>
-    </router-link>
-    
+  <el-affix :offset="0">
 
-  </div>
+    <div class="Navi" >
+      <!-- {{mes}} -->
+      <router-link to="/">首页</router-link>     
+      <router-link to="/AllProducts">全部商品</router-link>
+      
+      <!-- 购物车 -->
+      <router-link to="/cart">
+        <el-badge :value='$store.state.count' class="item" >
+          <i class="el-icon-shopping-cart-2" size='small'></i>     
+        </el-badge>
+      </router-link>
+    </div>
+
+  </el-affix>  
 </template>
 
 <script>
@@ -31,8 +33,14 @@
     },
     mounted() {
       // this.length = this.$store.state.cart
+  
     },
     created() { 
+      if(localStorage.eletoken){
+        
+        this.counts = this.$store.state.count
+        this.counts = this.$store.state.tempcart.length
+      }    
 
      
     },
@@ -46,7 +54,7 @@
   height: 100px;
   /* margin-top: 100px; */
   /* position:fixed; */
-  /* z-index: 99; */
+  z-index: 99;
   background-color: white;
   text-indent: 5%;
   font-size: 20px;

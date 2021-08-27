@@ -1,36 +1,19 @@
 <template>
   <div class="Activity">
-    <div class="d1">
-        <img src='../../../../assets/img/2.jpg' />
-      <div>
-        <p>商品信息</p>
-        <el-input-number size="small" v-model="num1" class="counter"></el-input-number>
-      </div>
-    </div>
-
-    <div class="d1">
-        <img src='../../../../assets/img/2.jpg' />
-      <div>
-        <p>商品信息</p>
-        <el-input-number size="small" v-model="num2" class="counter"></el-input-number>
-      </div>
-    </div>
-
-    <div class="d1">
-        <img src='../../../../assets/img/2.jpg' />
-      <div>
-        <p>商品信息</p>
-        <el-input-number size="small" v-model="num3" class="counter"></el-input-number>
-      </div>
-    </div>      
-
-    <div class="d1">
-        <img src='../../../../assets/img/2.jpg' />
-      <div>
-        <p>商品信息</p>
-        <el-input-number size="small" v-model="num4" class="counter"></el-input-number>
-      </div>
-    </div>      
+    <el-row width='100%' height="30%">
+      <el-col :span="6" :key=item v-for="item in allpro" class="d1" >
+        <el-card :body-style="{ padding: '0px',height:'200px'}">
+          <img :src=item.imgurl class="image">
+          <div style="padding: 14px;">
+            <span>{{item.name}}</span><span>{{item.price}}</span>
+            <div class="bottom">
+              <time class="time">{{item.shopname}}</time>
+              <el-button type="text" class="button" @click='submitForm(item)'>加入购物车</el-button>
+            </div>
+          </div>
+        </el-card> 
+      </el-col>
+    </el-row>    
   </div>
 </template>
 
@@ -40,12 +23,58 @@
     data() {
       return {
         mes:'Activity',
-        num1:1,
-        num2:1,
-        num3:1,
-        num4:1,
+        Addcarts1:false,
+        Addcarts2:false,
+        cart:[],
+        allpro:[]
       }
     },
+    methods: {
+      findForm(){
+        this.$axios.get(`/api/profile/getallmes`)
+            .then(res=>{
+              this.allpro = res.data
+              
+            })
+      },   
+      findForm2(){        
+        this.$axios.get(`/api/cart/getallmes`)
+            .then(res=>{
+              this.cart = res.data
+              this.$store.commit('addcount',this.cart.length)              
+              this.$store.commit('addcart',this.cart)
+            })            
+      },      
+      submitForm(item){    
+        // console.log(item)
+ 
+        if(localStorage.eletoken){
+          this.$axios.post(`/api/cart/add`,item)
+              .then(res=>{
+                  //加入成功
+                  this.$message({
+                    message:res.data.mes,
+                    type:'success '
+                  }) 
+              })
+          this.findForm2();
+          this.$store.dispatch('addcount',this.cart.length)              
+          this.$store.dispatch('addcart',this.cart)      
+        }else{
+          // this.$store.commit('addtempcount')              
+          this.$store.commit('addtempcart',item) 
+        }  
+      },           
+
+    },
+    created() {
+      this.findForm();
+      if(localStorage.eletoken){
+        
+        this.findForm2();
+      }      
+    },            
+    
   }
 </script>
 
@@ -54,45 +83,44 @@
   width: 90%;
   margin-top: 50px;
   margin-left: 5%;
-  height: 200px;
+  height: 240px;
   background-color: white;  
+  overflow: hidden;
 }
 .d1{
-  width: 25%;
-  height: 100%;
-  float: left;
-  
+  padding: 18px;
+  /* height: 150px; */
+}
+.title{
+  width: 100%;
+  height: 10%;  
   background-color: white;  
 }
-.d1>img{
+.time {
+  font-size: 13px;
+  color: #999;
+}
+
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  padding: 0;
+  min-height: 50px;
+}
+
+.image {
   width: 100%;
-  height: 80%;  
+  height: 50%;
+  display: block;
 }
-.d1>div{
-  width: 100%;
-  height: 20%;    
-  /* background-color: blueviolet; */
-  line-height:32px;
+div.e-col.el-col-6.d1:hover{
+padding: 10px;
 }
-.d1 p{
-  width: 57%;
-  height: 100%;
-  float: left;
-  text-align: center;
-}
-.counter{
-  width: 40%;
-  height: 100%;
-  float: left;
-  color: aqua;
-  /* text-align: right; */
-  /* margin-left: 100px; */
-}
-.el-input-number--small .el-input-number__increase, .el-input-number--small .el-input-number__decrease{
-  width: 5%
-}
-.el-input-number--small .el-input-number__increase, 
-.el-input-number--small .el-input-number__decrease{
-    width: 5%
-}
+
 </style>

@@ -3,7 +3,7 @@
     <el-carousel indicator-position="outside" height="400px">
       <el-carousel-item v-for="item in srcArrys" :key="item">
       <h3 class="medium">
-        <img :src="item.srcimg"  >
+        <img :src="item.imgurl"  >
          
         <div class="d1" v-show="elicon" >
           {{item.name}}
@@ -23,46 +23,7 @@
       return {
         elicon:false, 
         mes:'Swiper',
-      srcArrys:[
-      {
-        srcimg:require('../../../../assets/img/1.1.png'),
-        name:'生命周期1'
-      },
-      {
-        srcimg:require('../../../../assets/img/1.2.png'),
-        name:'生命周期2'
-      },
-      {
-        srcimg:require('../../../../assets/img/1.3.png'),
-        name:'生命周期3'
-      },
-      {
-        srcimg:require('../../../../assets/img/1.4.png'),
-        name:'生命周期4'
-      },
-      {
-        srcimg:require('../../../../assets/img/1.5.png'),
-        name:'生命周期5'
-      },
-      {
-        srcimg:require('../../../../assets/img/2.jpg'),
-        name:'程序猿喝咖啡'
-
-      },
-      {
-        srcimg:require('../../../../assets/img/4.jpg'),
-        name:'当你终于刚搞定一个Bug'
-      },
-      {
-        srcimg:require('../../../../assets/img/5.jpg'),
-        name:'然后发现了更多Bug'
-
-      },
-      {
-        srcimg:require('../../../../assets/img/3.jpg'),
-        name:'求求你放我回去写代码吧'
-      },
-      ]
+      srcArrys:[]
 
       
       }
@@ -72,7 +33,15 @@
         
           this.elicon=!this.elicon
          
+      },
+      findswiper(){
+        this.$axios.get('/api/swiper/getallmes').then(res=>{
+          this.srcArrys = res.data
+        })
       }      
+    },
+    created() {
+      this.findswiper();
     },
   }
 </script>
@@ -125,6 +94,7 @@ height: 50px;
 }
 h3.medium>img{
 width: 100%;
-height: 100%;
+/* height: 100%; */
+display: block;
 }
 </style>

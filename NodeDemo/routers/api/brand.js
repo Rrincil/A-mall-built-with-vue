@@ -1,7 +1,7 @@
 //login@regist
 const express = require('express');
 const router = express.Router()
-const profile = require('../../models/profile')
+const brand = require('../../models/brand')
 
 const multer = require('multer')
 
@@ -9,7 +9,7 @@ const passport = require('passport');
 
 const { session } = require('passport');
 
-//@router get api/profile/text
+//@router get api/brand/text
 //@desc 返回的请求的json数据
 //@access public
 router.get('/text',(req,res)=>{
@@ -17,25 +17,25 @@ router.get('/text',(req,res)=>{
 })
 
 
-//@router podt api/profile/add
+//@router podt api/brand/add
 //@desc 存入json数据
 //@access public
 router.post("/add",(req,res)=>{
-  profile.findOne({
+  brand.findOne({
     name:req.body.name
   }).then(ret=>{
     if(!ret){
       console.log(ret);
-      const newprofile =new profile({})
+      const newbrand =new brand({})
       const imgurl = 'http://localhost:3000/img/'
-      if(req.body.name) newprofile.name = req.body.name;
-      if(req.body.num) newprofile.num = req.body.num;  
-      if(req.body.imgurl) newprofile.imgurl = imgurl+req.body.imgurl;  
-      if(req.body.shopname) newprofile.shopname = req.body.shopname;
-      if(req.body.start) newprofile.start = req.body.start;
-      if(req.body.price) newprofile.price = req.body.price;
-      newprofile.save().then(profile=>{
-        res.json(profile)
+      if(req.body.name) newbrand.name = req.body.name;
+      if(req.body.num) newbrand.num = req.body.num;  
+      if(req.body.imgurl) newbrand.imgurl = imgurl+req.body.imgurl;  
+      if(req.body.shopname) newbrand.shopname = req.body.shopname;
+      if(req.body.start) newbrand.start = req.body.start;
+      if(req.body.price) newbrand.price = req.body.price;
+      newbrand.save().then(brand=>{
+        res.json(brand)
         res.status(200).json({mes:`成功加入购物车了`})
       })
     }else{
@@ -54,11 +54,11 @@ router.post("/add",(req,res)=>{
 
 
 
-//@router get api/profile/getallmes
+//@router get api/brand/getallmes
 //@desc 获取所有的json数据
 //@access private
 router.get("/getallmes",(req,res)=>{
-  profile.find().then(mes=>{
+  brand.find().then(mes=>{
     if (mes) {
       res.json(mes)
     }else{
@@ -71,11 +71,11 @@ router.get("/getallmes",(req,res)=>{
 
 
 
-//@router get api/profile/:id
+//@router get api/brand/:id
 //@desc 获取单个json数据
 //@access public
 router.get("/:id",(req,res)=>{
-  profile.findOne({_id:req.params.id}).then(mes=>{
+  brand.findOne({_id:req.params.id}).then(mes=>{
     if (mes) {
       res.json(mes)
     }else{
@@ -88,38 +88,38 @@ router.get("/:id",(req,res)=>{
 
 
 
-//@router podt api/profile/edit
+//@router podt api/brand/edit
 //@desc 编辑json数据
 //@access public
 router.post("/edit/:id",(req,res)=>{
 
 
-  const newprofile =new profile({})
+  const newbrand =new brand({})
   const imgurl = 'http://localhost:3000/img/'
-  if(req.body.name) newprofile.name = req.body.name;
-  if(req.body.num) newprofile.num = req.body.num;  
-  if(req.body.imgurl) newprofile.imgurl = imgurl+req.body.imgurl;  
-  if(req.body.shopname) newprofile.shopname = req.body.shopname;
-  if(req.body.start) newprofile.start = req.body.start;
-  if(req.body.price) newprofile.price = req.body.price;
+  if(req.body.name) newbrand.name = req.body.name;
+  if(req.body.num) newbrand.num = req.body.num;  
+  if(req.body.imgurl) newbrand.imgurl = imgurl+req.body.imgurl;  
+  if(req.body.shopname) newbrand.shopname = req.body.shopname;
+  if(req.body.start) newbrand.start = req.body.start;
+  if(req.body.price) newbrand.price = req.body.price;
 
-  profile.findByIdAndUpdate(
+  brand.findByIdAndUpdate(
     {_id:req.params.id},
-    {$set:newprofile},
+    {$set:newbrand},
     {new:true}
-  ).then(profile=>{
-    res.json(profile)
+  ).then(brand=>{
+    res.json(brand)
   })
 })
 
 
-//@router post api/profile/deconste/:id
+//@router post api/brand/deconste/:id
 //@desc 删除json数据
 //@access public
 router.delete("/deldete/:id",(req,res)=>{
-  profile.findOneAndRemove({_id:req.params.id}).then(mes=>{
+  brand.findOneAndRemove({_id:req.params.id}).then(mes=>{
     if (mes) {
-      mes.save().then(profile=>res.json(profile))
+      mes.save().then(brand=>res.json(brand))
     }else{
       res.status(404).json({mes:'没有相关内容'})
     }

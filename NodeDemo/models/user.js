@@ -15,10 +15,7 @@ const UsersSchema  = new Schema({
   },
   avatar:{
     type:String
-  },
-  cart:{
-    type:Number
-  },  
+  }, 
   data:{
     type:Date,
     default:Date.now
