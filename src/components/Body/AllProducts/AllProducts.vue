@@ -17,10 +17,9 @@
     </el-row>
   </div>
   <div class="block" >
-    <span class="demonstration">大于 7 页时的效果</span>
     <el-pagination
       layout="prev, pager, next"
-      :total="1000">
+      :total="200">
     </el-pagination>
   </div>  
 </template>
@@ -32,13 +31,14 @@
       return {
         mes:'AllProducts',
         currentDate: new Date(), 
-        allprod:[],             
+        allprod:[],  
+        cart:[]           
       }
     },
     methods: {
       submitForm(item,index){    
-        console.log(item)
-        console.log(index);
+        // console.log(item)
+        // console.log(index);
         this.$axios.post(`/api/cart/add`,item)
             .then(res=>{
                 //加入成功
@@ -46,12 +46,18 @@
                   message:res.data.mes,
                   type:'success '
                 }) 
-              this.cart = res.data
-              this.$store.commit('addcount',this.cart.length)              
-              this.$store.commit('addcart',this.cart)                
+            this.findallcart()
             })
-            
+               
+              
       },
+      findallcart(){
+        this.$axios.get('/api/cart/getallmes').then(res=>{
+          this.cart = res.data
+              this.$store.commit('addcount',this.cart.length)              
+              this.$store.commit('addcart',this.cart)           
+        })
+      },      
       findForm(){
         this.$axios.get(`/api/profile/getallmes`)
             .then(res=>{
@@ -65,6 +71,12 @@
     },
     created() {
       this.findForm();
+      this.findallcart()
+      if(localStorage.eletoken){
+        
+        this.counts = this.$store.state.count
+        this.counts = this.$store.state.tempcart.length
+      }        
       // this.carttotelprice = 
     },    
   }
@@ -98,5 +110,8 @@
 }
 div.el-pagination{
   width: 100%;
+}
+.block{
+  text-align: center;
 }
 </style>

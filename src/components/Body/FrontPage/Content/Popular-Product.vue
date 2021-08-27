@@ -2,7 +2,7 @@
   <div class="PopularProduct">
     <div class="title">热门商品</div>
     <el-row width='100%' height="100%">
-      <el-col :span="6" :key=item v-for="item in allpro" class="d1" >
+      <el-col :span="6" :key=item v-for="item in allprod2" class="d1" >
         <el-card :body-style="{ padding: '0px',height:'430px'}">
           <img :src=item.imgurl class="image">
           <div style="padding: 14px;">
@@ -44,7 +44,8 @@
         Addcarts1:false,
         Addcarts2:false,
         cart:[],
-        allpro:[]
+        allprod:[],
+        allprod2:[],
         // cart1:[{name:'风扇10',shopname:'电器之家',price:150,num:1,url:"fjfkggg",start:false}]
       }
     },
@@ -52,7 +53,10 @@
       findForm(){
         this.$axios.get(`/api/profile/getallmes`)
             .then(res=>{
-              this.allpro = res.data
+              this.allprod = res.data
+              for(let i=0;i<=3;i++){
+                this.allprod2[i] = this.allprod[i];
+              }              
               
             })
       },   
@@ -77,8 +81,8 @@
                   }) 
               })
           this.findForm2();
-          this.$store.dispatch('addcount',this.cart.length)              
-          this.$store.dispatch('addcart',this.cart)      
+          this.$store.commit('addcount',this.cart.length)              
+          this.$store.commit('addcart',this.cart)      
         }else{
           // this.$store.commit('addtempcount')              
           this.$store.commit('addtempcart',item) 

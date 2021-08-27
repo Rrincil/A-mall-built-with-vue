@@ -20,12 +20,12 @@ const actions ={
     commit(types.SET_AUTHENTICATED,false);
     commit(types.SET_USER,null);
   },
-  addcount(state,payload){
-    state.count= payload
+  addcount2:({commit,count})=>{
+    commit(count)
   },
-  addcart(state,payload){
-    state.cart= payload
-  },   
+  addcart2:({commit,cart})=>{
+    commit(cart)
+  },
 }
 export default createStore({
   getters,
@@ -38,10 +38,12 @@ export default createStore({
   },
   mutations: {
     addcount(state,payload){
-      state.count= payload
+      if(state.isAuthenticated) state.count= payload
+      else state.count = 0
     },
     addcart(state,payload){
-      state.cart= payload
+      if(state.isAuthenticated) state.cart= payload
+      else state.cart = []
     },  
     addtempcart(state,payload){
       state.tempcart = payload

@@ -28,7 +28,7 @@
           <el-row width='100%' height="200px">
             <el-col :span="24" v-for="item in brandprod" class="brand">
               <el-card :body-style="{ padding: '0px',height:'230px',width:'100%'}">
-                <img :src=item.imgurl class="image">
+                <img :src=item.imgurl class="image2">
                 <div style="padding: 14px;">
                   <span>{{item.name}}</span><span>{{item.price}}</span>
                   <div class="bottom">
@@ -45,7 +45,7 @@
           <el-row width='100%' height="200px">
             <el-col :span="24" v-for="item in brandprod" class="brand">
               <el-card :body-style="{ padding: '0px',height:'230px',width:'100%'}">
-                <img :src=item.imgurl class="image">
+                <img :src=item.imgurl class="image2">
                 <div style="padding: 14px;">
                   <span>{{item.name}}</span><span>{{item.price}}</span>
                   <div class="bottom">
@@ -217,7 +217,12 @@
 }
 
 .image {
-  width: 100%;
+  width: 60%;
+  height: 80%;
+  display: block;
+}
+.image2 {
+  width: auto;
   height: 80%;
   display: block;
 }

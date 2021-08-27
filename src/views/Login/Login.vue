@@ -15,7 +15,7 @@
         <el-button type="primary" @click="submitForm('loginfrom')" class="">提交</el-button>
         <el-button @click="resetForm('loginfrom')">重置</el-button>
       </el-form-item>
-      <router-link to="/Regist">注册</router-link>
+      <span>没有账号？点击</span><router-link to="/Regist">注册</router-link>
     </el-form>
     
   </div>

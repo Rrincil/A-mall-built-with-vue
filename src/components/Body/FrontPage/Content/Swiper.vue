@@ -23,7 +23,7 @@
       return {
         elicon:false, 
         mes:'Swiper',
-      srcArrys:[]
+        srcArrys:[]
 
       
       }
@@ -31,17 +31,19 @@
     methods: {
       xian(item){
         
-          this.elicon=!this.elicon
+        this.elicon=!this.elicon
          
       },
       findswiper(){
         this.$axios.get('/api/swiper/getallmes').then(res=>{
           this.srcArrys = res.data
+          
         })
       }      
     },
     created() {
       this.findswiper();
+      // console.log(this.srcArrys);
     },
   }
 </script>

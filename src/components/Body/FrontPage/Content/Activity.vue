@@ -1,7 +1,7 @@
 <template>
   <div class="Activity">
     <el-row width='100%' height="30%">
-      <el-col :span="6" :key=item v-for="item in allpro" class="d1" >
+      <el-col :span="6" :key=item v-for="item in allpro2" class="d1" >
         <el-card :body-style="{ padding: '0px',height:'200px'}">
           <img :src=item.imgurl class="image">
           <div style="padding: 14px;">
@@ -26,7 +26,8 @@
         Addcarts1:false,
         Addcarts2:false,
         cart:[],
-        allpro:[]
+        allpro:[],
+        allpro2:[],
       }
     },
     methods: {
@@ -34,7 +35,10 @@
         this.$axios.get(`/api/profile/getallmes`)
             .then(res=>{
               this.allpro = res.data
-              
+              for(let i=0;i<=3;i++){
+                this.allpro2[i] = this.allpro[i];
+              }
+              // console.log(this.allpro2);
             })
       },   
       findForm2(){        
@@ -58,8 +62,8 @@
                   }) 
               })
           this.findForm2();
-          this.$store.dispatch('addcount',this.cart.length)              
-          this.$store.dispatch('addcart',this.cart)      
+          this.$store.commit('addcount',this.cart.length)              
+          this.$store.commit('addcart',this.cart)      
         }else{
           // this.$store.commit('addtempcount')              
           this.$store.commit('addtempcart',item) 
@@ -115,7 +119,7 @@
 }
 
 .image {
-  width: 100%;
+  width: auto;
   height: 50%;
   display: block;
 }

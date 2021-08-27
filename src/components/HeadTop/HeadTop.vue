@@ -131,6 +131,8 @@ import { defineComponent, ref } from 'vue'
         this.loginmes = !this.loginmes
         this.pathtologin ='/login'
         this.circleUrl = "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+        this.$store.state.count = 0
+        this.$store.state.cart = []
         this.$router.push('/');
       },
 
