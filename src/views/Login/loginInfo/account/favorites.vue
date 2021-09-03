@@ -1,6 +1,6 @@
 <template>
   <div>
-    favorites
+    {{allFavorites}}
   </div>
 </template>
 
@@ -9,7 +9,14 @@
     name:'favorites',
     data() {
       return {
-        
+        allFavorites:[]
+      }
+    },
+    methods: {
+      favorites(){
+        this.$axios.get(`api/favorites/getallmes`).then(res=>{
+          this.allFavorites = res
+        })
       }
     },
   }

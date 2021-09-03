@@ -23,7 +23,7 @@ router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
 
   if(req.body.name) newfavorites.name = req.body.name;
   if(req.body.remark) newfavorites.remark = req.body.remark;  
-  if(req.body.url) newfavorites.url = req.body.url;  
+  if(req.body.imgurl) newfavorites.imgurl = req.body.imgurl;  
   if(req.body.shopname) newfavorites.shopname = req.body.shopname;
 
   new favorites(newfavorites).save().then(favorites=>{
@@ -80,7 +80,7 @@ router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>
 
   if(req.body.name) newfavorites.name = req.body.name;
   if(req.body.remark) newfavorites.remark = req.body.remark;  
-  if(req.body.url) newfavorites.url = req.body.url;  
+  if(req.body.imgurl) newfavorites.imgurl = req.body.imgurl;  
   if(req.body.shopname) newfavorites.shopname = req.body.shopname;
 
   favorites.findByIdAndUpdate(

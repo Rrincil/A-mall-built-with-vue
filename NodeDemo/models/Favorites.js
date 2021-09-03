@@ -8,7 +8,7 @@ const FavoritesSchema  = new Schema({
   remark:{
     type:String,
   },
-  url:{
+  imgurl:{
     type:String,
     required:true
   },
