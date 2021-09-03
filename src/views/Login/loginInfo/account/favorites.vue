@@ -15,7 +15,8 @@
     methods: {
       favorites(){
         this.$axios.get(`api/favorites/getallmes`).then(res=>{
-          this.allFavorites = res
+          this.allFavorites = res.data
+          console.log(res.data);
         })
       }
     },

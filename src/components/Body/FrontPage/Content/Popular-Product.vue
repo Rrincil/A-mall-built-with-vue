@@ -9,6 +9,10 @@
             <span>{{item.name}}</span><span>{{item.price}}</span>
             <div class="bottom">
               <time class="time">{{item.shopname}}</time>
+              <el-button type="text" class="button" @click='submitfavorites(item)'>
+                <i class="el-icon-star-off" v-if='!star'></i>
+                <i class="el-icon-star-on" v-if='star'></i>
+              </el-button>
               <el-button type="text" class="button" @click='submitForm(item)'>加入购物车</el-button>
             </div>
           </div>
@@ -47,6 +51,7 @@
         allprod:[],
         allprod2:[],
         // cart1:[{name:'风扇10',shopname:'电器之家',price:150,num:1,url:"fjfkggg",start:false}]
+        star:false
       }
     },
     methods: {
@@ -64,6 +69,8 @@
         this.$axios.get(`/api/cart/getallmes`)
             .then(res=>{
               this.cart = res.data
+              //收藏
+              this.star = this.cart.star
               this.$store.commit('addcount',this.cart.length)              
               this.$store.commit('addcart',this.cart)
             })            
@@ -88,7 +95,37 @@
           this.$store.commit('addtempcart',item) 
         }  
       },           
-
+      submitfavorites(item){
+        if(localStorage.eletoken){
+          //登陆时
+          if(this.star = true){
+            //未收藏时---加入收藏
+              this.$axios.post(`/api/favorites/add`,item)
+                  .then(res=>{
+                      //加入成功
+                      this.$message({
+                        message:res.data.mes,
+                        type:'success '
+                      }) 
+                  })
+              this.cart = true   
+          }else{
+            //收藏时---删除收藏
+              this.$axios.post(`/api/favorites/deldete${this.$store.state.user.id}`,item)
+                  .then(res=>{
+                      //加入成功
+                      this.$message({
+                        message:res.data.mes,
+                        type:'success '
+                      }) 
+                  })
+              this.cart = true     
+            }
+        }else{
+          // 未登陆
+            this.$router.push('login')
+          }           
+      }
     },
     created() {
       this.findForm();
