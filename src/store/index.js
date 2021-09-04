@@ -34,7 +34,8 @@ export default createStore({
     isAuthenticated:false,
     user:{},
     cart:[],
-    tempcart:[]
+    tempcart:[],
+    isstart:[]
   },
   mutations: {
     addcount(state,payload){

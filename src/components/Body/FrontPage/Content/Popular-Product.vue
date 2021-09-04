@@ -10,8 +10,8 @@
             <div class="bottom">
               <time class="time">{{item.shopname}}</time>
               <el-button type="text" class="button" @click='submitfavorites(item)'>
-                <i class="el-icon-star-off" v-if='!star'></i>
-                <i class="el-icon-star-on" v-if='star'></i>
+                <i class="el-icon-star-off" v-if='!isstar'></i>
+                <i class="el-icon-star-on" v-if='isstar'></i>
               </el-button>
               <el-button type="text" class="button" @click='submitForm(item)'>加入购物车</el-button>
             </div>
@@ -19,23 +19,6 @@
         </el-card> 
       </el-col>
     </el-row>
-
-
-
-    <!-- <el-row width='100%' height="100%">
-      <el-col :span="6" v-for="item in cart1" class="d1">
-        <el-card :body-style="{ padding: '0px' }">
-          <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
-          <div style="padding: 14px;">
-            <span>{{item.name}}</span><span>{{item.price}}</span>
-            <div class="bottom">
-              <time class="time">{{item.shopname}}</time>
-              <el-button type="text" class="button" @click='submitForm(item)'>加入购物车</el-button>
-            </div>
-          </div>
-        </el-card> 
-      </el-col>
-    </el-row> -->
   </div>
 </template>
  
@@ -50,22 +33,30 @@
         cart:[],
         allprod:[],
         allprod2:[],
-        // cart1:[{name:'风扇10',shopname:'电器之家',price:150,num:1,url:"fjfkggg",start:false}]
-        star:false
+        isstar:false,
+        star:{
+          name:'',
+          remark:'',
+          imgurl:'',
+          shopname:'',
+          isstar:true,
+          data:''         
+        }
       }
     },
     methods: {
       findForm(){
+        //查询所有单品
         this.$axios.get(`/api/profile/getallmes`)
             .then(res=>{
               this.allprod = res.data
               for(let i=0;i<=3;i++){
                 this.allprod2[i] = this.allprod[i];
               }              
-              
             })
       },   
       findForm2(){        
+        //查询购物车物品
         this.$axios.get(`/api/cart/getallmes`)
             .then(res=>{
               this.cart = res.data
@@ -76,8 +67,8 @@
             })            
       },      
       submitForm(item){    
-        // console.log(item)
- 
+        console.log(item)
+        //添加购物车
         if(localStorage.eletoken){
           this.$axios.post(`/api/cart/add`,item)
               .then(res=>{
@@ -91,27 +82,45 @@
           this.$store.commit('addcount',this.cart.length)              
           this.$store.commit('addcart',this.cart)      
         }else{
-          // this.$store.commit('addtempcount')              
+          //未登陆时，添加虚拟购物车           
           this.$store.commit('addtempcart',item) 
         }  
-      },           
+      },      
+      //登陆时查询是否收藏
+      // getfavorites(){
+      //   this.$axios.post(`/api/favorites/getallmes`)
+      //       .then(res=>{
+      //         if(res){
+      //           this.isstar = this.$store.state.isstar = true
+      //         }else{
+      //           this.isstar = this.$store.state.isstar = false
+      //         }
+      //       }) 
+      // },
       submitfavorites(item){
+        // console.log(item)
+        // this.star.name = item.name
+        // this.star.imgurl = item.imgurl
+        // this.star.shopname = item.shopname
+        // this.star.data = item.data
+        // console.log(this.star);        
         if(localStorage.eletoken){
           //登陆时
-          if(this.star = true){
+          if(this.isstar == false){
+            console.log(item)
             //未收藏时---加入收藏
               this.$axios.post(`/api/favorites/add`,item)
                   .then(res=>{
+                      this.isstar = this.$store.state.isstar = true
                       //加入成功
                       this.$message({
                         message:res.data.mes,
                         type:'success '
                       }) 
                   })
-              this.cart = true   
-          }else{
+          }else if(this.isstar == true){
             //收藏时---删除收藏
-              this.$axios.post(`/api/favorites/deldete${this.$store.state.user.id}`,item)
+              this.$axios.delete(`/api/favorites/delete/${this.$store.state.user.id}`, item)
                   .then(res=>{
                       //加入成功
                       this.$message({
@@ -119,7 +128,7 @@
                         type:'success '
                       }) 
                   })
-              this.cart = true     
+              this.isstar = this.$store.state.isstar = false    
             }
         }else{
           // 未登陆
@@ -128,19 +137,17 @@
       }
     },
     created() {
+      //查询所有单品
       this.findForm();
       if(localStorage.eletoken){
-        
+        //登陆时查询是否收藏
+        // this.getfavorites();
+        // 查询购物车物品
         this.findForm2();
-        // this.$axios.post(`/api/cart/add`,this.$store.state.tempcart)
-        //     .then(res=>{
-        //         //加入成功
-        //         this.$message({
-        //           message:res.data.mes,
-        //           type:'success '
-        //         }) 
-        //     })
-      }      
+      }else{
+        //未登录时都未收藏
+        this.isstar = false
+      }
     },      
   }
 </script>

@@ -16,6 +16,9 @@ const FavoritesSchema  = new Schema({
     type:String,
     required:true    
   }, 
+  isstar:{
+    type:Boolean,
+  },
   data:{
     type:Date,
     default:Date.now
