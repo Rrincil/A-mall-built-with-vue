@@ -35,7 +35,8 @@ export default createStore({
     user:{},
     cart:[],
     tempcart:[],
-    isstart:[]
+    isstart:[],
+    star:[]
   },
   mutations: {
     addcount(state,payload){
@@ -46,6 +47,10 @@ export default createStore({
       if(state.isAuthenticated) state.cart= payload
       else state.cart = []
     },  
+    // editstarcart(state,payload){
+    //   // this.$set(对象, key, 数组)
+    //   this.$set(state.cart,isstar,payload)
+    // },
     addtempcart(state,payload){
       state.tempcart = payload
     } ,

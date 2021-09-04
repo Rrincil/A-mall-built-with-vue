@@ -14,7 +14,7 @@ const profileSchema  = new Schema({
     type:Number,
     required:true,
   },
-  start:{
+  isstar:{
     type:Boolean,
     required:true,
     default:false

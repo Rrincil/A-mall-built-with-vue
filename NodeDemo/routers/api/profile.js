@@ -32,7 +32,7 @@ router.post("/add",(req,res)=>{
       if(req.body.num) newprofile.num = req.body.num;  
       if(req.body.imgurl) newprofile.imgurl = imgurl+req.body.imgurl;  
       if(req.body.shopname) newprofile.shopname = req.body.shopname;
-      if(req.body.start) newprofile.start = req.body.start;
+      if(req.body.isstar) newprofile.isstar = req.body.isstar;
       if(req.body.price) newprofile.price = req.body.price;
       newprofile.save().then(profile=>{
         res.json(profile)
@@ -100,7 +100,7 @@ router.post("/edit/:id",(req,res)=>{
   if(req.body.num) newprofile.num = req.body.num;  
   if(req.body.imgurl) newprofile.imgurl = imgurl+req.body.imgurl;  
   if(req.body.shopname) newprofile.shopname = req.body.shopname;
-  if(req.body.start) newprofile.start = req.body.start;
+  if(req.body.isstar) newprofile.isstar = req.body.isstar;
   if(req.body.price) newprofile.price = req.body.price;
 
   profile.findByIdAndUpdate(
@@ -113,7 +113,7 @@ router.post("/edit/:id",(req,res)=>{
 })
 
 
-//@router post api/profile/deconste/:id
+//@router post api/profile/delete/:id
 //@desc 删除json数据
 //@access public
 router.delete("/deldete/:id",(req,res)=>{

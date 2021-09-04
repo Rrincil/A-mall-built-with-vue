@@ -24,7 +24,6 @@ router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
   }).then(ret=>{
     if(!ret){
       const newfavorites ={}
-
       if(req.body.name) newfavorites.name = req.body.name;
       if(req.body.remark) newfavorites.remark = req.body.remark;  
       if(req.body.imgurl) newfavorites.imgurl = req.body.imgurl;  
@@ -38,7 +37,6 @@ router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
       // console.log(ret.name);      
       return  res.status(200).json({mes:`${ret.shopname}的${ret.name}已经收藏了哟😳`})
     }
-    
   })
 })
 
@@ -81,7 +79,18 @@ router.get("/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
   })
 })
 
-
+//@router get api/favorites/mes
+//@desc 获取单个json数据
+//@access private
+router.post("/mes",passport.authenticate("jwt",{session:false}),(req,res)=>{
+  favorites.findOne({name:req.body.name}).then(mes=>{
+    if (mes) {
+      res.json(mes)
+    }
+  }).catch(err=>{
+    res.status(404).json(err)
+  })
+})
 
 //@router podt api/favorites/edit
 //@desc 编辑json数据
@@ -101,14 +110,14 @@ router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>
   ).then(favorites=>{
     res.json(favorites)
   })
-  
+   
 })
 
 
 //@router post api/favorites/delete/:id
 //@desc 删除json数据
 //@access private
-router.delete("/deldete/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
+router.delete("/delete/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
   favorites.findOneAndRemove({_id:req.params.id}).then(mes=>{
     if (mes) {
       mes.save().then(favorites=>res.json(favorites))

@@ -10,8 +10,8 @@
             <div class="bottom">
               <time class="time">{{item.shopname}}</time>
               <el-button type="text" class="button" @click='submitfavorites(item)'>
-                <i class="el-icon-star-off" v-if='!isstar'></i>
-                <i class="el-icon-star-on" v-if='isstar'></i>
+                <i class="el-icon-star-off" v-if='!item.isstar'></i>
+                <i class="el-icon-star-on" v-if='item.isstar'></i>
               </el-button>
               <el-button type="text" class="button" @click='submitForm(item)'>加入购物车</el-button>
             </div>
@@ -40,16 +40,30 @@
           imgurl:'',
           shopname:'',
           isstar:true,
-          data:''         
-        }
+          data:'' ,      
+        },
+        itemid:''
       }
     },
     methods: {
       findForm(){
-        //查询所有单品
+        //查询所有单品以及查询是否收藏
         this.$axios.get(`/api/profile/getallmes`)
             .then(res=>{
-              this.allprod = res.data
+              this.allprod = res.data 
+              for(let i=0;i<this.allprod.length;i++){
+                this.$axios.post('api/favorites/mes',{name:this.allprod[i].name})
+                    .then(res=>{
+                      if(res.data){
+                        //收藏时
+                        this.allprod[i].isstar = true
+                        // console.log(res)
+                      }else{
+                        //未收藏
+                        this.allprod[i].isstar = false
+                      }
+                    })
+              }  
               for(let i=0;i<=3;i++){
                 this.allprod2[i] = this.allprod[i];
               }              
@@ -65,7 +79,16 @@
               this.$store.commit('addcount',this.cart.length)              
               this.$store.commit('addcart',this.cart)
             })            
-      },      
+      },    
+      getfavorites(){
+        //查询收藏的全部单品
+        this.$axios.get(`/api/favorites/getallmes`)
+            .then(res=>{
+              this.$store.state.star = res.data
+              console.log(res.data);
+            })  
+      },
+      
       submitForm(item){    
         console.log(item)
         //添加购物车
@@ -86,67 +109,67 @@
           this.$store.commit('addtempcart',item) 
         }  
       },      
-      //登陆时查询是否收藏
-      // getfavorites(){
-      //   this.$axios.post(`/api/favorites/getallmes`)
-      //       .then(res=>{
-      //         if(res){
-      //           this.isstar = this.$store.state.isstar = true
-      //         }else{
-      //           this.isstar = this.$store.state.isstar = false
-      //         }
-      //       }) 
-      // },
-      submitfavorites(item){
-        // console.log(item)
-        // this.star.name = item.name
-        // this.star.imgurl = item.imgurl
-        // this.star.shopname = item.shopname
-        // this.star.data = item.data
-        // console.log(this.star);        
+      submitfavorites(item){    
         if(localStorage.eletoken){
           //登陆时
-          if(this.isstar == false){
-            console.log(item)
+          if(item.isstar === false){
             //未收藏时---加入收藏
-              this.$axios.post(`/api/favorites/add`,item)
-                  .then(res=>{
-                      this.isstar = this.$store.state.isstar = true
-                      //加入成功
-                      this.$message({
-                        message:res.data.mes,
-                        type:'success '
-                      }) 
-                  })
-          }else if(this.isstar == true){
-            //收藏时---删除收藏
-              this.$axios.delete(`/api/favorites/delete/${this.$store.state.user.id}`, item)
-                  .then(res=>{
-                      //加入成功
-                      this.$message({
-                        message:res.data.mes,
-                        type:'success '
-                      }) 
-                  })
-              this.isstar = this.$store.state.isstar = false    
-            }
+            this.$axios.post(`/api/favorites/add`,item)
+                .then(res=>{
+                  console.log(item)
+                  item.isstar = true
+                  this.findForm()
+                  //加入成功
+                  this.$message({
+                    message:res.data.mes,
+                    type:'success '
+                  }) 
+                })
+          }else{
+            //查询收藏物品id 
+            this.$axios.post('api/favorites/mes',{name:item.name})
+                .then(res=>{
+                  if(res.data){
+                    console.log(res.data);
+                    this.itemid = res.data._id
+                      
+                      //收藏时---删除收藏
+                      this.$axios.delete(`/api/favorites/delete/${this.itemid}`)
+                          .then(res=>{
+                              //加入成功
+                              this.$message({
+                                message:res.data.mes,
+                                type:'success '
+                              }) 
+                          })
+                  }
+                })
+            item.isstar = false  
+            this.findForm()
+          }
         }else{
           // 未登陆
-            this.$router.push('login')
+          this.$router.push('login')
           }           
       }
     },
     created() {
       //查询所有单品
-      this.findForm();
       if(localStorage.eletoken){
-        //登陆时查询是否收藏
-        // this.getfavorites();
+        //登陆时查询是否收藏和所有单品
+        this.findForm();
         // 查询购物车物品
         this.findForm2();
       }else{
-        //未登录时都未收藏
-        this.isstar = false
+        //查询所有单品以及设置都未收藏
+        this.$axios.get(`/api/profile/getallmes`)
+            .then(res=>{
+              this.allprod = res.data
+              for(let i=0;i<=3;i++){
+                this.allprod2[i] = this.allprod[i];
+                this.allprod[i].isstar = false
+              }              
+            })        
       }
     },      
   }
