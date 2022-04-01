@@ -165,6 +165,7 @@
         this.$axios.get(`/api/profile/getallmes`)
             .then(res=>{
               this.allprod = res.data
+              console.log(res.data);
               for(let i=0;i<=3;i++){
                 this.allprod2[i] = this.allprod[i];
                 this.allprod[i].isstar = false
