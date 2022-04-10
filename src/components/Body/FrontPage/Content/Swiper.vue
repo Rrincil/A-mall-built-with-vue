@@ -6,7 +6,7 @@
     <el-carousel-item v-for="item in srcArrys" :key="item">
       <!-- <h3>{{ item }}</h3> -->
           <h3 class="medium">
-            <img :src="item.imgurl" />
+            <img :src="item.imgurl" class="image"/>
             <div class="d1" v-show="elicon">
               {{ item.name }}
             </div>
@@ -46,7 +46,7 @@ export default {
     findswiper() {
       this.$axios.get("/api/swiper/getallmes").then((res) => {
         this.srcArrys = res.data;
-        console.log(res.data);
+        // console.log(res.data);
       });
     },
   },
@@ -77,7 +77,6 @@ export default {
   margin: 0;
   height: 400px;
 }
-
 .el-carousel__item:nth-child(2n) {
   background-color: #99a9bf;
 }
@@ -108,7 +107,7 @@ export default {
 }
 h3.medium > img {
   width: 100%;
-  /* height: 100%; */
+  height: 125%;
   display: block;
 }
 

@@ -14,7 +14,7 @@ const brandSchema  = new Schema({
     type:Number,
     required:true,
   },
-  start:{
+  isstar:{
     type:Boolean,
     required:true,
     default:false
@@ -22,6 +22,9 @@ const brandSchema  = new Schema({
   imgurl:{
     type:String,
     required:true
+  },
+  remark:{
+    type:String,
   },
   shopname :{
     type:String,

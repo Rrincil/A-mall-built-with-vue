@@ -29,10 +29,11 @@ router.post("/add",(req,res)=>{
       const newbrand =new brand({})
       const imgurl = 'http://localhost:3000/img/'
       if(req.body.name) newbrand.name = req.body.name;
-      if(req.body.num) newbrand.num = req.body.num;  
+      if(req.body.num) newbrand.num = req.body.num;
+      if(req.body.remark) newfavorites.remark = req.body.remark;   
       if(req.body.imgurl) newbrand.imgurl = imgurl+req.body.imgurl;  
       if(req.body.shopname) newbrand.shopname = req.body.shopname;
-      if(req.body.start) newbrand.start = req.body.start;
+      if(req.body.isstar) newbrand.isstar = req.body.isstar;
       if(req.body.price) newbrand.price = req.body.price;
       newbrand.save().then(brand=>{
         res.json(brand)
@@ -97,10 +98,11 @@ router.post("/edit/:id",(req,res)=>{
   const newbrand =new brand({})
   const imgurl = 'http://localhost:3000/img/'
   if(req.body.name) newbrand.name = req.body.name;
-  if(req.body.num) newbrand.num = req.body.num;  
+  if(req.body.num) newbrand.num = req.body.num; 
+  if(req.body.remark) newfavorites.remark = req.body.remark;  
   if(req.body.imgurl) newbrand.imgurl = imgurl+req.body.imgurl;  
   if(req.body.shopname) newbrand.shopname = req.body.shopname;
-  if(req.body.start) newbrand.start = req.body.start;
+  if(req.body.isstar) newbrand.isstar = req.body.isstar;
   if(req.body.price) newbrand.price = req.body.price;
 
   brand.findByIdAndUpdate(

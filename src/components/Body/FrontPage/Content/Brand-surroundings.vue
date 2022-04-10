@@ -8,14 +8,15 @@
     <div class="d2">
       <div class="d2d1">
         <el-row width='100%' height="200px">
-          <el-col :span="24" v-for="item in brandprod" class="brand">
+          <el-col :span="24"  class="brand" >
             <el-card :body-style="{ padding: '0px',height:'560px',width:'100%'}">
-              <img :src=item.imgurl class="image">
+              <img :src=be.imgurl class="image2">
+              <!--vue不能检测到数组和对象的变化 {{brandprod[1].name}}的写法不会出发事件绑定 -->
               <div style="padding: 14px;">
-                <span>{{item.name}}</span><span>{{item.price}}</span>
+                <span>{{be.name}}</span><span>{{be.price}}</span>
                 <div class="bottom">
-                  <time class="time">{{item.shopname}}</time>
-                  <el-button type="text" class="button" @click='submitForm(item)'>加入购物车</el-button>
+                  <time class="time">{{be.shopname}}</time>
+                  <el-button type="text" class="button" @click='submitForm(be)'>加入购物车</el-button>
                 </div>
               </div>
             </el-card> 
@@ -26,9 +27,10 @@
       <div class="d2d2">
         <div class="d2d2d1">
           <el-row width='100%' height="200px">
-            <el-col :span="24" v-for="item in brandprod" class="brand">
+            <el-col :span="24" v-for="item in brandprod" class="brand" :key="item">
               <el-card :body-style="{ padding: '0px',height:'230px',width:'100%'}">
                 <img :src=item.imgurl class="image2">
+
                 <div style="padding: 14px;">
                   <span>{{item.name}}</span><span>{{item.price}}</span>
                   <div class="bottom">
@@ -41,9 +43,9 @@
           </el-row>
         </div>
 
-        <div class="d2d2d1">
+        <!-- <div class="d2d2d1">
           <el-row width='100%' height="200px">
-            <el-col :span="24" v-for="item in brandprod" class="brand">
+            <el-col :span="24" v-for="item in brandprod" class="brand" :key="item">
               <el-card :body-style="{ padding: '0px',height:'230px',width:'100%'}">
                 <img :src=item.imgurl class="image2">
                 <div style="padding: 14px;">
@@ -56,7 +58,7 @@
               </el-card> 
             </el-col>
           </el-row>
-        </div>
+        </div> -->
 
       </div>
 
@@ -96,17 +98,27 @@
     data() {
       return {
         mes:'Brand Surroundings',
-        brandprod:[]
+        brandprod:[],
+        be:[]
       }
     },
     methods: {
       findbrand(){
-        this.$axios.get('/api/brand/getallmes').then(res=>{
+        this.$axios.get('api/brand/getallmes').then(res=>{
           this.brandprod = res.data
+          // console.log(res.data);
+          this.be = this.brandprod[0]
+          return res;
+          // alert(this.brandprod[0].name)
         })
-      }
+        
+      },
+
     },
-    created() {
+    computed:{
+
+    },
+    mounted(){
       this.findbrand()
     },
   }
@@ -222,7 +234,7 @@
   display: block;
 }
 .image2 {
-  width: auto;
+  width: 100%;
   height: 80%;
   display: block;
 }

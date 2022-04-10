@@ -5,9 +5,6 @@ const FavoritesSchema  = new Schema({
     type:String,
     required:true
   },
-  remark:{
-    type:String,
-  },
   imgurl:{
     type:String,
     required:true

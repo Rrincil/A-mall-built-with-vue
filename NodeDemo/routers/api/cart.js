@@ -25,12 +25,11 @@ router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
     if(!ret){
       // console.log(ret);
       const newcart =new cart({})
-
       if(req.body.name) newcart.name = req.body.name;
       if(req.body.num) newcart.num = req.body.num;  
       if(req.body.imgurl) newcart.imgurl = req.body.imgurl;  
       if(req.body.shopname) newcart.shopname = req.body.shopname;
-      if(req.body.start) newcart.start = req.body.start;
+      if(req.body.isstar) newcart.isstar = req.body.isstar;
       if(req.body.price) newcart.price = req.body.price;
       newcart.save().then(cart=>{
         res.json(cart)
@@ -96,7 +95,7 @@ router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>
   if(req.body.num) newcart.num = req.body.num;    
   if(req.body.imgurl) newcart.imgurl = req.body.imgurl;  
   if(req.body.shopname) newcart.shopname = req.body.shopname;
-  if(req.body.start) newcart.start = req.body.start;
+  if(req.body.isstar) newcart.isstar = req.body.isstar;
   if(req.body.price) newcart.price = req.body.price;
   cart.findByIdAndUpdate(
     {_id:req.params.id},

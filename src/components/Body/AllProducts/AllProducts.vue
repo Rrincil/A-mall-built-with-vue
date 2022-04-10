@@ -1,10 +1,12 @@
 <template>
-
+<!-- 所有产品页面 -->
   <div>
     <el-row>
-      <el-col :span="6" v-for="(item,index) in allprod" class="d1">
+      <el-col :span="6" v-for="(item,index) in allprod" class="d1" :key="item">
         <el-card :body-style="{ padding: '0px',height:'400px'}">
-          <img :src=item.imgurl class="image">
+          <div class="d2">
+            <img :src=item.imgurl class="image">
+          </div>
           <div style="padding: 14px;">
             <span>{{item.name}}</span><span>{{item.price}}</span>
             <div class="bottom">
@@ -16,6 +18,7 @@
       </el-col>
     </el-row>
   </div>
+  <!-- 分页管理  -->
   <div class="block" >
     <el-pagination
       layout="prev, pager, next"
@@ -36,6 +39,7 @@
       }
     },
     methods: {
+      // 加入购物车
       submitForm(item,index){    
         // console.log(item)
         // console.log(index);
@@ -47,17 +51,18 @@
                   type:'success '
                 }) 
             this.findallcart()
-            })
-               
-              
+            })              
       },
+      // 
       findallcart(){
         this.$axios.get('/api/cart/getallmes').then(res=>{
           this.cart = res.data
-              this.$store.commit('addcount',this.cart.length)              
-              this.$store.commit('addcart',this.cart)           
+          // 提价购物车和购物车数量的状态
+          this.$store.commit('addcount',this.cart.length)              
+          this.$store.commit('addcart',this.cart)           
         })
       },      
+      // 请求得到所有产品信息
       findForm(){
         this.$axios.get(`/api/profile/getallmes`)
             .then(res=>{
@@ -72,8 +77,8 @@
     created() {
       this.findForm();
       this.findallcart()
+      // 判断是否认证token
       if(localStorage.eletoken){
-        
         this.counts = this.$store.state.count
         this.counts = this.$store.state.tempcart.length
       }        
@@ -103,6 +108,7 @@
 
 .image {
   width: 100%;
+  height: 100%;
   display: block;
 }
 .d1{
@@ -113,5 +119,9 @@ div.el-pagination{
 }
 .block{
   text-align: center;
+}
+.d2{
+  width: 100%;
+  height: 80%;
 }
 </style>

@@ -7,7 +7,7 @@
     <el-row>
         <el-col :span="8" height='100%'> 
           <div class="d1">
-            <div class="d1d2" v-for='item in cart'>
+            <div class="d1d2" v-for='item in cart' :key="item"> 
               <img :src="item.imgurl"/>
 
             </div>
@@ -15,23 +15,27 @@
         </el-col> 
         <el-col :span="16" height='100%'>  
           <div class="d1">
-            <div class="d1d1" v-for='item in cart'>
+            <div class="d1d1" v-for='item in cart' :key="item">
               <el-descriptions title="商品信息" direction="vertical" :column="3" border >
               <el-descriptions-item label="商品名称">{{item.name}}</el-descriptions-item>
               <el-descriptions-item label="商家">{{item.shopname}}</el-descriptions-item>            
-              <el-descriptions-item label="价格">188</el-descriptions-item>
+              <el-descriptions-item label="价格">{{item.price}}</el-descriptions-item>
               <el-descriptions-item label="数量">{{item.num}}</el-descriptions-item>
-              <el-descriptions-item label="总计">{{item.num}}^188</el-descriptions-item>                        
+              <el-descriptions-item label="总计">{{item.num*item.price}}</el-descriptions-item>                        
               </el-descriptions>
             </div> 
-            <!-- 总计 -->
-            <div class="d1d3">
-              总计：{{allprice}}
-
-            </div>
           </div>       
         </el-col>      
     </el-row>
+    <!-- 总计 -->
+    <div class="d1d3">
+      <div class="d1d3d1">
+        <p> 总计：{{allprice}}</p>
+      </div>
+      <div class="d1d3d2">
+        <button> 支付订单</button>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -53,11 +57,11 @@ import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
     },
     methods: {
       submitForm(){         
-            this.$axios.get('/api/cart/getallmes')
-               .then(res=>{
-                //  console.log(res);
-                 this.cart = res.data
-               })
+        this.$axios.get('/api/cart/getallmes')
+            .then(res=>{
+            //  console.log(res);
+              this.cart = res.data
+            })
 
       }      
     },
@@ -94,11 +98,28 @@ import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
 .d1d3{
   width: 100%;
   height: 200px;
-
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: rgb(190, 199, 111);
+}
+.d1d3d1{
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+.d1d3d2{
+  width: 50%;
+  height: 100%;
+  float: left;
 }
 img{
   width: 100%;
   height: 100%;
   display: block;
+}
+.d2{
+  width: 100%;
+  height: 200px;
+  background: rgb(185, 187, 84);
 }
 </style>

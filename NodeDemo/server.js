@@ -25,11 +25,6 @@ mongoose.connect(uri, {
 }).catch(err=>{
   console.log(err);
 })
-
-
-
-
-
 // app.use(passport.initialize());
 //调用 passport.js 并将passport传入
 // require('./config/passport',passport)

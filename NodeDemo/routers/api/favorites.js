@@ -23,13 +23,13 @@ router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
     name:req.body.name
   }).then(ret=>{
     if(!ret){
-      const newfavorites ={}
+      const newfavorites =new favorites({})
       if(req.body.name) newfavorites.name = req.body.name;
-      if(req.body.remark) newfavorites.remark = req.body.remark;  
+      // if(req.body.remark) newfavorites.remark = req.body.remark;  
       if(req.body.imgurl) newfavorites.imgurl = req.body.imgurl;  
       if(req.body.shopname) newfavorites.shopname = req.body.shopname;
-      if(req.body.isstar) newfavorites.isstar = req.body.isstar;
-      new favorites(newfavorites).save().then(favorites=>{
+      if(req.body.isstar) newfavorites.isstar =true;
+      newfavorites.save().then(favorites=>{
         res.json(favorites)
       })
       res.status(200).json({mes:`收藏成功😎`})
@@ -67,8 +67,8 @@ router.get("/getallmes",passport.authenticate("jwt",{session:false}),(req,res)=>
 //@router get api/favorites/:id
 //@desc 获取单个json数据
 //@access private
-router.get("/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
-  favorites.findOne({_id:req.params.id}).then(mes=>{
+router.post("/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
+  favorites.findOne({_id:req.params._id}).then(mes=>{
     if (mes) {
       res.json(mes)
     }else{
@@ -82,7 +82,7 @@ router.get("/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
 //@router get api/favorites/mes
 //@desc 获取单个json数据
 //@access private
-router.post("/mes",passport.authenticate("jwt",{session:false}),(req,res)=>{
+router.get("/mes",passport.authenticate("jwt",{session:false}),(req,res)=>{
   favorites.findOne({name:req.body.name}).then(mes=>{
     if (mes) {
       res.json(mes)
@@ -99,7 +99,7 @@ router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>
   const newfavorites ={}
 
   if(req.body.name) newfavorites.name = req.body.name;
-  if(req.body.remark) newfavorites.remark = req.body.remark;  
+  // if(req.body.remark) newfavorites.remark = req.body.remark;  
   if(req.body.imgurl) newfavorites.imgurl = req.body.imgurl;  
   if(req.body.shopname) newfavorites.shopname = req.body.shopname;
   if(req.body.isstar) newfavorites.isstar = req.body.isstar;
@@ -118,10 +118,10 @@ router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>
 //@desc 删除json数据
 //@access private
 router.delete("/delete/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
-  favorites.findOneAndRemove({_id:req.params.id}).then(mes=>{
+  favorites.findOneAndRemove({_id:req.params._id}).then(mes=>{
     if (mes) {
       mes.save().then(favorites=>res.json(favorites))
-      res.status(200).json({mes:`取消收藏😎`})
+      res.status(200).json({mes:`取消收藏😳`})
     }else{
       res.status(404).json({mes:'没有相关内容'})
     }

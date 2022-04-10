@@ -30,8 +30,8 @@ import { log } from 'util';
       return {
         mes:'Login',
         loginUser:{
-          name:'',
-          password:'',
+          email:null,
+          password:null,
         },
         rules:{
           email:[{
@@ -61,7 +61,7 @@ import { log } from 'util';
             this.$axios.post('/api/users/login',this.loginUser)
               .then(res=>{
                 // console.log(res);
-                //注册成功
+                //登陆成功
                 this.$message({
                   message:`登陆成功！`,
                   type:'success '
@@ -70,14 +70,14 @@ import { log } from 'util';
               const { token } = res.data
               
               //存储到ls
-                localStorage.setItem('eletoken',token)
-                //解析token
-                const decoded = jwt_decode(token);
-                
-                // console.log(decoded);
-                //token存储到vuex中
-                this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded))
-                this.$store.dispatch('setUser',decoded)
+              localStorage.setItem('eletoken',token)
+              //解析token
+              const decoded = jwt_decode(token);
+              
+              // console.log(decoded);
+              //token存储到vuex中
+              this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded))
+              this.$store.dispatch('setUser',decoded)
               this.$router.push('/');
               });
 

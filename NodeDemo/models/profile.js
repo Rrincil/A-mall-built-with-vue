@@ -26,6 +26,9 @@ const profileSchema  = new Schema({
   shopname :{
     type:String,
     required:true    
+  },
+  remark:{
+    type:String,
   }, 
   data:{
     type:Date,

@@ -64,6 +64,7 @@ export default createStore({
       else state.user = {};
     }
   },
+  
   actions,
   modules: {
   }

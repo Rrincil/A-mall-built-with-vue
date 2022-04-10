@@ -14,7 +14,7 @@
           <!-- <el-row :gutter="24" > -->
             <div class="d2d1">
               <div class="d2d1d1">
-                <router-link :to="item.path" v-for="item in info" >
+                <router-link :to="item.path" v-for="item in info" :key="item">
                   <el-button type='private'  >{{item.name}}</el-button>
                 </router-link>
               </div>

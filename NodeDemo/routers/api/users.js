@@ -101,7 +101,6 @@ router.post('/addcart',(req,res)=>{
 //@access private
 router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
   const newusers ={}
-
   if(req.body.name) newusers.name = req.body.name;
   if(req.body.email) newusers.email = req.body.email;    
   if(req.body.password) newusers.password = req.body.password;  
