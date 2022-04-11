@@ -133,7 +133,7 @@ router.post("/delete/:id",passport.authenticate("jwt",{session:false}),(req,res)
   }).then(mes=>{
     if (mes) {
       mes.save().then(cart=>res.json(cart));
-      res.status(200).json({mes:'已取消购物车'})
+      res.status(200).json({mes:'已移除购物车'})
     }else{
       res.status(200).json({mes:'没有相关内容'})
     }

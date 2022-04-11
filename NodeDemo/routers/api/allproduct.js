@@ -1,7 +1,7 @@
 //login@regist
 const express = require('express');
 const router = express.Router()
-const profile = require('../../models/profile')
+const allproduct = require('../../models/allproduct')
 
 const multer = require('multer')
 
@@ -9,7 +9,7 @@ const passport = require('passport');
 
 const { session } = require('passport');
 
-//@router get api/profile/text
+//@router get api/allproduct/text
 //@desc 返回的请求的json数据
 //@access public
 router.get('/text',(req,res)=>{
@@ -17,26 +17,26 @@ router.get('/text',(req,res)=>{
 })
 
 
-//@router podt api/profile/add
+//@router podt api/allproduct/add
 //@desc 存入json数据
 //@access public
 router.post("/add",(req,res)=>{
-  profile.findOne({
+  allproduct.findOne({
     name:req.body.name
   }).then(ret=>{
     if(!ret){
       console.log(ret);
-      const newprofile =new profile({})
+      const newallproduct =new allproduct({})
       // const imgurl = 'http://localhost:3000/img/'
-      if(req.body.name) newprofile.name = req.body.name;
-      if(req.body.num) newprofile.num = req.body.num;
+      if(req.body.name) newallproduct.name = req.body.name;
+      if(req.body.num) newallproduct.num = req.body.num;
       if(req.body.remark) newfavorites.remark = req.body.remark;  
-      if(req.body.imgurl) newprofile.imgurl = req.body.imgurl;  
-      if(req.body.shopname) newprofile.shopname = req.body.shopname;
-      if(req.body.isstar) newprofile.isstar = req.body.isstar;
-      if(req.body.price) newprofile.price = req.body.price;
-      newprofile.save().then(profile=>{
-        res.json(profile)
+      if(req.body.imgurl) newallproduct.imgurl = req.body.imgurl;  
+      if(req.body.shopname) newallproduct.shopname = req.body.shopname;
+      if(req.body.isstar) newallproduct.isstar = req.body.isstar;
+      if(req.body.price) newallproduct.price = req.body.price;
+      newallproduct.save().then(allproduct=>{
+        res.json(allproduct)
         res.status(200).json({mes:`成功加入购物车了`})
       })
     }else{
@@ -55,11 +55,11 @@ router.post("/add",(req,res)=>{
 
 
 
-//@router get api/profile/getallmes
+//@router get api/allproduct/getallmes
 //@desc 获取所有的json数据
 //@access private
 router.get("/getallmes",(req,res)=>{
-  profile.find().then(mes=>{
+  allproduct.find().then(mes=>{
     if (mes) {
       res.json(mes)
     }else{
@@ -72,11 +72,11 @@ router.get("/getallmes",(req,res)=>{
 
 
 
-//@router get api/profile/:id
+//@router get api/allproduct/:id
 //@desc 获取单个json数据
 //@access public
 router.get("/:id",(req,res)=>{
-  profile.findOne({_id:req.params.id}).then(mes=>{
+  allproduct.findOne({_id:req.params.id}).then(mes=>{
     if (mes) {
       res.json(mes)
     }else{
@@ -89,39 +89,39 @@ router.get("/:id",(req,res)=>{
 
 
 
-//@router podt api/profile/edit
+//@router podt api/allproduct/edit
 //@desc 编辑json数据
 //@access public
 router.post("/edit/:id",(req,res)=>{
 
 
-  const newprofile =new profile({})
+  const newallproduct =new allproduct({})
   const imgurl = 'http://localhost:3000/img/'
-  if(req.body.name) newprofile.name = req.body.name;
-  if(req.body.num) newprofile.num = req.body.num;
+  if(req.body.name) newallproduct.name = req.body.name;
+  if(req.body.num) newallproduct.num = req.body.num;
   if(req.body.remark) newfavorites.remark = req.body.remark;  
-  if(req.body.imgurl) newprofile.imgurl = imgurl+req.body.imgurl;  
-  if(req.body.shopname) newprofile.shopname = req.body.shopname;
-  if(req.body.isstar) newprofile.isstar = req.body.isstar;
-  if(req.body.price) newprofile.price = req.body.price;
+  if(req.body.imgurl) newallproduct.imgurl = imgurl+req.body.imgurl;  
+  if(req.body.shopname) newallproduct.shopname = req.body.shopname;
+  if(req.body.isstar) newallproduct.isstar = req.body.isstar;
+  if(req.body.price) newallproduct.price = req.body.price;
 
-  profile.findByIdAndUpdate(
+  allproduct.findByIdAndUpdate(
     {_id:req.params.id},
-    {$set:newprofile},
+    {$set:newallproduct},
     {new:true}
-  ).then(profile=>{
-    res.json(profile)
+  ).then(allproduct=>{
+    res.json(allproduct)
   })
 })
 
 
-//@router post api/profile/delete/:id
+//@router post api/allproduct/delete/:id
 //@desc 删除json数据
 //@access public
 router.delete("/deldete/:id",(req,res)=>{
-  profile.findOneAndRemove({_id:req.params.id}).then(mes=>{
+  allproduct.findOneAndRemove({_id:req.params.id}).then(mes=>{
     if (mes) {
-      mes.save().then(profile=>res.json(profile))
+      mes.save().then(allproduct=>res.json(allproduct))
     }else{
       res.status(404).json({mes:'没有相关内容'})
     }

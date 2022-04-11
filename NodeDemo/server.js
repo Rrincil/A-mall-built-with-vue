@@ -15,6 +15,8 @@ const book = require('./routers/api/book')
 const upload = require('./routers/api/upload');
 const brand = require('./routers/api/brand');
 const swiper = require('./routers/api/swiper');
+const activity = require('./routers/api/activity');
+const allproduct = require('./routers/api/allproduct');
 // const bodyParser = require('body-parser');
 // 连接 MongoDB 数据库
 mongoose.connect(uri, {
@@ -98,8 +100,10 @@ app.use('/api/brand',brand)
 app.use('/api/swiper',swiper)
 //使用collect
 app.use('/api/collect',collect)
-
-
+//使用activity
+app.use('/api/activity',activity)
+//使用allproduct
+app.use('/api/allproduct',allproduct)
 
 
 //监听

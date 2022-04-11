@@ -28,7 +28,6 @@
 <script>
 export default {
   name: "Swiper",
-
   data() {
     return {
       elicon: false,
@@ -50,10 +49,6 @@ export default {
   created() {
     this.findswiper();
   },
-  // created() {
-  //   this.findswiper();
-  //   // console.log(this.srcArrys);
-  // },
 };
 </script>
 

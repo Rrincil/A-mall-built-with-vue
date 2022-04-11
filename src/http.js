@@ -38,16 +38,12 @@ axios.interceptors.request.use(config=>{
 axios.interceptors.response.use(res=>{
   //结束加载动画
   endloading();
-
   return res;
-  
 },error=>{
   //错误提醒
   endloading()
-
   //获取错误状态码
   const { status } = error.response;
-
   if(status==401){
     Message.error('token失效,请重新登陆！');
     //清除token

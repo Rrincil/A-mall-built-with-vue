@@ -64,7 +64,7 @@
       // },      
       // 请求得到所有产品信息
       findForm(){
-        this.$axios.get(`/api/profile/getallmes`)
+        this.$axios.get(`/api/allproduct/getallmes`)
             .then(res=>{
               this.allprod = res.data
             })
@@ -76,11 +76,14 @@
       // this.findallcart()
       // 判断是否认证token
       if(localStorage.eletoken){
-        this.counts = this.$store.state.count
-        this.counts = this.$store.state.tempcart.length
+        // this.counts = this.$store.state.count
+        // this.counts = this.$store.state.tempcart.length
       }        
       // this.carttotelprice = 
-    },    
+    },
+    created(){
+      console.log("all");
+    }    
   }
 </script>
 

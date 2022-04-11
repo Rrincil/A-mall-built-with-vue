@@ -103,6 +103,7 @@
       }
     },
     methods: {
+      //查询品牌商品
       findbrand(){
         this.$axios.get('api/brand/getallmes').then(res=>{
           this.brandprod = res.data

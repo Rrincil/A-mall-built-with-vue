@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     findForm() {
-      //查询所有单品以及查询是否收藏
+      //查询所有潮流单品以及查询是否收藏
       this.$axios.get(`api/profile/getallmes`).then((res) => {
         this.allprod = res.data;        
         for(let i = 0;i<4;i++){
@@ -64,7 +64,7 @@ export default {
             .then((res) => {
               if (res.data) {
                 //收藏时
-                console.log(res.data);
+                // console.log(res.data);
                 this.allprod[i].isstar = true;
               } else {
                 //未收藏
@@ -74,7 +74,7 @@ export default {
         }          
       });
     },
-    //未登录时候
+    //未登录时候,查询所有潮流单品，设置未收藏
     findForm2() {
       this.$axios.get(`api/profile/getallmes`).then((res) => {
         this.allprod2 = this.allprod = res.data;
@@ -84,31 +84,30 @@ export default {
         }        
       });
     },
+    
+    //未收藏时
     submitfavoritesoff(item){
+      // 登陆时
       if (localStorage.eletoken) {
-        //登陆时
           console.log("off");
           console.log(item.isstar);
           //未收藏时---加入收藏        
           this.$axios.post(`api/collect/add`,item).then((res) => {
-            //加入成功
-            item.isstar = true
-            // alert("凶狠")            
+            //加入成功，设置收藏
+            item.isstar = true           
             this.$message({              
               message: res.data.mes,
               type: "success ",
             });
           });         
         }else{
-    //     // 未登陆
+      // 未登陆
         this.$router.push("login");          
         }    
     },
 
+    //收藏时删除
     submitfavoriteson(item){
-      if (localStorage.eletoken) {
-        //登陆时
-        console.log("on");
           // params.append('_id',item._id)
           // const params = new URLSearchParams();
           // const param = {name:item.name}
@@ -122,14 +121,11 @@ export default {
                 type: "success",
               });
             });
-          item.isstar = false
-        }else{
-    //     // 未登陆
-        this.$router.push("login");          
-        }                      
+          item.isstar = false              
     },
+
     submitForm(item) {
-      //添加购物车
+      //添加购物车，并更新状态
       if (localStorage.eletoken) {
         this.$axios.post(`api/cart/add/${this.$store.state.id}`, item).then((res) => {
           //加入成功
@@ -137,12 +133,17 @@ export default {
             message: res.data.mes,
             type: "success ",
           });
+        if(res.data.mes === '成功加入购物车了😎'){
+          this.$store.state.count += 1
+        }          
         });
-        this.$store.commit("addcount", this.cart.length);
-        this.$store.commit("addcart", this.cart);
+
+        
+        // this.$store.commit("addcount", this.cart.length);
+        // this.$store.commit("addcart", this.cart);
       } else {
         //未登陆时，添加虚拟购物车
-        this.$store.commit("addtempcart", item);
+        // this.$store.commit("addtempcart", item);
         this.$router.push("login");
       }
     },

@@ -37,7 +37,7 @@
       <div class="d1d3d2">
         <button> 支付订单</button>
       </div>
-    </div>
+    </div>    
   </div>
 
 </template>
@@ -62,23 +62,24 @@
             .then(res=>{
             //  console.log(res);
               this.cart = res.data
-              console.log(res.data);
+              // console.log(res.data);
             })
       }, 
       //移除购物车
       delitem(item){
         this.$axios.post(`api/cart/delete/${this.$store.state.user.id}`,item)
         .then(res=>{
+          //长度减一
+          this.$store.state.count -= 1          
           if(res.data){
             this.$message({
               message:res.data.mes,
               type:"success"
             });
           // 提价购物车和购物车数量的状态            
-          console.log(this.$store.state.cart);  
+          // console.log(this.$store.state.cart);  
           this.del(item.id)
-          //长度减一
-          // this.$store.state.cart.length -=1
+
           }
         });
       },
@@ -93,13 +94,13 @@
           return ele.id === id;
         });
         //假设没有找到
-        console.log(index);
+        // console.log(index);
         if(index === -1){
           return console.log('删除失败');
         }
         //删除元素
         this.cart.splice(index,1);
-        console.log(this.cart)
+        // console.log(this.cart)
       }      
       
       
@@ -108,10 +109,10 @@
     created() {
       this.submitForm();
       // this.carttotelprice =
-      if(this.$store.state.count>0){
-        this.empty = false
-      }else{
+      if(this.$store.state.count=0){
         this.empty = true
+      }else{
+        this.empty = false
       }
     },
   }

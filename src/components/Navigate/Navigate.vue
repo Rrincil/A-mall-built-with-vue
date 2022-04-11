@@ -35,8 +35,8 @@
     },
     created() { 
       if(localStorage.eletoken){       
-        this.counts = this.$store.state.count
-        this.counts = this.$store.state.tempcart.length
+        // this.counts = this.$store.state.count
+        // this.counts = this.$store.state.tempcart.length
       }        
     },
   }

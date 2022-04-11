@@ -31,16 +31,19 @@
       }
     },
     methods: {
+      //查询活动商品
       findForm(){
-        this.$axios.get(`/api/profile/getallmes`)
+        this.$axios.get(`/api/activity/getallmes`)
             .then(res=>{
               this.allpro = res.data
+              // console.log(res.data);
               for(let i=0;i<=3;i++){
                 this.allpro2[i] = this.allpro[i];
               }
               // console.log(this.allpro2);
             })
-      },   
+      },
+      //查询购物车并放在vuex中  
       findForm2(){        
         this.$axios.get(`/api/cart/getallmes/${this.$store.state.user.id}`)
             .then(res=>{
@@ -48,11 +51,12 @@
               this.$store.commit('addcount',this.cart.length)              
               this.$store.commit('addcart',this.cart)
             })            
-      },      
+      },
+      //添加到购物车      
       submitForm(item){    
         // console.log(item)
- 
         if(localStorage.eletoken){
+          //登陆时可加入购物车，并且更新状态
           this.$axios.post(`/api/cart/add/${this.$store.state.user.id}`,item)
               .then(res=>{
                   //加入成功
@@ -60,21 +64,25 @@
                     message:res.data.mes,
                     type:'success '
                   }) 
+          if(res.data.mes === '成功加入购物车了😎'){
+            this.$store.state.count += 1
+          }                   
               })
-          this.findForm2();
-          this.$store.commit('addcount',this.cart.length)              
-          this.$store.commit('addcart',this.cart)      
+          // this.findForm2();
+          // this.$store.commit('addcount',this.cart.length)              
+          // this.$store.commit('addcart',this.cart)      
         }else{
+          //未登录时
           // this.$store.commit('addtempcount')              
-          this.$store.commit('addtempcart',item) 
+          // this.$store.commit('addtempcart',item) 
+          this.$router.push("login"); 
         }  
       },           
 
     },
     created() {
       this.findForm();
-      if(localStorage.eletoken){
-        
+      if(localStorage.eletoken){    
         this.findForm2();
       }      
     },            
