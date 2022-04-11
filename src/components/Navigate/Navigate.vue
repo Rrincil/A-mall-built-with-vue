@@ -3,9 +3,8 @@
 
     <div class="Navi" >
       <!-- {{mes}} -->
-      <router-link to="/">首页</router-link>     
-      <router-link to="/AllProducts">全部商品</router-link>
-      
+      <!-- <router-link to="/">首页</router-link>      -->
+      <router-link to="/AllProducts">全部商品</router-link>   
       <!-- 购物车 -->
       <router-link to="/cart">
         <el-badge :value='$store.state.count' class="item" >
@@ -33,16 +32,12 @@
     },
     mounted() {
       // this.length = this.$store.state.cart
-  
     },
     created() { 
-      if(localStorage.eletoken){
-        
+      if(localStorage.eletoken){       
         this.counts = this.$store.state.count
         this.counts = this.$store.state.tempcart.length
-      }    
-
-     
+      }        
     },
   }
 </script>

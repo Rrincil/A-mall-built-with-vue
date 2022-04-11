@@ -1,13 +1,11 @@
 <template>
   <div class="Body-Content">
-
     <!-- {{mes}}  -->
-    <router-view tag="FrontPage"></router-view>
+    <router-view></router-view>
+    <!-- <router-view tag="cart"></router-view> -->
   </div>
 </template>
-
 <script>
-
   export default {
     name:'BodyContent',
     data() {
@@ -16,7 +14,7 @@
       }
     },
     components:{
-          
+      
     }
   }
 </script>

@@ -1,5 +1,4 @@
 <template>
-  <HeadTop></HeadTop>
   <div>
 
    order
@@ -7,7 +6,6 @@
 </template>
 
 <script>
-import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
   export default {
     name:'order',
     data() {
@@ -16,7 +14,6 @@ import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
       }
     },
     components:{
-      HeadTop
     },    
     methods: {
       submitForm(loginfrom){

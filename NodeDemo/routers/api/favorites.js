@@ -1,7 +1,7 @@
 //login@regist
 const express = require('express');
 const router = express.Router()
-const favorites = require('../../models/favorites')
+const favorites = require('../../models/Favorites')
 
 const passport = require('passport');
 

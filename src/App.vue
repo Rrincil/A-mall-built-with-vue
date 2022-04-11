@@ -1,9 +1,8 @@
 <template>
 
   <div>
-    <router-view tag="li"></router-view>
+    <router-view ></router-view>
   </div>
-
 </template>
 
 <script>

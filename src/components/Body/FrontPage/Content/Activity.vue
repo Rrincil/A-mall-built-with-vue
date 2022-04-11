@@ -42,7 +42,7 @@
             })
       },   
       findForm2(){        
-        this.$axios.get(`/api/cart/getallmes`)
+        this.$axios.get(`/api/cart/getallmes/${this.$store.state.user.id}`)
             .then(res=>{
               this.cart = res.data
               this.$store.commit('addcount',this.cart.length)              
@@ -53,7 +53,7 @@
         // console.log(item)
  
         if(localStorage.eletoken){
-          this.$axios.post(`/api/cart/add`,item)
+          this.$axios.post(`/api/cart/add/${this.$store.state.user.id}`,item)
               .then(res=>{
                   //加入成功
                   this.$message({

@@ -10,6 +10,7 @@ const users = require('./routers/api/users');
 const profile = require('./routers/api/profile')
 const favorites = require('./routers/api/favorites')
 const cart = require('./routers/api/cart')
+const collect = require("./routers/api/collect")
 const book = require('./routers/api/book')
 const upload = require('./routers/api/upload');
 const brand = require('./routers/api/brand');
@@ -67,18 +68,6 @@ opts.secretOrKey ="secret"
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 //使用body-parser中间件
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -107,6 +96,11 @@ app.use(express.static(path.join(__dirname,"./static")))
 app.use('/api/brand',brand)
 //使用swiper
 app.use('/api/swiper',swiper)
+//使用collect
+app.use('/api/collect',collect)
+
+
+
 
 //监听
 app.listen(3000,()=>{

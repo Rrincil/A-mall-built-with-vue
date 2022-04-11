@@ -1,5 +1,4 @@
 <template>
-    <HeadTop></HeadTop>
     <el-row >
       <!-- 空白 -->
       <el-col :span="2" height='100%'>  
@@ -15,13 +14,13 @@
             <div class="d2d1">
               <div class="d2d1d1">
                 <router-link :to="item.path" v-for="item in info" :key="item">
-                  <el-button type='private'  >{{item.name}}</el-button>
+                  <el-button type='primary'>{{item.name}}</el-button>
                 </router-link>
               </div>
             </div>
             <!-- 右边信息 -->
             <div class="d2d2">
-              <router-view tag="account"></router-view>
+              <router-view></router-view>
             </div> 
           <!-- </el-row >            -->
         </div>
@@ -32,7 +31,6 @@
 </template>
 
 <script>
-import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
   export default {
     name:'loginInfo',
     data() {
@@ -64,7 +62,6 @@ import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
       }
     },
     components:{
-      HeadTop
     },
     created() {
       this.circleUrl=this.$store.state.user.avater

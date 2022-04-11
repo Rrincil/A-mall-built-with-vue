@@ -1,4 +1,5 @@
 <template>
+  <Navigate></Navigate>
   <div>
     <div class="Blank"></div>
     <!-- 轮播图 -->
@@ -9,14 +10,13 @@
     <PopularProduct></PopularProduct>
     <!-- 品牌周边 -->
     <!-- <div class="Blank2"></div> -->
-    <BrandSurroundings></BrandSurroundings>
-    
+    <BrandSurroundings></BrandSurroundings> 
     <BrandSurroundings2></BrandSurroundings2>
     <div class="Blank2"></div>
   </div>
 </template>
-
 <script>
+import Navigate from '../../../components/Navigate/Navigate.vue'
 import Swiper from './Content/Swiper.vue'
 import Activity from './Content/Activity.vue'
 import PopularProduct from './Content/Popular-Product.vue'
@@ -30,6 +30,7 @@ import BrandSurroundings2 from './Content/Brand-Surroundings2.vue';
       }
     },
     components:{
+      Navigate,
       Swiper,    
       Activity,
       PopularProduct,

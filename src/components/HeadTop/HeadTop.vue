@@ -14,6 +14,7 @@
       </el-col>
       <!-- 空白 -->
       <el-col :span="2">  
+        <router-link to="/">首页</router-link>  
       </el-col> 
 
       <!-- 中间 搜索框 -->       
@@ -42,7 +43,7 @@
       <el-col :span="2">
         <div class="welcome">
           <p v-if="loginmes" >您还未登陆！</p>          
-          <P v-if="!loginmes" class="welcome1">欢迎您回来</P>
+          <p v-if="!loginmes" class="welcome1">欢迎您回来</p>
           <p class="welcome2">{{$store.state.user.name}}</p>
         </div>         
 
@@ -53,7 +54,6 @@
         <el-dropdown @command="setloginfo" trigger='click' v-if="!loginmes">
           <span class="el-dropdown-link">
             <i class="el-icon-caret-bottom el-icon--right"></i>
-            
           </span>
           
           <template #dropdown>
@@ -65,20 +65,11 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>
-
-
       </el-col>
-
       <el-col :span="1">         
       </el-col>      
     </el-row>
-
-
-
-
-
   </div>
-  
 </template>
 
 <script>
@@ -96,7 +87,6 @@ import { defineComponent, ref } from 'vue'
             cart:this.$store.state.user.cart,
             id:this.$store.state.user.id        
         }
-
       }
     },
     setup() {
@@ -134,9 +124,7 @@ import { defineComponent, ref } from 'vue'
         this.$store.state.count = 0
         this.$store.state.cart = []
         this.$router.push('/');
-      },
-
-        
+      },  
 
     },
   created() {

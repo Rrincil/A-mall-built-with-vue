@@ -1,7 +1,4 @@
 <template>
-
-
-
   <el-carousel :interval="4000" type="card" height="500px"  @mouseenter="xian(item)" @mouseleave="xian(item)" >
     <el-carousel-item v-for="item in srcArrys" :key="item">
       <!-- <h3>{{ item }}</h3> -->

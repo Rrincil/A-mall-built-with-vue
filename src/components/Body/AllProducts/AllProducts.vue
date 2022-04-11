@@ -2,7 +2,7 @@
 <!-- 所有产品页面 -->
   <div>
     <el-row>
-      <el-col :span="6" v-for="(item,index) in allprod" class="d1" :key="item">
+      <el-col :span="6" v-for="(item) in allprod" class="d1" :key="item">
         <el-card :body-style="{ padding: '0px',height:'400px'}">
           <div class="d2">
             <img :src=item.imgurl class="image">
@@ -11,7 +11,7 @@
             <span>{{item.name}}</span><span>{{item.price}}</span>
             <div class="bottom">
               <time class="time">{{item.shopname}}</time>
-              <el-button type="text" class="button" @click='submitForm(item,index)'>加入购物车</el-button>
+              <el-button type="text" class="button" @click='submitForm(item)'>加入购物车</el-button>
             </div>
           </div>
         </el-card> 
@@ -40,10 +40,10 @@
     },
     methods: {
       // 加入购物车
-      submitForm(item,index){    
+      submitForm(item){    
         // console.log(item)
         // console.log(index);
-        this.$axios.post(`/api/cart/add`,item)
+        this.$axios.post(`api/cart/add/${this.$store.state.id}`, item)
             .then(res=>{
                 //加入成功
                 this.$message({
@@ -53,30 +53,27 @@
             this.findallcart()
             })              
       },
-      // 
-      findallcart(){
-        this.$axios.get('/api/cart/getallmes').then(res=>{
-          this.cart = res.data
-          // 提价购物车和购物车数量的状态
-          this.$store.commit('addcount',this.cart.length)              
-          this.$store.commit('addcart',this.cart)           
-        })
-      },      
+      // 加入成功后增加购物车显示
+      // findallcart(){
+      //   this.$axios.get('/api/cart/getallmes').then(res=>{
+      //     // 提价购物车和购物车数量的状态
+      //     this.cart = res.data
+      //     this.$store.commit('addcount',this.cart.length)              
+      //     this.$store.commit('addcart',this.cart)           
+      //   })
+      // },      
       // 请求得到所有产品信息
       findForm(){
         this.$axios.get(`/api/profile/getallmes`)
             .then(res=>{
               this.allprod = res.data
-              // this.cart = res.data
-              // this.$store.commit('addcount',this.cart.length)              
-              // this.$store.commit('addcart',this.cart)
             })
       },      
            
     },
-    created() {
+    mounted() {
       this.findForm();
-      this.findallcart()
+      // this.findallcart()
       // 判断是否认证token
       if(localStorage.eletoken){
         this.counts = this.$store.state.count

@@ -31,13 +31,14 @@ router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
       if(req.body.shopname) newcollect.shopname = req.body.shopname;
       if(req.body.isstar) newcollect.isstar = req.body.isstar;
       if(req.body.price) newcollect.price = req.body.price;
+      if(req.body._id) newcollect.id = req.body._id;
       newcollect.save().then(collect=>{
         res.json(collect)
       })
-     res.status(200).json({mes:`成功加入购物车了😎`})
+     res.status(200).json({mes:`成功收藏了😎`})
     }else{
       // console.log(ret.name);      
-      return  res.status(200).json({mes:`${ret.shopname}的${ret.name}已经在购物车了哟😳`})
+      return  res.status(200).json({mes:`${ret.shopname}的${ret.name}已经被收藏了哟😳`})
     }
 
   })
@@ -71,12 +72,15 @@ router.get("/getallmes",passport.authenticate("jwt",{session:false}),(req,res)=>
 //@router get api/collect/:id
 //@desc 获取单个json数据
 //@access private
-router.get("/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
-  collect.findOne({name:req.params.name}).then(mes=>{
+router.post("/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
+  collect.findOne({
+    id:req.body._id
+  }).then(mes=>{
     if (mes) {
       res.json(mes)
     }else{
-      res.status(404).json({mes:'没有相关内容'})
+      // res.status(200).json({mesg:'没有相关内容'})
+      res.status(404)
     }
   }).catch(err=>{
     res.status(404).json(err)
@@ -110,10 +114,13 @@ router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>
 //@router post api/collect/delete/:id
 //@desc 删除json数据
 //@access private
-router.delete("/delete/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
-  collect.findOneAndRemove({name:req.params.name}).then(mes=>{
+router.post("/delete/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
+  collect.findOneAndRemove({
+    id:req.body._id
+  }).then(mes=>{
     if (mes) {
       mes.save().then(collect=>res.json(collect))
+      res.status(200).json({mes:'已取消收藏'})
     }else{
       res.status(404).json({mes:'没有相关内容'})
     }

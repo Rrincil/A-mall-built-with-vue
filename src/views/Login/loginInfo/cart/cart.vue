@@ -1,5 +1,4 @@
 <template>
-  <HeadTop></HeadTop>
   <div v-if="empty">
     <el-empty :image-size="200"></el-empty>
   </div>
@@ -9,7 +8,6 @@
           <div class="d1">
             <div class="d1d2" v-for='item in cart' :key="item"> 
               <img :src="item.imgurl"/>
-
             </div>
           </div> 
         </el-col> 
@@ -22,6 +20,10 @@
               <el-descriptions-item label="价格">{{item.price}}</el-descriptions-item>
               <el-descriptions-item label="数量">{{item.num}}</el-descriptions-item>
               <el-descriptions-item label="总计">{{item.num*item.price}}</el-descriptions-item>                        
+              <el-descriptions-item label="移除">
+                <el-button type="text" class="button" @click="delitem(item)"
+                  >移除购物车</el-button> 
+              </el-descriptions-item> 
               </el-descriptions>
             </div> 
           </div>       
@@ -41,7 +43,6 @@
 </template>
 
 <script>
-import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
   export default {
     name:'cart',
     data() {
@@ -53,17 +54,56 @@ import HeadTop from '../../../../components/HeadTop/HeadTop.vue'
       }
     },
     components:{
-      HeadTop
     },
     methods: {
+      //查询购物车
       submitForm(){         
-        this.$axios.get('/api/cart/getallmes')
+        this.$axios.get(`/api/cart/getallmes/${this.$store.state.user.id}`)
             .then(res=>{
             //  console.log(res);
               this.cart = res.data
+              console.log(res.data);
             })
-
+      }, 
+      //移除购物车
+      delitem(item){
+        this.$axios.post(`api/cart/delete/${this.$store.state.user.id}`,item)
+        .then(res=>{
+          if(res.data){
+            this.$message({
+              message:res.data.mes,
+              type:"success"
+            });
+          // 提价购物车和购物车数量的状态            
+          console.log(this.$store.state.cart);  
+          this.del(item.id)
+          //长度减一
+          // this.$store.state.cart.length -=1
+          }
+        });
+      },
+      del(id){
+        //ES6
+        //根据id查找元素 findIndex
+        //let index = arr.findIndex(function(ele,index,arr){return ele.id==id})
+        //函数内如果返回true，就结束遍历并返回当前index;
+        //index如果没有找到返回-1
+        
+        let index = this.cart.findIndex((ele) =>{
+          return ele.id === id;
+        });
+        //假设没有找到
+        console.log(index);
+        if(index === -1){
+          return console.log('删除失败');
+        }
+        //删除元素
+        this.cart.splice(index,1);
+        console.log(this.cart)
       }      
+      
+      
+
     },
     created() {
       this.submitForm();
