@@ -1,5 +1,5 @@
 <template>
-  <div class="PopularProduct">
+  <div class="PopularProduct" v-if="allprod.length > 0">
     <div class="title">热门商品</div>
     <el-row width="100%" height="100%">
       <el-col :span="6" :key="item" v-for="item in allprod" class="d1">
@@ -30,6 +30,7 @@
 </template>
  
 <script>
+import {startloading,endloading} from '../../../../http'
 export default {
   name: "PopularProduct",
   data() {
@@ -39,6 +40,8 @@ export default {
       Addcarts2: false,
       cart: [],
       allprod: [],
+      allprod2: [],
+      collectlength:null,
       isstar: false,
       star: {
         name: "",
@@ -52,28 +55,36 @@ export default {
     };
   },
   methods: {
+
     findForm() {
-      //查询所有潮流单品以及查询是否收藏
-      this.$axios.get(`api/profile/getallmes`).then((res) => {
-        this.allprod = res.data;        
-        for(let i = 0;i<4;i++){
-          const param2 = {id:this.allprod[i]._id}
-          // console.log(param2.id);
-          //  console.log(this.allprod[i]);
-          this.$axios.post(`api/collect/${this.$store.state.user.id}`,this.allprod[i])
-            .then((res) => {
-              if (res.data) {
-                //收藏时
-                // console.log(res.data);
-                this.allprod[i].isstar = true;
-              } else {
-                //未收藏
-                this.allprod[i].isstar = false;
-              }
-            });   
-        }          
-      });
-    },
+      let number=0;
+      
+      const laterequst = setInterval(()=>{      
+        number++
+        },1000)     
+      // endloading
+    //查询所有潮流单品以及查询是否收藏
+    this.$axios.get(`api/profile/getallmes`).then((res) => {
+      this.allprod = res.data; 
+      // console.log(res.data); 
+        // for(let i = 0;i<4;i++){
+        //     this.$axios.post(`api/collect/${this.$store.state.user.id}`,this.allprod)
+        //       .then((res) => {
+        //       console.log(res.data);
+        //       this.allprod2 = res.data
+        //       if(res){
+        //         //收藏时                    
+        //         this.allprod[i].isstar = true;
+        //       } else {
+        //         //未收藏
+        //         console.log("ya");
+        //         this.allprod[i].isstar = false;
+        //       }       
+        //     }); 
+        // }               
+    });
+  },
+
     //未登录时候,查询所有潮流单品，设置未收藏
     findForm2() {
       this.$axios.get(`api/profile/getallmes`).then((res) => {
@@ -92,7 +103,7 @@ export default {
           console.log("off");
           console.log(item.isstar);
           //未收藏时---加入收藏        
-          this.$axios.post(`api/collect/add`,item).then((res) => {
+          this.$axios.post(`api/collect/add/${this.$store.state.user.id}`,item).then((res) => {
             //加入成功，设置收藏
             item.isstar = true           
             this.$message({              
@@ -148,7 +159,7 @@ export default {
       }
     },
   },
-  created() {
+  mounted() {
     //查询所有单品
     if (localStorage.eletoken) {
       //登陆时查询是否收藏和所有单品
@@ -202,6 +213,7 @@ export default {
 
 .image {
   width: 100%;
+  height: 70%;
   display: block;
 }
 div.e-col.el-col-6.d1:hover {

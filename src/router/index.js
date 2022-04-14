@@ -74,10 +74,6 @@ const routes = [
       },          
     ]  
   },
-
-
-
-
   {
     path:'/Login',
     name:'Login',

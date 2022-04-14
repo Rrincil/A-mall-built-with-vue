@@ -33,9 +33,9 @@ router.post("/add/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
       if(req.body.isstar) newcart.isstar = req.body.isstar;
       if(req.body.price) newcart.price = req.body.price;
       newcart.save().then(cart=>{
-        res.json(cart)
+        res.status(200).json({mes:`成功加入购物车了😎`,cart})
       })
-     res.status(200).json({mes:`成功加入购物车了😎`})
+     
     }else{
       // console.log(ret.name);      
       return  res.status(200).json({mes:`${ret.shopname}的${ret.name}已经在购物车了哟😳`})
@@ -132,13 +132,15 @@ router.post("/delete/:id",passport.authenticate("jwt",{session:false}),(req,res)
     id:req.body.id
   }).then(mes=>{
     if (mes) {
-      mes.save().then(cart=>res.json(cart));
-      res.status(200).json({mes:'已移除购物车'})
+      mes.save().then(cart=>
+        res.status(200).json({mes:'已移除购物车',cart})
+      );
+      
     }else{
       res.status(200).json({mes:'没有相关内容'})
     }
   }).catch(err=>{
-    res.status(404).json(err)
+   return res.status(404).json(err)
   })
 })
 

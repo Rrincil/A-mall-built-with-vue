@@ -1,0 +1,11 @@
+.axios-loading,
+.axios-loading1{animation:axiosloading 1s;}
+.axios-loading2{animation:axiosloading 1s;}
+.axios-loading3{animation:axiosloading 2s;}
+.axios-loading4{animation:axiosloading 3s;}
+.axios-loading5{animation:axiosloading 4s;}
+@keyframes axiosloading{
+  0%{opacity: 0;}
+  99% {opacity: 0;}
+  100% {opacity: 1;}
+}

@@ -1,6 +1,6 @@
 <template>
 <!-- 所有产品页面 -->
-  <div>
+  <div v-if="allprod.length > 0">
     <el-row>
       <el-col :span="6" v-for="(item) in allprod" class="d1" :key="item">
         <el-card :body-style="{ padding: '0px',height:'400px'}">
@@ -50,7 +50,7 @@
                   message:res.data.mes,
                   type:'success '
                 }) 
-            this.findallcart()
+            // this.findallcart()
             })              
       },
       // 加入成功后增加购物车显示
@@ -71,7 +71,8 @@
       },      
            
     },
-    mounted() {
+
+    mounted(){
       this.findForm();
       // this.findallcart()
       // 判断是否认证token
@@ -80,9 +81,6 @@
         // this.counts = this.$store.state.tempcart.length
       }        
       // this.carttotelprice = 
-    },
-    created(){
-      console.log("all");
     }    
   }
 </script>

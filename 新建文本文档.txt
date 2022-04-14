@@ -1,1 +1,12 @@
+
+node错误
+1. UnhandledPromiseRejectionWarning: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+
+这个问题是服务端重复响应照成的
+
+改为仅发送一次
+
+
+
+
 移除，收藏

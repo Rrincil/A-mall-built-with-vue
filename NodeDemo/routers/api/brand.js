@@ -1,13 +1,13 @@
 //login@regist
 const express = require('express');
 const router = express.Router()
-const collect = require('../../models/collect')
+const brand = require('../../models/brand')
 
 const passport = require('passport');
 
 const { session } = require('passport');
 
-//@router get api/collect/text
+//@router get api/brand/text
 //@desc 返回的请求的json数据
 //@access public
 router.get('/text',(req,res)=>{
@@ -15,26 +15,26 @@ router.get('/text',(req,res)=>{
 })
 
 
-//@router podt api/collect/add
+//@router podt api/brand/add
 //@desc 存入json数据
 //@access private
 router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
-  collect.findOne({
+  brand.findOne({
     name:req.body.name
   }).then(ret=>{
     if(!ret){
       // console.log(ret);
-      const newcollect =new collect({})
-      if(req.body.name) newcollect.name = req.body.name;
-      if(req.body.num) newcollect.num = req.body.num;  
-      if(req.body.imgurl) newcollect.imgurl = req.body.imgurl;  
-      if(req.body.shopname) newcollect.shopname = req.body.shopname;
-      if(req.body.isstar) newcollect.isstar = req.body.isstar;
-      if(req.body.price) newcollect.price = req.body.price;
-      newcollect.save().then(collect=>{
-        res.json(collect)
+      const newbrand =new brand({})
+      if(req.body.name) newbrand.name = req.body.name;
+      if(req.body.num) newbrand.num = req.body.num;  
+      if(req.body.imgurl) newbrand.imgurl = req.body.imgurl;  
+      if(req.body.shopname) newbrand.shopname = req.body.shopname;
+      if(req.body.isstar) newbrand.isstar = req.body.isstar;
+      if(req.body.price) newbrand.price = req.body.price;
+      newbrand.save().then(brand=>{
+        res.status(200).json({mes:`成功加入购物车了😎`,brand})
       })
-     res.status(200).json({mes:`成功加入购物车了😎`})
+     
     }else{
       // console.log(ret.name);      
       return  res.status(200).json({mes:`${ret.shopname}的${ret.name}已经在购物车了哟😳`})
@@ -51,11 +51,11 @@ router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
 
 
 
-//@router get api/collect/getallmes
+//@router get api/brand/getallmes
 //@desc 获取所有的json数据
 //@access private
 router.get("/getallmes",passport.authenticate("jwt",{session:false}),(req,res)=>{
-  collect.find().then(mes=>{
+  brand.find().then(mes=>{
     if (mes) {
       res.json(mes)
     }else{
@@ -68,11 +68,11 @@ router.get("/getallmes",passport.authenticate("jwt",{session:false}),(req,res)=>
 
 
 
-//@router get api/collect/:id
+//@router get api/brand/:id
 //@desc 获取单个json数据
 //@access private
 router.get("/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
-  collect.findOne({name:req.params.name}).then(mes=>{
+  brand.findOne({name:req.params.name}).then(mes=>{
     if (mes) {
       res.json(mes)
     }else{
@@ -85,35 +85,35 @@ router.get("/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
 
 
 
-//@router podt api/collect/edit
+//@router podt api/brand/edit
 //@desc 编辑json数据
 //@access private
 router.post("/edit/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
-  const newcollect ={}
+  const newbrand ={}
 
-  if(req.body.name) newcollect.name = req.body.name;
-  if(req.body.num) newcollect.num = req.body.num;    
-  if(req.body.imgurl) newcollect.imgurl = req.body.imgurl;  
-  if(req.body.shopname) newcollect.shopname = req.body.shopname;
-  if(req.body.isstar) newcollect.isstar = req.body.isstar;
-  if(req.body.price) newcollect.price = req.body.price;
-  collect.findByIdAndUpdate(
+  if(req.body.name) newbrand.name = req.body.name;
+  if(req.body.num) newbrand.num = req.body.num;    
+  if(req.body.imgurl) newbrand.imgurl = req.body.imgurl;  
+  if(req.body.shopname) newbrand.shopname = req.body.shopname;
+  if(req.body.isstar) newbrand.isstar = req.body.isstar;
+  if(req.body.price) newbrand.price = req.body.price;
+  brand.findByIdAndUpdate(
     {_id:req.params.id},
-    {$set:newcollect},
+    {$set:newbrand},
     {new:true}
-  ).then(collect=>{
-    res.json(collect)
+  ).then(brand=>{
+    res.json(brand)
   })
 })
 
 
-//@router post api/collect/delete/:id
+//@router post api/brand/delete/:id
 //@desc 删除json数据
 //@access private
 router.delete("/delete/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
-  collect.findOneAndRemove({name:req.params.name}).then(mes=>{
+  brand.findOneAndRemove({name:req.params.name}).then(mes=>{
     if (mes) {
-      mes.save().then(collect=>res.json(collect))
+      mes.save().then(brand=>res.json(brand))
     }else{
       res.status(404).json({mes:'没有相关内容'})
     }

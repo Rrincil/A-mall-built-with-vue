@@ -18,9 +18,9 @@ router.get('/text',(req,res)=>{
 //@router podt api/collect/add
 //@desc 存入json数据
 //@access private
-router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
+router.post("/add/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
   collect.findOne({
-    name:req.body.name
+    id:req.body._id
   }).then(ret=>{
     if(!ret){
       // console.log(ret);
@@ -33,9 +33,10 @@ router.post("/add",passport.authenticate("jwt",{session:false}),(req,res)=>{
       if(req.body.price) newcollect.price = req.body.price;
       if(req.body._id) newcollect.id = req.body._id;
       newcollect.save().then(collect=>{
-        res.json(collect)
+        res.status(200).json({mes:`成功收藏了😎`,collect})
+        // res.json(collect)
       })
-     res.status(200).json({mes:`成功收藏了😎`})
+     
     }else{
       // console.log(ret.name);      
       return  res.status(200).json({mes:`${ret.shopname}的${ret.name}已经被收藏了哟😳`})
@@ -77,7 +78,7 @@ router.post("/:id",passport.authenticate("jwt",{session:false}),(req,res)=>{
     id:req.body._id
   }).then(mes=>{
     if (mes) {
-      res.json(mes)
+      return  res.json(mes)
     }else{
       // res.status(200).json({mesg:'没有相关内容'})
       res.status(404)
@@ -119,8 +120,9 @@ router.post("/delete/:id",passport.authenticate("jwt",{session:false}),(req,res)
     id:req.body._id
   }).then(mes=>{
     if (mes) {
-      mes.save().then(collect=>res.json(collect))
-      res.status(200).json({mes:'已取消收藏'})
+      mes.save().then(collect=>
+        res.status(200).json({mes:'已取消收藏',collect})
+        )
     }else{
       res.status(404).json({mes:'没有相关内容'})
     }

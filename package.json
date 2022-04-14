@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev":"webpack-dev-server --disableHostCheck=true",
+    "dev": "webpack-dev-server --disableHostCheck=true",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "pro-build": "vue-cli-service build --mode production"
@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.28",
     "jwt-decode": "^3.1.2",
+    "postcss-px2rem": "^0.3.0",
     "vue": "^3.0.0",
     "vue-lazyload": "^1.3.3",
     "vue-router": "^4.0.0-0",

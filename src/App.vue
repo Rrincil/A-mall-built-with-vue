@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div :style="'width:'+fullHeight+'px;'">
     <router-view ></router-view>
   </div>
 </template>
@@ -9,6 +9,11 @@
 import jwt_decode from 'jwt-decode';
 export default {
   name: 'App',
+  data(){
+    return{
+      fullHeight: null
+    }
+  },
   components: {
 
   },
@@ -22,6 +27,9 @@ export default {
     }    
   },
   methods: {
+			get_bodyHeight () {//动态获取浏览器高度
+        this.fullHeight = window.outerWidth
+			},
     isEmpty(value){
 
       //如果传递过去为空，则返回一个真值，反之返回一个假值
@@ -30,14 +38,17 @@ export default {
           value === null ||
           (typeof value === 'object' && Object.keys(value).length ===0)||
           (typeof value === 'string' && value.trim().length ===0)
-           )
-         
-        
+           )        
     }
-  },      
+  },  
+  mounted () {
+    this.get_bodyHeight()
+  },
+    
 }
 </script>
 
 <style>
 
 </style>
+

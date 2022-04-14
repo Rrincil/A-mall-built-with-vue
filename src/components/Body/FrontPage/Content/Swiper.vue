@@ -1,15 +1,18 @@
 <template>
-  <el-carousel :interval="4000" type="card" height="500px"  @mouseenter="xian(item)" @mouseleave="xian(item)" >
-    <el-carousel-item v-for="item in srcArrys" :key="item">
-      <!-- <h3>{{ item }}</h3> -->
-          <h3 class="medium">
-            <img :src="item.imgurl" class="image"/>
-            <div class="d1" v-show="elicon">
-              {{ item.name }}
-            </div>
-          </h3>
-    </el-carousel-item>
-  </el-carousel>
+  <div v-if="srcArrys.length > 0">
+    <el-carousel :interval="4000" type="card" height="500px"  @mouseenter="xian(item)" @mouseleave="xian(item)" >
+      <el-carousel-item v-for="item in srcArrys" :key="item">
+        <!-- <h3>{{ item }}</h3> -->
+            <h3 class="medium">
+              <img :src="item.imgurl" class="image"/>
+              <div class="d1" v-show="elicon">
+                {{ item.name }}
+              </div>
+            </h3>
+      </el-carousel-item>
+    </el-carousel>
+  </div>
+
 
   <!-- <div class="Swiper" @mouseenter="xian(item)" @mouseleave="xian(item)" >
     <el-carousel indicator-position="outside" height="400px" >
@@ -46,7 +49,8 @@ export default {
       });
     },
   },
-  created() {
+  
+  mounted() {
     this.findswiper();
   },
 };

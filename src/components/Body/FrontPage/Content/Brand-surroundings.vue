@@ -24,10 +24,10 @@
         </el-row>
       </div>
 
-      <div class="d2d2">
+      <div class="d2d2" >
         <div class="d2d2d1">
-          <el-row width='100%' height="200px">
-            <el-col :span="24" v-for="item in brandprod" class="brand" :key="item">
+          <el-row width='100%' height="200px" >
+            <el-col :span="24" v-for="item in brandprod2" class="brand" :key="item">
               <el-card :body-style="{ padding: '0px',height:'230px',width:'100%'}">
                 <img :src=item.imgurl class="image2">
 
@@ -99,28 +99,32 @@
       return {
         mes:'Brand Surroundings',
         brandprod:[],
+        brandprod2:[],
         be:[]
       }
     },
     methods: {
       //查询品牌商品
       findbrand(){
-        this.$axios.get('api/brand/getallmes').then(res=>{
-          this.brandprod = res.data
+        this.$axios.get('api/brand/getallmes').then(res=>{          
           // console.log(res.data);
-          this.be = this.brandprod[0]
-          return res;
-          // alert(this.brandprod[0].name)
+        this.brandprod = res.data 
+        for (let i = 0; i < 2; i++) {
+          this.brandprod2[i] = this.brandprod[i];
+          
+        }                        
+        this.be = this.brandprod[0]
         })
-        
       },
+      submitForm(item){
+
+      }
 
     },
-    computed:{
+    created(){
 
-    },
-    mounted(){
       this.findbrand()
+
     },
   }
 </script>

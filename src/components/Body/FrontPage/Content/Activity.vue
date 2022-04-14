@@ -1,7 +1,7 @@
 <template>
-  <div class="Activity">
+  <div class="Activity" v-if="allpro2.length > 0">
     <el-row width='100%' height="30%">
-      <el-col :span="6" :key=item v-for="item in allpro2" class="d1" >
+      <el-col :span="6" :key=item v-for="item in allpro2" class="d1"  >
         <el-card :body-style="{ padding: '0px',height:'200px'}">
           <img :src=item.imgurl class="image">
           <div style="padding: 14px;">
@@ -80,7 +80,7 @@
       },           
 
     },
-    created() {
+    mounted() {
       this.findForm();
       if(localStorage.eletoken){    
         this.findForm2();
@@ -127,7 +127,7 @@
 }
 
 .image {
-  width: auto;
+  width: 100%;
   height: 50%;
   display: block;
 }
