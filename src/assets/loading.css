@@ -3,9 +3,10 @@
 .axios-loading2{animation:axiosloading 1s;}
 .axios-loading3{animation:axiosloading 2s;}
 .axios-loading4{animation:axiosloading 3s;}
-.axios-loading5{animation:axiosloading 4s;}
+.axios-loading5{animation:axiosloading 5s;}
 @keyframes axiosloading{
   0%{opacity: 0;}
+  60%{opacity: 0;}
   99% {opacity: 0;}
-  100% {opacity: 1;}
+  100% {opacity: 0.8;}
 }

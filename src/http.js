@@ -8,7 +8,7 @@ import  "./assets/loading.css"
 export function startloading(showLoadingTime){
   
 /*开启遮罩*/
-  showLoadingTime=showLoadingTime||"2"
+  showLoadingTime=showLoadingTime||"1"
 
     Loading = loading.service({
     customClass:"axios-loading"+showLoadingTime,
