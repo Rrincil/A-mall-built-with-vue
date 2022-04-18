@@ -19,10 +19,10 @@
 
       <!-- 中间 搜索框 -->       
       <el-col :span="8">  
-        <el-input
+        <el-input @keydown.enter="searchInput"
           placeholder="请输入内容"
           prefix-icon="el-icon-search"
-          v-model="input1">
+          v-model.lazy.trim="input1">
         </el-input>   
       </el-col>
 
@@ -75,6 +75,7 @@
 <script>
 import jwt_decode from 'jwt-decode';
 import { defineComponent, ref } from 'vue'
+import bus from '../../../eventBus'
   export default {
     name:'HeadTop',
     data() {
@@ -86,15 +87,31 @@ import { defineComponent, ref } from 'vue'
         usercart:{
             cart:this.$store.state.user.cart,
             id:this.$store.state.user.id        
-        }
+        },
+        input1:'裤子',
+        outputValue:null
       }
     },
     setup() {
-    return {
-      input1: ref('hh '),
-    }
+      return {
+        // input1: ref('裤子'),
+      }
     },
     methods: {
+      searchInput(){
+        console.log(this.input1);
+        const item = {
+          name:this.input1
+        }
+        this.$axios.get(`api/profile/search`,item)
+          .then(res=>{
+            console.log("1");
+            this.outputValue = res.data
+            console.log(this.outputValue);
+        })   
+        // bus.emit('InputName', this.input1) 
+        this.$router.push({path:'/searchBar',query:{OutputValue:this.outputValue,InputValue:this.input1}})
+      },
       setloginfo(command) {
         switch(command){
           case 'info':

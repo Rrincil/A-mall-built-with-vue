@@ -24,6 +24,12 @@ const routes = [
         name:'FrontPage',
         component: ()=>import('../components/Body/FrontPage/FrontPage.vue')      
       },
+      //搜索框
+      {
+        path:'/searchBar',
+        name:'searchBar',
+        component: ()=>import ('../components/searchBar/searchBar.vue')
+      },
       //个人信息路由       
       {
         path:'/cart',
@@ -84,7 +90,6 @@ const routes = [
     name:'Regist',
     component: ()=>import ('../views/Regist/Regist.vue')
   },
- 
 ]
 
 const router = createRouter({

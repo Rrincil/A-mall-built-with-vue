@@ -30,6 +30,7 @@
 </template>
  
 <script>
+import { resolveComponent } from '@vue/runtime-core';
 import {startloading,endloading} from '../../../../http'
 export default {
   name: "PopularProduct",
@@ -56,33 +57,44 @@ export default {
   },
   methods: {
 
-    findForm() {
+    findForm(i) {
       let number=0;
       
       const laterequst = setInterval(()=>{      
         number++
         },1000)     
       // endloading
-    //查询所有潮流单品以及查询是否收藏
-    this.$axios.get(`api/profile/getallmes`).then((res) => {
-      this.allprod = res.data; 
-      // console.log(res.data); 
-        // for(let i = 0;i<4;i++){
-        //     this.$axios.post(`api/collect/${this.$store.state.user.id}`,this.allprod)
-        //       .then((res) => {
-        //       console.log(res.data);
-        //       this.allprod2 = res.data
-        //       if(res){
-        //         //收藏时                    
-        //         this.allprod[i].isstar = true;
-        //       } else {
-        //         //未收藏
-        //         console.log("ya");
-        //         this.allprod[i].isstar = false;
-        //       }       
-        //     }); 
-        // }               
-    });
+      new Promise((resolve,reject)=>{
+        //查询所有潮流单品以及查询是否收藏
+        this.$axios.get(`api/profile/getallmes`).then((res) => {
+          this.allprod = res.data;
+          resolve(res.data)             
+        }).catch(err=>{
+          reject(err)
+        })
+      }).then(data=>{
+            // console.log(data[0]);
+           if(i<4){
+                this.$axios.post(`api/collect/${this.$store.state.user.id}`,data[i])
+                  .then((res) => {
+                  // console.log(res.data);
+                  this.allprod2 = res.data
+                  if(res){
+                    //收藏时                    
+                    this.allprod[i].isstar = true;
+                  } else {
+                    //未收藏
+                    this.allprod[i].isstar = false;
+                  }       
+                }); 
+                i++;
+            }else{
+              console.log("回调结束");
+            }       
+      }).catch(err=>{
+        console.log(err);
+      })
+
   },
 
     //未登录时候,查询所有潮流单品，设置未收藏
@@ -100,8 +112,8 @@ export default {
     submitfavoritesoff(item){
       // 登陆时
       if (localStorage.eletoken) {
-          console.log("off");
-          console.log(item.isstar);
+          // console.log("off");
+          // console.log(item.isstar);
           //未收藏时---加入收藏        
           this.$axios.post(`api/collect/add/${this.$store.state.user.id}`,item).then((res) => {
             //加入成功，设置收藏
@@ -163,7 +175,7 @@ export default {
     //查询所有单品
     if (localStorage.eletoken) {
       //登陆时查询是否收藏和所有单品
-      this.findForm()
+      this.findForm(0)
     } else {
       //查询所有单品以及设置都未收藏
       this.findForm2();

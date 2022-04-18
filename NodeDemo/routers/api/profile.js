@@ -13,7 +13,29 @@ const { session } = require('passport');
 //@desc 返回的请求的json数据
 //@access public
 router.get('/text',(req,res)=>{
-  res.json({mes:'text'})
+  let str="^.*"+req.body.name+".*$"
+  let reg = new RegExp(str)
+  console.log(req.params);
+  let _filter = {
+    //多字段匹配
+        $or: [
+            {name:reg},
+            // {'categroy': {$regex: reg}},
+            // {'lable': {$regex: reg}},
+        ]
+    }    
+  console.log(str);
+    // $options:‘i‘ 表示忽略大小写  {name:{$regex:reg,$options: 'i'}}
+  profile.find({name:{$regex:reg,$options: 'i'}}).then(mes=>{
+
+    if (mes) {
+      res.json(mes)
+    }else{
+      res.status(404).json({mes:'没有相关内容'})
+    }
+  }).catch(err=>{
+    res.status(404).json(err)
+  })
 })
 
 
@@ -131,27 +153,55 @@ router.delete("/deldete/:id",(req,res)=>{
 })
 
 
+//@router post api/profile/search
+//@desc 删除json数据
+//@access public
+router.get("/search",(req,res)=>{
+  let str="^.*"+req.body.name+".*$"
+  let reg = new RegExp(str)
+  console.log(req.params);
+  let _filter = {
+    //多字段匹配
+        $or: [
+            {name:reg},
+            // {'categroy': {$regex: reg}},
+            // {'lable': {$regex: reg}},
+        ]
+    }    
+  console.log(str);
+    // $options:‘i‘ 表示忽略大小写  {name:{$regex:reg,$options: 'i'}}
+  profile.find({name:{$regex:reg,$options: 'i'}}).then(mes=>{
+
+    if (mes) {
+      res.json(mes)
+    }else{
+      res.status(404).json({mes:'没有相关内容'})
+    }
+  }).catch(err=>{
+    res.status(404).json(err)
+  })
+})
 
 
 
-// var projectInfo = require('../projectInfo.json')
+// let projectInfo = require('../projectInfo.json')
 // let PictureStore = require(PROXY).pictureStore
  
-// var storage = multer.diskStorage({
+// let storage = multer.diskStorage({
 //   destination: function (req, file, cb) {
 //     cb(null, './public/upload')
 //   },
 //   filename: function (req, file, cb) {
-//     var str = file.originalname.split('.')
+//     let str = file.originalname.split('.')
 //     cb(null, Date.now() + '.' + str[1])
 //   }
 // })
-// var upload = multer({storage: storage})
+// let upload = multer({storage: storage})
  
 // // 上传图片到图片仓库并返回上传的图片路径
 // router.post('/uploadImgs', upload.array('file', 20), function (req, res, next) {
-//   var arr = []
-//   for (var i in req.files) {
+//   let arr = []
+//   for (let i in req.files) {
 //     arr.push(global.SERVICEADDRESS + '' + req.files[i].filename)
 //   }
 //   if (req.body.storeId) {

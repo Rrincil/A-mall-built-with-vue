@@ -124,7 +124,7 @@ router.post("/delete/:id",passport.authenticate("jwt",{session:false}),(req,res)
         res.status(200).json({mes:'已取消收藏',collect})
         )
     }else{
-      res.status(404).json({mes:'没有相关内容'})
+      // res.status(200).json({mes:'没有相关内容'})
     }
   }).catch(err=>{
     res.status(404).json(err)
