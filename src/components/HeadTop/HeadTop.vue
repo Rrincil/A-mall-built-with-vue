@@ -103,7 +103,9 @@ import bus from '../../../eventBus'
         const item = {
           name:this.input1
         }
-        this.$axios.get(`api/profile/search`,item)
+        this.$axios.post(`api/profile/text`,{
+          name:this.input1
+        })
           .then(res=>{
             console.log("1");
             this.outputValue = res.data

@@ -12,22 +12,13 @@ const { session } = require('passport');
 //@router get api/profile/text
 //@desc 返回的请求的json数据
 //@access public
-router.get('/text',(req,res)=>{
-  let str="^.*"+req.body.name+".*$"
+router.post('/text',(req,res)=>{
+  let str=".*"+req.body.name+".*$"
   let reg = new RegExp(str)
-  console.log(req.params);
-  let _filter = {
-    //多字段匹配
-        $or: [
-            {name:reg},
-            // {'categroy': {$regex: reg}},
-            // {'lable': {$regex: reg}},
-        ]
-    }    
+  console.log(req.body.name); 
   console.log(str);
     // $options:‘i‘ 表示忽略大小写  {name:{$regex:reg,$options: 'i'}}
-  profile.find({name:{$regex:reg,$options: 'i'}}).then(mes=>{
-
+  profile.find({name:reg}).then(mes=>{
     if (mes) {
       res.json(mes)
     }else{
@@ -36,6 +27,7 @@ router.get('/text',(req,res)=>{
   }).catch(err=>{
     res.status(404).json(err)
   })
+
 })
 
 
@@ -156,7 +148,7 @@ router.delete("/deldete/:id",(req,res)=>{
 //@router post api/profile/search
 //@desc 删除json数据
 //@access public
-router.get("/search",(req,res)=>{
+router.get("/searchI",(req,res)=>{
   let str="^.*"+req.body.name+".*$"
   let reg = new RegExp(str)
   console.log(req.params);
