@@ -38,20 +38,20 @@
     <div class="productDetails">
       <el-tabs type="border-card">
         <el-tab-pane>
-          <span slot="label"><i class="el-icon-date"></i> 我的行程</span>
+          <span ><i class="el-icon-date"></i> 我的行程</span>
           我的行程
         </el-tab-pane>
         <el-tab-pane label="店铺中心">
           消息中心
         </el-tab-pane>
-        <el-tab-pane label="商品详情">
-          角色管理
+        <el-tab-pane label="商品详情" class="ProductDet">
+          <div >
+            商品详情
+          </div>
         </el-tab-pane>
-        <el-tab-pane label="评价">
-          <div class="evaluate">
-            <div class="evaluateEle">
-
-            </div>
+        <el-tab-pane label="评价" class="evaluate">
+          <div class="evaluateEle">
+            
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -187,10 +187,21 @@ div.el-pagination{
 .evaluate{
   width: 100%;
   height: 500px;
+  background-color: aqua;
+  margin-bottom: 20px;
 }
 .evaluateEle{
   color: blue;
+  background-color: blue;
   width: 100%;
   height: 200px;
+  border: 1px;
+  text-decoration: underline;
+  /* text-decoration-line: overline; */
+}
+.ProductDet{
+  width: 100%;
+  height: 500px;
+
 }
 </style>
