@@ -26,6 +26,9 @@ const actions ={
   addcart2:({commit,cart})=>{
     commit(cart)
   },
+  Search:({commit,inputValue})=>{
+    commit(inputValue)
+  },  
 }
 export default createStore({
   getters,
@@ -36,7 +39,8 @@ export default createStore({
     cart:[],
     tempcart:[],
     isstart:[],
-    star:[]
+    star:[],
+    inputValue:[]
   },
   mutations: {
     addcount(state,payload){
@@ -47,6 +51,9 @@ export default createStore({
       if(state.isAuthenticated) state.cart= payload
       else state.cart = []
     },  
+    addSearch(state,payload){
+      state.inputValue= payload
+    }, 
     // editstarcart(state,payload){
     //   // this.$set(对象, key, 数组)
     //   this.$set(state.cart,isstar,payload)

@@ -110,6 +110,7 @@ import bus from '../../../eventBus'
             console.log("1");
             this.outputValue = res.data
             console.log(this.outputValue);
+            this.$store.commit('addSearch',this.outputValue)
         })   
         // bus.emit('InputName', this.input1) 
         this.$router.push({path:'/searchBar',query:{OutputValue:this.outputValue,InputValue:this.input1}})

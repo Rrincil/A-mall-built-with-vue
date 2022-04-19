@@ -1,8 +1,8 @@
 <template>
 <!-- 搜索产品页面 -->
-  <div v-if="outputValue!=null">
-    <!-- <el-row>
-      <el-col :span="6" v-for="(item) in outputValue" class="d1" :key="item">
+  <div v-if="this.$store.state.inputValue!=null">
+    <el-row>
+      <el-col :span="6" v-for="(item) in this.$store.state.inputValue" class="d1" :key="item">
         <el-card :body-style="{ padding: '0px',height:'400px'}">
           <div class="d2">
             <img :src=item.imgurl class="image">
@@ -16,11 +16,9 @@
           </div>
         </el-card> 
       </el-col>
-    </el-row> -->
+    </el-row>
 
   </div>
-    {{outputValue}}
-    {{inputValue}}
 </template>
 
 <script>
@@ -34,8 +32,7 @@ export default {
   },
   methods:{
     InputSearch(){
-      this.inputValue = this.$route.query.InputValue   
-      this.outputValue = this.$route.query.OutputValue   
+      // this.inputValue = this.$route.query.InputValue  
       // this.$axios.get(`api/profile/InputSearch`, {name:this.inputValue}).then((res,req)=>{
       //   console.log("1");
       //   this.outputValue = res.data
