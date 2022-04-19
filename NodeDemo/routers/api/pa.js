@@ -13,7 +13,7 @@ const cheerio = require('cheerio');
 router.get('/', (req, res, next) =>{
   // res.json({mes:'text'})
   // 用 superagent 去抓取 https://blog.csdn.net/ 的内容
-  superagent.get('http://xuetangzaixian.com/yundong/index_4.html')
+  superagent.get('https://www.taobao.com/?spm=a1z09.2.1581860521.1.6c022e8diiOctD')
     .end( (err, sres)=> {
       // 常规的错误处理
       if (err) {
@@ -26,7 +26,7 @@ router.get('/', (req, res, next) =>{
       $('.list ul li').each(function (idx, element) {
         var $element = $(element);
         let divimg = $element.find('.img a')
-        let href = 'http://xuetangzaixian.com/' +  divimg.attr('href')
+        let href = 'https://www.taobao.com/' +  divimg.attr('href')
         let title =  divimg.attr('title')
         let img = divimg.find('img').attr('src')
         items.push({

@@ -2,10 +2,10 @@
 <!-- 所有产品页面 -->
   <div v-if="allprod.length > 0">
     <el-row>
-      <el-col :span="6" v-for="(item) in allprod" class="d1" :key="item">
+      <el-col :span="6" v-for="(item) in allprod" class="d1" :key="item" >
         <el-card :body-style="{ padding: '0px',height:'400px'}">
           <div class="d2">
-            <img :src=item.imgurl class="image">
+            <img :src=item.imgurl class="image" @click="toView(item)">
           </div>
           <div style="padding: 14px;">
             <span>{{item.name}}</span><span>{{item.price}}</span>
@@ -39,6 +39,11 @@
       }
     },
     methods: {
+
+    //产品预览
+    toView(item){
+      this.$router.push({path:'/productView',query:{item:JSON.stringify(item)}})
+    },
       // 加入购物车
       submitForm(item){    
         // console.log(item)

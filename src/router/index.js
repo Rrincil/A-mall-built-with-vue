@@ -30,6 +30,12 @@ const routes = [
         name:'searchBar',
         component: ()=>import ('../components/searchBar/searchBar.vue')
       },
+      //产品预览
+      {
+        path:'/productView',
+        name:'productView',
+        component: ()=>import ('../components/productView/productView.vue')        
+      },
       //个人信息路由       
       {
         path:'/cart',

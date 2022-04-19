@@ -2,7 +2,8 @@
   <div class="HeadTop">
     <el-row >
       <!-- 空白 -->
-      <el-col :span="2" height='100%'>  
+      <el-col :span="2" height='100%'> 
+        <el-switch v-model="value1" /> 
       </el-col>    
       <!-- 商标 -->
       <el-col :span="4">
@@ -76,6 +77,7 @@
 import jwt_decode from 'jwt-decode';
 import { defineComponent, ref } from 'vue'
 import bus from '../../../eventBus'
+
   export default {
     name:'HeadTop',
     data() {
@@ -89,7 +91,8 @@ import bus from '../../../eventBus'
             id:this.$store.state.user.id        
         },
         input1:'裤子',
-        outputValue:null
+        outputValue:null,
+        value1 :true
       }
     },
     setup() {
@@ -98,6 +101,15 @@ import bus from '../../../eventBus'
       }
     },
     methods: {
+      changecolor(){
+        if(this.value1){
+          this.$store.state.bodycolor = 'black'
+
+        }else{
+          this.$store.state.bodycolor = 'blue'
+        }
+          
+      },      
       searchInput(){
         console.log(this.input1);
         const item = {
@@ -148,6 +160,7 @@ import bus from '../../../eventBus'
 
     },
   created() {
+    this.changecolor();
           //判断是否登陆
     if(localStorage.eletoken){
       this.loginmes = false,

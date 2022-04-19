@@ -10,7 +10,7 @@
         <el-row width='100%' height="200px">
           <el-col :span="24"  class="brand" >
             <el-card :body-style="{ padding: '0px',height:'560px',width:'100%'}">
-              <img :src=be.imgurl class="image2">
+              <img :src=be.imgurl class="image2" @click="toView(be)">
               <!--vue不能检测到数组和对象的变化 {{brandprod[1].name}}的写法不会出发事件绑定 -->
               <div style="padding: 14px;">
                 <span>{{be.name}}</span><span>{{be.price}}</span>
@@ -104,6 +104,11 @@
       }
     },
     methods: {
+
+    //产品预览
+    toView(item){
+      this.$router.push({path:'/productView',query:{item:JSON.stringify(item)}})
+    },
       //查询品牌商品
       findbrand(){
         this.$axios.get('api/brand/getallmes').then(res=>{          

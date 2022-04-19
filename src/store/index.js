@@ -29,6 +29,9 @@ const actions ={
   Search:({commit,inputValue})=>{
     commit(inputValue)
   },  
+  bodyColor:({commit,bodyColor})=>{
+    commit(bodyColor)
+  },  
 }
 export default createStore({
   getters,
@@ -40,7 +43,8 @@ export default createStore({
     tempcart:[],
     isstart:[],
     star:[],
-    inputValue:[]
+    inputValue:[],
+    bodyColor:null
   },
   mutations: {
     addcount(state,payload){
@@ -54,6 +58,10 @@ export default createStore({
     addSearch(state,payload){
       state.inputValue= payload
     }, 
+    addbodyColor(state,payload){
+      // if(state.)
+      state.bodyColor = payload
+    },
     // editstarcart(state,payload){
     //   // this.$set(对象, key, 数组)
     //   this.$set(state.cart,isstar,payload)

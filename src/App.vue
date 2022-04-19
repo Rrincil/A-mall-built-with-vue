@@ -1,6 +1,6 @@
 <template>
 
-  <div :style="'width:'+fullHeight+'px;'">
+  <div :style="{color:bodycolor,width:fullHeight+'px'}" >
     <router-view ></router-view>
   </div>
 </template>
@@ -11,13 +11,15 @@ export default {
   name: 'App',
   data(){
     return{
-      fullHeight: null
+      fullHeight: null,
+      bodycolor:null
     }
   },
   components: {
 
   },
   created() {
+    this.pushcolor();
     if(localStorage.eletoken){
         //解析token
         const decoded = jwt_decode(localStorage.eletoken);
@@ -27,9 +29,13 @@ export default {
     }    
   },
   methods: {
-			get_bodyHeight () {//动态获取浏览器高度
-        this.fullHeight = window.outerWidth
-			},
+    pushcolor(){
+      this.$store.commit('addbodyColor',this.bodycolor)
+    },
+    get_bodyHeight () {//动态获取浏览器高度
+      this.fullHeight = window.outerWidth
+    },
+
     isEmpty(value){
 
       //如果传递过去为空，则返回一个真值，反之返回一个假值

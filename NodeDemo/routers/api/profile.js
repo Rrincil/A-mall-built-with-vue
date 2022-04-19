@@ -15,8 +15,8 @@ const { session } = require('passport');
 router.post('/text',(req,res)=>{
   let str=".*"+req.body.name+".*$"
   let reg = new RegExp(str)
-  console.log(req.body.name); 
-  console.log(str);
+  // console.log(req.body.name); 
+  // console.log(str);
     // $options:‘i‘ 表示忽略大小写  {name:{$regex:reg,$options: 'i'}}
   profile.find({name:reg}).then(mes=>{
     if (mes) {

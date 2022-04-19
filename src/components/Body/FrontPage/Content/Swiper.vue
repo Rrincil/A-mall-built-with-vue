@@ -1,7 +1,7 @@
 <template>
-  <div v-if="srcArrys.length > 0">
+  <div v-if="srcArrys.length > 0" >
     <el-carousel :interval="4000" type="card" height="500px"  @mouseenter="xian(item)" @mouseleave="xian(item)" >
-      <el-carousel-item v-for="item in srcArrys" :key="item">
+      <el-carousel-item v-for="item in srcArrys" :key="item" @click="toView(item)">
         <!-- <h3>{{ item }}</h3> -->
             <h3 class="medium">
               <img :src="item.imgurl" class="image"/>
@@ -39,6 +39,11 @@ export default {
     };
   },
   methods: {
+    //产品预览
+    toView(item){
+      this.$router.push({path:'/productView',query:{item:JSON.stringify(item)}})
+    },
+
     xian(item) {
       this.elicon = !this.elicon;
     },

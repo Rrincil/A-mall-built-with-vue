@@ -1,10 +1,10 @@
 <template>
-  <div class="PopularProduct" v-if="allprod.length > 0">
+  <div class="PopularProduct" v-if="allprod.length > 0" >
     <div class="title">热门商品</div>
     <el-row width="100%" height="100%">
       <el-col :span="6" :key="item" v-for="item in allprod" class="d1">
         <el-card :body-style="{ padding: '0px', height: '430px' }">
-          <img :src="item.imgurl" class="image" />
+          <img :src="item.imgurl" class="image" @click="toView(item)"/>
           <div style="padding: 14px">
             <span>{{ item.name }}</span
             ><span>{{ item.price }}</span>
@@ -12,8 +12,7 @@
               <time class="time">{{ item.shopname }}</time>
               <el-button
                 type="text"
-                class="button"
-                
+                class="button"               
               >
                 <i class="el-icon-star-off" v-if="!item.isstar" @click="submitfavoritesoff(item)"></i>
                 <i class="el-icon-star-on" v-if="item.isstar" @click="submitfavoriteson(item)"></i>
@@ -56,10 +55,8 @@ export default {
     };
   },
   methods: {
-
     findForm(i) {
       let number=0;
-      
       const laterequst = setInterval(()=>{      
         number++
         },1000)     
@@ -95,7 +92,7 @@ export default {
         console.log(err);
       })
 
-  },
+    },
 
     //未登录时候,查询所有潮流单品，设置未收藏
     findForm2() {
@@ -170,6 +167,13 @@ export default {
         this.$router.push("login");
       }
     },
+
+
+  //产品预览
+  toView(item){
+    this.$router.push({path:'/productView',query:{item:JSON.stringify(item)}})
+  }
+
   },
   mounted() {
     //查询所有单品
