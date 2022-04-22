@@ -3,12 +3,20 @@ import Home from '../views/Home/Home.vue'
 import FrontPage from '../components/Body/FrontPage/FrontPage.vue'
 import basicinfo from '../views/Login/loginInfo/account/basicinfo.vue'
 import accountInfo from '../views/Login/loginInfo/account/accountInfo.vue'
+// import m_index from '../../src/modules/mobile/APP.vue'
 import HeadTop from '../components/HeadTop/HeadTop.vue'
+// const redirectPath = /Android |webos | iphone iPod BlackBerry liPad/i.test(navigator.userAgent) ? '/m_index' : '/FrontPage';
+base: '/m_index.html'
 const routes = [
   {
     path: '',
     redirect: '/FrontPage'
   },
+  // {
+  //   path:'/m_index',
+  //   component:m_index
+
+  // },
   {
     path: '/Home',
     name: 'Home',
@@ -103,6 +111,20 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+/**
+ * 判断是否为移动设备，是，则跳转到移动端的路径
+ */
+ router.beforeEach((to, from, next) => {
+  if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    window.location.href = '/m_index.html'
+    // window.location.href = '/Login'
+    // next('/Login');
+    // next()
+    return
+  }
+  next()
+})
 //路由守卫
 // router.beforeEach((to, from, next) => {
 //   const islogin = localStorage.eletoken ? true :false;
@@ -118,4 +140,7 @@ const router = createRouter({
 //   }
 //   //解析token npm install jwt-decode
 // })
+
+
+
 export default router

@@ -1,10 +1,18 @@
 <template>
   <div v-if="srcArrys.length > 0" >
-    <el-carousel :interval="4000" type="card" height="500px"  @mouseenter="xian(item)" @mouseleave="xian(item)" >
+    <el-carousel :interval="4000" type="card" height="500px" class="swiper"  @mouseenter="xian(item)" @mouseleave="xian(item)" >
       <el-carousel-item v-for="item in srcArrys" :key="item" @click="toView(item)">
         <!-- <h3>{{ item }}</h3> -->
             <h3 class="medium">
-              <img :src="item.imgurl" class="image"/>
+             <!--  <li class="album-li">
+                  <a>
+                      <div class="album-li-pic">
+                          <img :src="item.imgurl" class="album-pic" />
+                      </div>
+                  </a>
+              </li> -->
+              
+                <img :src="item.imgurl" class="image"/>
               <div class="d1" v-show="elicon">
                 {{ item.name }}
               </div>
@@ -62,6 +70,16 @@ export default {
 </script>
 
 <style scoped>
+/* .swiper{
+  height:500px
+}
+el-carousel{
+   height:500PX
+   
+}
+.el-carousel__container{
+  height: 500px;
+} */
 .Swiper {
   width: 90%;
   margin-left: 5%;
@@ -106,11 +124,11 @@ export default {
   opacity: 0.8;
   height: 50px;
 }
-h3.medium > img {
+/* h3.medium > img {
   width: 100%;
   height: 125%;
   display: block;
-}
+} */
 
 .el-carousel__item h3 {
   color: #475669;
@@ -147,4 +165,20 @@ h3.medium > img {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
+
+
+.album-li-pic{
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding-bottom: 100%;
+}
+.album-li-pic img{
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+}
+
 </style>

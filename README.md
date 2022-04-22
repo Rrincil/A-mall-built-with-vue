@@ -17,3 +17,7 @@ npm run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+css： :deep(.d1){width:200px}
+
+postcss.config.js: px转rem
