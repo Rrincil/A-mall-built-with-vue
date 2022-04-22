@@ -235,4 +235,119 @@ export default {
 div.e-col.el-col-6.d1:hover {
   padding: 10px;
 }
+
+
+
+
+/* px转rem配置 */
+/* .PopularProduct {
+  width: 90%;
+  margin-top: 50px;
+  margin-left: 5%;
+  height: 530px;
+
+  font-size: 20px;
+  line-height: 35px;
+  color: red;
+  background-color: white;
+  overflow: hidden;
+}
+.title {
+  width: 100%;
+  height: 10%;
+  background-color: white;
+}
+
+
+
+
+
+
+div.e-col.el-col-6.d1:hover {
+  padding: 10px;
+}
+
+
+
+
+.bottom p{
+  font-size: 3px;
+  color: #999;
+}
+
+.bottom {】
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  width: 100%;
+  height: 80%;
+}
+
+.button {
+  font-size: 1px;
+  padding: 0;
+  margin-right: 0px;
+}
+
+.image {
+  width: 100%;
+  height: 80%;
+  display: block;
+  
+}
+.d1{
+  padding: 20px;
+}
+div.el-pagination{
+  width: 100%;
+}
+.block{
+  text-align: center;
+}
+.d2{
+  width: 100%;
+  height: 80%;
+  padding: 20px;
+  overflow: hidden;
+}
+:deep(el-card){
+  width: 100%;
+  height: 150px;
+  margin: 0;
+  padding: 0;
+}
+
+:deep(.el-row){
+  width: 100%;
+  height:auto;
+}
+:deep(.el-row .el-col el-col-6 d1){
+  width: 100%;
+  height: 150px;
+  margin: 0;
+  padding: 0;
+}
+:deep(.el-card is-always-shadow){
+  width: 100%;
+  height: 150px;  
+  margin: 0;
+}
+:deep(.el-card__body){
+  width: 100%;
+  height: 150px;  
+  padding: 0;
+}
+.prodname{
+  width: 100%;
+  height: 20%;
+  padding: 0px;
+
+}
+.prodname>p{
+  font-size: 10px;
+}
+.elpagination{
+  height: 10px;
+} */
 </style>
