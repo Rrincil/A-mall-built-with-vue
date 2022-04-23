@@ -19,7 +19,7 @@
       </el-col> 
 
       <!-- 中间 搜索框 -->       
-      <el-col :span="6">  
+      <el-col :span="4">  
         <div class="demo-input-size">
           <el-input
             v-model.lazy.trim="input1"
@@ -31,12 +31,10 @@
           />
         </div>        
       </el-col>
-
-      <!-- 右边 -->
-      <el-col :span="1">  
-      </el-col>      
+      <el-col :span="1" >      
+      </el-col>  
       <!-- 全部商品 -->   
-      <el-col :span="5" >
+      <el-col :span="4" >
         <router-link to="/AllProducts" class="AllProducts">全部商品</router-link>        
       </el-col> 
       <!--登陆 头像 -->
@@ -45,12 +43,14 @@
           <el-avatar size="medium" :src="circleUrl" class="elcustom"></el-avatar>         
         </router-link>     
       </el-col>
+      <el-col :span="1" >      
+      </el-col>        
       <!-- 个人信息 -->   
-      <el-col :span="3">
+      <el-col :span="5">
         <div class="welcome">
           <p v-if="loginmes" >您还未登陆！</p>          
-          <p v-if="!loginmes" class="welcome1">欢迎您回来</p>
-          <p class="welcome2">{{$store.state.user.name}}</p>
+          <p v-if="!loginmes" class="welcome1">欢迎您回来{{$store.state.user.name}}</p>
+          <!-- <p class="welcome2"></p> -->
         </div>         
 
         

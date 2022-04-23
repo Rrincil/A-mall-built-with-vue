@@ -13,9 +13,8 @@ const routes = [
     redirect: '/FrontPage'
   },
   {
-    path:'/m_index',
+    path:'/m_index.html',
     component:m_index
-
   },
   {
     path: '/Home',
@@ -117,7 +116,7 @@ const router = createRouter({
  */
  router.beforeEach((to, from, next) => {
   if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-    window.location.href = '/m_index'
+    window.location.href = '/m_index.html'
     // window.location.href = '/Login'
     // to('/m_index');
     // next()

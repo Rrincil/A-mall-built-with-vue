@@ -5,7 +5,7 @@ import basicinfo from '../../views/Login/loginInfo/account/basicinfo.vue'
 import accountInfo from '../../views/Login/loginInfo/account/accountInfo.vue'
 const routes = [
   {
-    path: '/m_index',
+    path: '/m_index.html',
     redirect: '/m_BodyContent',
    
   },

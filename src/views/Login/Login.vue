@@ -1,8 +1,5 @@
 <template>
   <div class="d1">
-    <div class="d2">
-    </div>
-
     <el-form :model="loginUser" :rules="rules" ref="loginfrom" label-width="100px" class="login-ruleForm">
       <p>登陆</p>
       <el-form-item label="邮箱" prop="email"  >
@@ -78,7 +75,12 @@ import { log } from 'util';
               //token存储到vuex中
               this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded))
               this.$store.dispatch('setUser',decoded)
-              this.$router.push('/');
+              if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {                
+                this.$router.push('/m_BodyContent');
+              }else{
+                this.$router.push('/');
+              }              
+              
               });
 
           }
@@ -101,36 +103,33 @@ import { log } from 'util';
 
 <style scoped>
 .d1{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  /* background-size: cover;   */
   position: relative;
   width: 100%;
-  height: 700px;
-}
-.d2{
-  position: relative;
-  width: 100%;
-  height: 700px;
   background-image: url('../../assets/img/1.jpg');
-  opacity: 0.35;  
+  height: 700px;
 }
 .login-ruleForm{
   position:absolute;
-  top: 20%;
-  left: 35%;
-  background-color: white;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   width: 400px;
-  height: 300px;
-  text-align: center;
-  z-index: 99;
-  padding-left: 0px;
-  padding-top: 0px;
-  padding-right: 40px;
-  padding-bottom: 20px;
+  padding: 40px;
+  background: rgba(216, 185, 216, 0.8);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(1,1,0,.5);
+  border-radius: 10px;
 }
 .login-ruleForm p{
   font-size: 20px;
   display: block;
   margin-bottom: 20px;
   margin-top: 20px;
+  margin-left: 45%;
 }
 
 </style>

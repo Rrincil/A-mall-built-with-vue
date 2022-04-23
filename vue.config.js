@@ -12,7 +12,7 @@ module.exports = {
         m_index: {
           template: "src/modules/mobile/m_index.html",
           entry: "src/modules/mobile/m_main.js",
-          filename: "m_index",
+          filename: "m_index.html",
           title: "m_index",
           keywords: "333",
           description: "444",
@@ -26,20 +26,6 @@ module.exports = {
           description: "444",
         }
       },
-      chainWebpack: config => { // webpack链接API，用于生成和修改webapck配置，https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-        // 这里是对环境的配置，不同环境对应不同的BASE_URL，以便axios的请求地址不同
-        config.plugin('define').tap(args => {
-          args[0]['process.env'].BASE_URL = JSON.stringify(process.env.BASE_URL)
-          return args
-        })
-    
-    
-        if (debug) {
-          // 本地开发配置
-        } else {
-          // 生产开发配置
-        }
-      },
 
 
     assetsDir: 'static',
@@ -47,15 +33,16 @@ module.exports = {
     publicPath: './',  
     devServer: {
         open: true,
-        // host: 'localhost',
+        // host:'http://101.201.220.43',
+        host: 'localhost',
         // host:'http://396p89578i.zicp.vip',
         port: 8080,
         https: false,
         //以上的ip和端口是我们本机的;下面为需要跨域的
         proxy: {//配置跨域
             '/api': {
-                // target: 'http://101.201.220.43/api',
-                target: 'http://localhost:3000/api',//这里后台的地址模拟的;应该填写你们真实的后台接口
+                target: 'http://101.201.220.43/api',
+                // target: 'http://localhost:3000/api',//这里后台的地址模拟的;应该填写你们真实的后台接口
                 ws: true,
                 changOrigin: true,//允许跨域
                 pathRewrite: {
