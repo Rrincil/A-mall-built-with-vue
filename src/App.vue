@@ -1,7 +1,7 @@
 <template>
 
   <div :style="{color:bodycolor,width:fullHeight+'px'}" >
-    <router-view ></router-view>
+    <router-view></router-view>
   </div>
 </template>
 

@@ -2,9 +2,9 @@
   <div class="HeadTop">
     <el-row>
       <!-- 空白 -->
-      <el-col :span="2" > 
+      <!-- <el-col :span="2" > 
         <el-switch v-model="value1" /> 
-      </el-col>    
+      </el-col>     -->
       <!-- 商标 -->
       <el-col :span="4">
         <el-button  circle >
@@ -15,7 +15,7 @@
       </el-col>
       <!-- 空白 -->
       <el-col :span="2">  
-        <router-link to="/">首页</router-link>  
+        <router-link to="/m_BodyContent">首页</router-link>  
       </el-col> 
 
       <!-- 中间 搜索框 -->       
@@ -36,8 +36,8 @@
       <el-col :span="1">  
       </el-col>      
       <!-- 全部商品 -->   
-      <el-col :span="4" >
-        <!-- <router-link to="/AllProducts" class="AllProducts">全部商品</router-link>         -->
+      <el-col :span="5" >
+        <router-link to="/AllProducts" class="AllProducts">全部商品</router-link>        
       </el-col> 
       <!--登陆 头像 -->
       <el-col :span="1">                
@@ -46,7 +46,7 @@
         </router-link>     
       </el-col>
       <!-- 个人信息 -->   
-      <el-col :span="2">
+      <el-col :span="3">
         <div class="welcome">
           <p v-if="loginmes" >您还未登陆！</p>          
           <p v-if="!loginmes" class="welcome1">欢迎您回来</p>
