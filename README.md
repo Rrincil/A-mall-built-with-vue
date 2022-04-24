@@ -1,5 +1,4 @@
-# A-mall-built-with-vue
-- 这是一个集合PC端和移动端（两套代码）的全栈项目
+# 这是一个集合PC端和移动端（两套代码）的全栈项目 Vue3+ElementPlus+Vant3+Node+Mangodb
 ## 项目预览地址 <a herf="http://101.201.220.43/">购物商城</a>
 ## 项目涉及
 - 前端：PC端：vue3 elementPlus jwt-decode； 移动端： Vant3  postcss
