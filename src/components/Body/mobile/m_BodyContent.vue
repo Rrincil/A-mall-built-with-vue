@@ -1,38 +1,33 @@
 <template>
-    <!-- <Swiper/> -->
-    <div v-if="allprod.length > 0">
-      <el-row  >
-        <el-col :span="12"  class="d1" v-for="(item) in allprod"  :key="item" >
-          <el-card >
-            <!-- <div class="d2"> -->
-              <img :src=item.imgurl class="image" @click="toView(item)">
-            <!-- </div> -->
-            <div class="prodname">
-              <p>{{item.name}} {{item.price}}</p>
-              <div class="bottom">
-                <p >{{item.shopname}}</p>
-
-                <el-button
-                  type="text"
-                  class="button"               
-                >
-                  <i class="el-icon-star-off" v-if="!item.isstar" @click="submitfavoritesoff(item)"></i>
-                  <i class="el-icon-star-on" v-if="item.isstar" @click="submitfavoriteson(item)"></i>
-                </el-button>
-
-                <el-button type="text" class="button" @click='submitForm(item)'>
-                  加入购物车
-                </el-button>
+    <swiper/>
+    <lazy-component>
+      <div v-if="allprod.length > 0" >
+        <van-row  >
+          <van-col :span="12"  class="d1" v-for="(item) in allprod"  :key="item" v-lazy="item">
+            <van-card >
+              <!-- <div class="d2"> -->
+                <img :src=item.imgurl class="image" @click="toView(item)" >
+              <!-- </div> -->
+              <div class="prodname">
+                <p>{{item.name}} {{item.price}}</p>
+                <div class="bottom">
+                  <p >{{item.shopname}}</p>
+                    <i class="el-icon-star-off" v-if="!item.isstar" @click="submitfavoritesoff(item)"></i>
+                    <i class="el-icon-star-on" v-if="item.isstar" @click="submitfavoriteson(item)"></i>
+                  <van-button  round type="primary" @click='submitForm(item)'>
+                    加入购物车
+                  </van-button>
+                </div>
               </div>
-            </div>
-          </el-card> 
-        </el-col>
-      </el-row>
-    </div>      
+            </van-card> 
+          </van-col>
+        </van-row>
+      </div> 
+    </lazy-component>     
 </template>
 
 <script>
-import Swiper from '../../../components/Body/FrontPage/Content/Swiper.vue'
+import Swiper from './m_swiper.vue'
 export default {
   name:'m_BodyContent',
   data(){
@@ -114,7 +109,7 @@ export default {
     //未收藏时
     submitfavoritesoff(item){
       // 登陆时
-      if (localStorage.eletoken) {
+      if (localStorage.vanetoken) {
           // console.log("off");
           // console.log(item.isstar);
           //未收藏时---加入收藏        
@@ -139,7 +134,7 @@ export default {
           // const param = {name:item.name}
           const param = {_id:item._id}
           this.$axios
-            .post(`api/collect/delete/${this.$store.state.user.id}`,item)
+            .post(`api/collect/dvanete/${this.$store.state.user.id}`,item)
             .then((res) => {
               //加入成功           
               this.$message({
@@ -152,7 +147,7 @@ export default {
 
     submitForm(item) {
       //添加购物车，并更新状态
-      if (localStorage.eletoken) {
+      if (localStorage.vanetoken) {
         this.$axios.post(`api/cart/add/${this.$store.state.id}`, item).then((res) => {
           //加入成功
           this.$message({
@@ -204,7 +199,7 @@ export default {
   },  
   mounted() {
     //查询所有单品
-    if (localStorage.eletoken) {
+    if (localStorage.vanetoken) {
       //登陆时查询是否收藏和所有单品
       this.findForm(0)
     } else {
@@ -239,7 +234,7 @@ export default {
 
 
 
-div.e-col.el-col-6.d1:hover {
+div.e-col.van-col-6.d1:hover {
   padding: 10px;
 }
 
@@ -278,7 +273,7 @@ div.e-col.el-col-6.d1:hover {
 .d1{
   padding: 20px;
 }
-div.el-pagination{
+div.van-pagination{
   width: 100%;
 }
 .block{
@@ -290,30 +285,30 @@ div.el-pagination{
   padding: 20px;
   overflow: hidden;
 }
-:deep(el-card){
+:deep(van-card){
   width: 100%;
   height: 500px;
   margin: 0;
   padding: 0;
 }
 
-:deep(.el-row){
+:deep(.van-row){
   width: 100%;
   height:auto;
 }
 
-:deep(.el-row .el-col el-col-6 d1){
+:deep(.van-row .van-col van-col-6 d1){
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
 }
-:deep(.el-card is-always-shadow){
+:deep(.van-card is-always-shadow){
   width: 100%;
   height: 500px;  
   margin: 0;
 }
-:deep(.el-card__body){
+:deep(.van-card__body){
   width: 100%;
   height: 500px;  
   padding: 0;
@@ -327,7 +322,7 @@ div.el-pagination{
 .prodname>p{
   font-size: 10px;
 }
-.elpagination{
+.vanpagination{
   height: 10px;
 }
 </style>

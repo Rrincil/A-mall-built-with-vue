@@ -20,8 +20,6 @@
 ```
 ## 项目结构
 - 移动端
-
-
 ## 配置移动端---两套代码，通过vue-router路由转发,组件通用和另写
 ### (1)增加一套入口文件
 - mobile文件
@@ -48,7 +46,7 @@
 
 ```
 ## 移动端引入VantUi 组件
-- 官方文档 https://vant-contrib.gitee.io/vant/#/zh-CN/home
+- 官方文档 https://youzan.github.io/vant/#/zh-CN/home
 - 下载插件 # Vue 3 项目，安装最新版 Vant----npm i vant
 - npm i babel-plugin-import -D
 - babel.config.js 中添加配置

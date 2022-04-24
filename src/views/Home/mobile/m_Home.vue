@@ -1,8 +1,6 @@
 <template>
   <div>
-    <HeadTop/>
-<van-popup v-model="show" position="top" :overlay="true"/>
-<van-button disabled type="primary">禁用状态</van-button>    
+    <HeadTop/>  
     <!-- <Navigate/> -->
     <router-view></router-view>
     <FootContent/>

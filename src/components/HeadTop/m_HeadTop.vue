@@ -7,19 +7,18 @@
       </el-col>     -->
       <!-- 商标 -->
       <el-col :span="4">
-        <el-button  circle >
-          <div class="d1">
-            {{mes}}
-          </div>              
-        </el-button>      
+        <p>{{mes}}</p>
       </el-col>
-      <!-- 空白 -->
+      <!-- 首页 -->
       <el-col :span="2">  
-        <router-link to="/m_BodyContent">首页</router-link>  
+        <router-link to="/m_BodyContent">
+          <van-icon name="wap-home" size="40"/>        
+        </router-link>  
       </el-col> 
-
+      <el-col :span="1"> 
+      </el-col>      
       <!-- 中间 搜索框 -->       
-      <el-col :span="4">  
+      <el-col :span="8">  
         <div class="demo-input-size">
           <el-input
             v-model.lazy.trim="input1"
@@ -34,19 +33,20 @@
       <el-col :span="1" >      
       </el-col>  
       <!-- 全部商品 -->   
-      <el-col :span="4" >
+      <!-- <el-col :span="4" >
         <router-link to="/AllProducts" class="AllProducts">全部商品</router-link>        
-      </el-col> 
+      </el-col>  -->
       <!--登陆 头像 -->
-      <el-col :span="1">                
+      <!-- <el-col :span="1">         
+                      
         <router-link :to="pathtologin">
           <el-avatar size="medium" :src="circleUrl" class="elcustom"></el-avatar>         
         </router-link>     
-      </el-col>
-      <el-col :span="1" >      
-      </el-col>        
+      </el-col> -->
+      <!-- <el-col :span="1" >      
+      </el-col>         -->
       <!-- 个人信息 -->   
-      <el-col :span="5">
+      <el-col :span="4">
         <div class="welcome">
           <p v-if="loginmes" >您还未登陆！</p>          
           <p v-if="!loginmes" class="welcome1">欢迎您回来{{$store.state.user.name}}</p>
@@ -56,21 +56,21 @@
         
       </el-col>
       <!-- 箭头 v-if="!loginmes"-->
-      <el-col :span="2" >  
+      <el-col :span="4" >  
         <el-dropdown @command="setloginfo" trigger='click' v-if="!loginmes">
           <span class="el-dropdown-link">
-            <i class="el-icon-caret-bottom el-icon--right"></i>
+            <van-icon name="https://cdn.jsdelivr.net/npm/@vant/assets/icon-demo.png"  size="40" color="yellow"/> 
           </span>
           
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="info">用户信息</el-dropdown-item>
-              <el-dropdown-item command="cart">购物车</el-dropdown-item>
-              <el-dropdown-item command="order">我的订单</el-dropdown-item>              
-              <el-dropdown-item command="exit">退出登陆</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="info">用户信息</el-dropdown-item>
+                <el-dropdown-item command="cart">购物车</el-dropdown-item>
+                <el-dropdown-item command="order">我的订单</el-dropdown-item>              
+                <el-dropdown-item command="exit">退出登陆</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
       </el-col>    
     </el-row>
   </div>
@@ -200,6 +200,11 @@ el-col {
 .el-col-4{
   height: 100%;
 }
+.el-col-4>p{
+  font-size: 10px;
+  line-height: 30px;
+  text-align: center;
+}
 .el-col-6{
   height: 100%;
 }
@@ -215,9 +220,6 @@ el-col {
   width: 40px;
   height: 10px;
   background-color: rgb(144, 33, 248);
-}
-.d1{
-
 }
 /* 头像 */
 .elcustom{
@@ -290,5 +292,8 @@ el-button.d1{
 }
 :deep(.el-dropdown-menu__item){
 
+}
+.van-icon{
+  margin-top: 5px;
 }
 </style>
