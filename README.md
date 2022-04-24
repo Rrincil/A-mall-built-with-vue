@@ -1,6 +1,10 @@
 # 这是一个集合PC端和移动端（两套代码）的全栈项目 Vue3+ElementPlus+Vant3+Node+Mangodb
 ## 项目预览地址 http://101.201.220.43
 <a herf="http://101.201.220.43/">购物商城</a>
+![avatar](./GitImgview/1.png)
+![avatar](./GitImgview/2.png)
+![avatar](./GitImgview/3.png)
+![avatar](./GitImgview/4.png)
 ## 项目涉及
 - 前端：PC端：vue3 elementPlus jwt-decode； 移动端： Vant3  postcss
 - 后端：nodeJS express mangodb云数据库 passport jsonwebtoken 
