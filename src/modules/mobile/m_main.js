@@ -4,6 +4,7 @@ import APP from './APP.vue'
 import router from '../../router/mobile/index'
 import store from '../../store'
 import axios from '../../http'
+import { Button,Popup } from 'vant'
 // import  apiConfig  from './api.config.js' 
 axios.defaults.baseURL=process.env.VUE_APP_BASE_API
 import installElementPlus from '../../plugins/element'
@@ -11,4 +12,5 @@ import installElementPlus from '../../plugins/element'
 const app = createApp(APP)
 installElementPlus(app)
 app.config.globalProperties.$axios = axios
-app.use(store).use(router).mount('#APP')
+app.use(store).use(router).use(Button).use(Popup).mount('#APP')
+
