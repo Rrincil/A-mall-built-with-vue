@@ -1,10 +1,6 @@
 <template>
   <div class="HeadTop">
     <el-row>
-      <!-- 空白 -->
-      <!-- <el-col :span="2" > 
-        <el-switch v-model="value1" /> 
-      </el-col>     -->
       <!-- 商标 -->
       <el-col :span="4">
         <p>{{mes}}</p>
@@ -17,52 +13,32 @@
       </el-col> 
       <el-col :span="1"> 
       </el-col>      
-      <!-- 中间 搜索框 -->       
-      <el-col :span="8">  
-        <div class="demo-input-size">
-          <el-input
-            v-model.lazy.trim="input1"
-            class="w-50 m-2"
-            size="large"
-            placeholder="请输入内容"
-            :suffix-icon="Search"
-            @keydown.enter="searchInput()"
-          />
-        </div>        
+      <!-- 中间 搜索框 -->   
+      <el-col :span="12">  
+        <van-search
+          v-model.lazy.trim="input1"
+          shape="round"
+          background="#CE3D2A"
+          placeholder="裤子"
+          @keyup.enter="searchInput()"
+        >
+          <template #action>
+            <div @click="searchInput()">搜索</div>
+          </template>
+        </van-search>
+
       </el-col>
       <el-col :span="1" >      
       </el-col>  
-      <!-- 全部商品 -->   
-      <!-- <el-col :span="4" >
-        <router-link to="/AllProducts" class="AllProducts">全部商品</router-link>        
-      </el-col>  -->
-      <!--登陆 头像 -->
-      <!-- <el-col :span="1">         
-                      
-        <router-link :to="pathtologin">
-          <el-avatar size="medium" :src="circleUrl" class="elcustom"></el-avatar>         
-        </router-link>     
-      </el-col> -->
-      <!-- <el-col :span="1" >      
-      </el-col>         -->
-      <!-- 个人信息 -->   
-      <el-col :span="4">
-        <div class="welcome">
-          <p v-if="loginmes" >您还未登陆！</p>          
-          <p v-if="!loginmes" class="welcome1">欢迎您回来{{$store.state.user.name}}</p>
-          <!-- <p class="welcome2"></p> -->
-        </div>         
 
-        
-      </el-col>
-      <!-- 箭头 v-if="!loginmes"-->
+      <!-- 用户登陆头像 v-if="!loginmes"-->
       <el-col :span="4" >  
-        <el-dropdown @command="setloginfo" trigger='click' v-if="!loginmes">
+        <el-dropdown @command="setloginfo" trigger='click'>
           <span class="el-dropdown-link">
             <van-icon name="https://cdn.jsdelivr.net/npm/@vant/assets/icon-demo.png"  size="40" color="yellow"/> 
           </span>
           
-            <template #dropdown>
+            <template #dropdown  v-if="!loginmes">
               <el-dropdown-menu>
                 <el-dropdown-item command="info">用户信息</el-dropdown-item>
                 <el-dropdown-item command="cart">购物车</el-dropdown-item>
@@ -126,23 +102,23 @@
         // bus.emit('InputName', this.input1) 
         this.$router.push({path:'/searchBar',query:{OutputValue:this.outputValue,InputValue:this.input1}})
       },
-      // setloginfo(command) {
-      //   switch(command){
-      //     case 'info':
-      //       this.$router.push('/accountInfo');
-      //       break;
-      //     case 'cart':
-      //       this.$router.push('/cart');
-      //       break;  
-      //     case 'order':
-      //       this.$router.push('/order');
-      //       break;             
-      //     case 'exit':
-      //       this.logout();
-      //       break;                      
-      //   }
-      //   // this.$message('click on item ' + command);
-      // },
+      setloginfo(command) {
+        switch(command){
+          case 'info':
+            this.$router.push('/accountInfo');
+            break;
+          case 'cart':
+            this.$router.push('/cart');
+            break;  
+          case 'order':
+            this.$router.push('/order');
+            break;             
+          case 'exit':
+            this.logout();
+            break;                      
+        }
+        // this.$message('click on item ' + command);
+      },
       logout(){
         //清除token
         localStorage.removeItem('eletoken');
@@ -154,7 +130,7 @@
         this.circleUrl = "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
         this.$store.state.count = 0
         this.$store.state.cart = []
-        this.$router.push('/');
+        this.$router.push('/m_BodyContent');
       },  
 
     },
@@ -215,6 +191,9 @@ el-col {
   height: 10px;
   width: 80%;
 }
+.el-col-12{
+  height: 100%;
+}
 /* headtop */
 :deep(.el-button){
   width: 40px;
@@ -228,6 +207,7 @@ el-col {
   width: 20px;
   vertical-align:middle;
 }
+
 :deep(.el-button el-button--default is-circle){
   width: 20px;
   height: 20px;
@@ -238,6 +218,10 @@ el-col {
   height: 100%;
   overflow: hidden; 
   /* line-height: 3px;  */
+}
+.welcome p{
+  width: 100%;
+  height: 100%;
 }
 .welcome1{
   width: 100%;
@@ -296,4 +280,9 @@ el-button.d1{
 .van-icon{
   margin-top: 5px;
 }
+:deep(.van-search){
+  width: 100%;
+  height: 100%;
+}
+
 </style>

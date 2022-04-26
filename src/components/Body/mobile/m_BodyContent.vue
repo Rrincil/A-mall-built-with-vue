@@ -2,24 +2,27 @@
     <swiper/>
     <lazy-component>
       <div v-if="allprod.length > 0" >
-        <van-row  >
-          <van-col :span="12"  class="d1" v-for="(item) in allprod"  :key="item" v-lazy="item">
-            <van-card >
-              <!-- <div class="d2"> -->
-                <img :src=item.imgurl class="image" @click="toView(item)" >
-              <!-- </div> -->
-              <div class="prodname">
-                <p>{{item.name}} {{item.price}}</p>
-                <div class="bottom">
-                  <p >{{item.shopname}}</p>
-                    <i class="el-icon-star-off" v-if="!item.isstar" @click="submitfavoritesoff(item)"></i>
-                    <i class="el-icon-star-on" v-if="item.isstar" @click="submitfavoriteson(item)"></i>
-                  <van-button  round type="primary" @click='submitForm(item)'>
-                    加入购物车
-                  </van-button>
+        <van-row   >
+          <van-col :span="24"  class="d1" v-for="(item) in allprod" :key="item" lazy-load >
+            <!-- <div class="proditem" > -->
+              <el-card >
+                <div class="d2">
+                  <van-image :src=item.imgurl class="image" @click="toView(item)"  />
                 </div>
-              </div>
-            </van-card> 
+                <div class="prodname">
+                  <p>{{item.name}} {{item.price}}</p>
+                  <div class="bottom">
+                    <p >{{item.shopname}}</p>
+                    <!-- <van-action-bar-icon icon="star"  color="#ff5000" /> -->
+                      <i class="el-icon-star-off" v-if="!item.isstar" @click="submitfavoritesoff(item)"></i>
+                      <i class="el-icon-star-on" v-if="item.isstar" @click="submitfavoriteson(item)"></i>
+                    <van-action-bar-button type="warning" text="加入购物车" @click='submitForm(item)'/>
+                    <van-action-bar-button type="danger" text="立即购买" />                  
+                  
+                  </div>
+                </div>
+              </el-card>
+            <!-- </div> -->
           </van-col>
         </van-row>
       </div> 
@@ -232,9 +235,12 @@ export default {
 
 
 
-
+.van-col van-col--12 d1{
+  height: auto;
+}
 
 div.e-col.van-col-6.d1:hover {
+  height: auto;
   padding: 10px;
 }
 
@@ -267,10 +273,12 @@ div.e-col.van-col-6.d1:hover {
 .image {
   width: 100%;
   height: 80%;
+  box-shadow: gold;
   display: block;
   
 }
 .d1{
+  height: auto;
   padding: 20px;
 }
 div.van-pagination{
@@ -282,7 +290,7 @@ div.van-pagination{
 .d2{
   width: 100%;
   height: 80%;
-  padding: 20px;
+  padding: 0px;
   overflow: hidden;
 }
 :deep(van-card){
@@ -291,7 +299,10 @@ div.van-pagination{
   margin: 0;
   padding: 0;
 }
-
+.el-card__body{
+  padding: 0;
+  height: auto;
+}
 :deep(.van-row){
   width: 100%;
   height:auto;
@@ -324,5 +335,11 @@ div.van-pagination{
 }
 .vanpagination{
   height: 10px;
+}
+.proditem{
+  width: 50%;
+  height: auto;
+  /* padding: 20px; */
+  float: left;
 }
 </style>
